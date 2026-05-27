@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import gsap from "gsap";
 
 interface DemoTask {
   label: string;
@@ -39,22 +40,82 @@ const DEMO_SCENARIOS = [
 
 export default function HeroDemoPanel() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const prefersReducedRef = useRef(false);
+
+  // Check reduced motion preference once on mount
+  useEffect(() => {
+    prefersReducedRef.current = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+  }, []);
+
+  const animateIn = useCallback(() => {
+    const body = bodyRef.current;
+    if (!body) return;
+
+    if (prefersReducedRef.current) {
+      gsap.set(body.children, { opacity: 1, y: 0 });
+      return;
+    }
+
+    gsap.from(body.querySelectorAll(".demo-task, .demo-actions"), {
+      y: 20,
+      opacity: 0,
+      stagger: 0.12,
+      duration: 0.5,
+      ease: "power2.out",
+    });
+  }, []);
+
+  const animateOut = useCallback(() => {
+    const body = bodyRef.current;
+    if (!body) return;
+
+    if (prefersReducedRef.current) {
+      return Promise.resolve();
+    }
+
+    return new Promise<void>((resolve) => {
+      gsap.to(body, {
+        opacity: 0,
+        duration: 0.3,
+        ease: "power2.in",
+        onComplete: resolve,
+      });
+    });
+  }, []);
 
   useEffect(() => {
+    // Animate initial scenario in
+    animateIn();
+
     intervalRef.current = setInterval(() => {
-      setIsVisible(false);
-      setTimeout(() => {
-        setActiveIndex((prev) => (prev + 1) % DEMO_SCENARIOS.length);
-        setIsVisible(true);
-      }, 400);
+      const doTransition = async () => {
+        await animateOut();
+        setActiveIndex((prev) => {
+          const next = (prev + 1) % DEMO_SCENARIOS.length;
+          return next;
+        });
+      };
+      doTransition();
     }, 4000);
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, []);
+  }, [animateIn, animateOut]);
+
+  // When activeIndex changes, animate in the new content
+  useEffect(() => {
+    const body = bodyRef.current;
+    if (!body) return;
+
+    // Reset body opacity to 1 (it may have been faded out)
+    gsap.set(body, { opacity: 1 });
+    animateIn();
+  }, [activeIndex, animateIn]);
 
   const scenario = DEMO_SCENARIOS[activeIndex];
 
@@ -64,17 +125,11 @@ export default function HeroDemoPanel() {
         <span className="demo-status-dot" />
         <span>{scenario.title}</span>
       </div>
-      <div
-        className="demo-panel-body"
-        style={{
-          opacity: isVisible ? 1 : 0,
-          transition: "opacity 0.4s ease",
-        }}
-      >
+      <div className="demo-panel-body" ref={bodyRef}>
         {scenario.tasks.map((task, i) => (
-          <div className="demo-task" key={i}>
-            {task.status === "done" && <span className="check">✓</span>}
-            {task.status === "active" && <span className="pending">⟳</span>}
+          <div className="demo-task" key={`${activeIndex}-${i}`}>
+            {task.status === "done" && <span className="check">&#10003;</span>}
+            {task.status === "active" && <span className="pending">&#10227;</span>}
             {task.label}
           </div>
         ))}

@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import CheckIcon from "./icons/CheckIcon";
 
 interface PricingCardProps {
@@ -9,6 +12,7 @@ interface PricingCardProps {
   cta: string;
   featured?: boolean;
   badge?: string;
+  plan?: string;
 }
 
 export default function PricingCard({
@@ -20,7 +24,42 @@ export default function PricingCard({
   cta,
   featured = false,
   badge,
+  plan,
 }: PricingCardProps) {
+  const [loading, setLoading] = useState(false);
+
+  // Derive plan key from tier name if not explicitly provided
+  const planKey =
+    plan ||
+    tier
+      .toLowerCase()
+      .replace(/\s+/g, "_");
+
+  async function handleCheckout() {
+    if (!planKey) return;
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ plan: planKey }),
+      });
+      const data = await res.json();
+
+      if (data.url) {
+        window.location.href = data.url;
+      } else if (res.status === 401) {
+        // Not logged in — send to sign-in first
+        window.location.href = "/api/auth/signin";
+      }
+    } catch {
+      console.error("Checkout failed");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className={`pricing-card${featured ? " featured" : ""}`}>
       {badge && <span className="pricing-badge">{badge}</span>}
@@ -39,12 +78,13 @@ export default function PricingCard({
           </div>
         ))}
       </div>
-      <a
-        href="#"
+      <button
+        onClick={handleCheckout}
+        disabled={loading}
         className={`btn ${featured ? "btn-primary" : "btn-ghost"}`}
       >
-        {cta}
-      </a>
+        {loading ? "Loading..." : cta}
+      </button>
     </div>
   );
 }
