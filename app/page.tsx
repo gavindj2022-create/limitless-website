@@ -544,10 +544,10 @@ export default function Home() {
                   <a href="mailto:gavindj2022@gmail.com">Contact</a>
                 </li>
                 <li>
-                  <a href="#">Privacy Policy</a>
+                  <a href="/privacy">Privacy Policy</a>
                 </li>
                 <li>
-                  <a href="#">Terms of Service</a>
+                  <a href="/terms">Terms of Service</a>
                 </li>
               </ul>
             </div>

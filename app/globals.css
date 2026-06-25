@@ -410,6 +410,27 @@ p { color: var(--ink-2); }
   50% { transform: translateY(3px); opacity: 1; }
 }
 
+/* Legal pages (privacy / terms) */
+.legal-body {
+  color: var(--ink-2);
+  font-size: 16px;
+}
+.legal-body h3 {
+  margin-top: 30px;
+  margin-bottom: 8px;
+  color: var(--ink);
+  font-size: 19px;
+}
+.legal-body p {
+  margin-bottom: 14px;
+  line-height: 1.65;
+}
+.legal-body a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 /* Floating chips — the work, drifting around the statement */
 .hero-chips { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .chip {
