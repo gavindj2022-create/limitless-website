@@ -1,36 +1,22 @@
 import type { Metadata } from "next";
-import { Inter, Inter_Tight, Instrument_Serif } from "next/font/google";
+import { Instrument_Sans } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument-sans",
   subsets: ["latin"],
   display: "swap",
-});
-
-const interTight = Inter_Tight({
-  variable: "--font-inter-tight",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
-});
-
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-instrument-serif",
-  subsets: ["latin"],
-  display: "swap",
-  weight: "400",
-  style: ["normal", "italic"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Limitless — AI that runs your back office",
+  title: "Limitless - Bella AI Receptionist and AI Websites",
   description:
-    "Olivia is your AI employee. She sends invoices, answers calls, books appointments, and follows up with customers — starting at $29/month. Built by DAWGS AGI.",
+    "Bella answers calls and captures leads while Limitless builds clean AI-powered websites with chatbots, booking paths, and simple automation.",
   openGraph: {
-    title: "Limitless — AI that runs your back office",
+    title: "Limitless - Bella AI Receptionist and AI Websites",
     description:
-      "AI-powered automation for small businesses. Invoices, receptionist, marketing, bookkeeping — all handled.",
+      "AI receptionist service and clean web presence builds for local businesses that need to answer faster and look sharper.",
     type: "website",
   },
 };
@@ -41,10 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${interTight.variable} ${instrumentSerif.variable}`}
-    >
+    <html lang="en" className={instrumentSans.variable}>
       <body>{children}</body>
     </html>
   );

@@ -3,13 +3,13 @@
 import { useState, useEffect } from "react";
 
 const NAV_LINKS = [
+  { label: "Bella", href: "#bella" },
+  { label: "Websites", href: "#websites" },
   { label: "How It Works", href: "#how-it-works" },
-  { label: "Services", href: "#services" },
   { label: "Pricing", href: "#pricing" },
-  { label: "About", href: "#about" },
 ];
 
-const SECTION_IDS = ["how-it-works", "services", "pricing", "about"];
+const SECTION_IDS = ["bella", "websites", "how-it-works", "pricing"];
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -23,7 +23,6 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Scroll spy with IntersectionObserver
   useEffect(() => {
     const sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(
       Boolean
@@ -33,9 +32,8 @@ export default function Nav() {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        // Find the most visible section
         const visible = entries
-          .filter((e) => e.isIntersecting)
+          .filter((entry) => entry.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
 
         if (visible.length > 0) {
@@ -53,11 +51,7 @@ export default function Nav() {
   }, []);
 
   useEffect(() => {
-    if (drawerOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = drawerOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
@@ -69,12 +63,9 @@ export default function Nav() {
         <div className="wrap nav-inner">
           <a href="#" className="brand" aria-label="Limitless home">
             <span className="brand-mark">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M13 3L4 14h7l-1 7 9-11h-7l1-7z"
-                  fill="currentColor"
-                />
-              </svg>
+              <span className="infinity-mark" aria-hidden="true">
+                &infin;
+              </span>
             </span>
             Limitless
           </a>
@@ -94,8 +85,12 @@ export default function Nav() {
           </div>
 
           <div className="nav-right">
-            <a href="#pricing" className="btn btn-primary" style={{ padding: "10px 18px", fontSize: "14px" }}>
-              Start Free Trial
+            <a
+              href="/book?service=website"
+              className="btn btn-primary"
+              style={{ padding: "10px 18px", fontSize: "14px" }}
+            >
+              Book a Build
             </a>
             <button
               className="hamburger"
@@ -108,15 +103,11 @@ export default function Nav() {
         </div>
       </nav>
 
-      {/* Mobile drawer */}
       <div
         className={`drawer${drawerOpen ? " open" : ""}`}
         onClick={() => setDrawerOpen(false)}
       >
-        <div
-          className="drawer-panel"
-          onClick={(e) => e.stopPropagation()}
-        >
+        <div className="drawer-panel" onClick={(e) => e.stopPropagation()}>
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
@@ -125,16 +116,22 @@ export default function Nav() {
             >
               {link.label}
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M6 4l4 4-4 4"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </a>
           ))}
           <a
-            href="#pricing"
+            href="/book?service=website"
             className="btn btn-primary"
             onClick={() => setDrawerOpen(false)}
           >
-            Start Free Trial
+            Book a Build
           </a>
         </div>
       </div>

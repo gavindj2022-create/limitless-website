@@ -10,44 +10,44 @@ interface FAQItem {
 
 const FAQ_DATA: FAQItem[] = [
   {
-    question: "What exactly does Olivia do?",
+    question: "What does Bella do?",
     answer:
-      "Olivia is your AI employee. She handles invoices, appointment reminders, follow-ups, review requests, and more — automatically. You connect your tools (Google Workspace, QuickBooks, Square, etc.) and she runs your workflows in the background. You approve actions or let her handle them autonomously.",
+      "Bella is an AI receptionist for your business. She answers calls, asks simple questions, books appointments when possible, captures lead details, and sends you a clean summary afterward.",
   },
   {
-    question: "Is my business data safe?",
+    question: "Do I need a new website for Bella to work?",
     answer:
-      "Absolutely. We use enterprise-grade encryption for all data in transit and at rest. Your business data is never shared with other clients or used to train AI models. We're SOC 2 compliant and follow strict data retention policies. You can revoke access to any connected tool at any time.",
+      "No. Bella can stand on her own as a phone receptionist. The website offer is there if you also want a cleaner online presence with AI chat, lead capture, and a simple path for customers to contact you.",
   },
   {
-    question: "I'm not technical — can I still use this?",
+    question: "I am not technical. Can I still use this?",
     answer:
-      "That's exactly who we built this for. Our onboarding wizard walks you through connecting your tools in under 10 minutes. No coding, no complicated setup. If you can send an email, you can use Limitless. And our support team is always available if you get stuck.",
+      "Yes. This is built for business owners who do not want to manage tech. We keep the website, chatbot, call flow, and follow-up setup simple and explain everything in plain language.",
   },
   {
-    question: "What's the difference between Olivia and Bella?",
+    question: "What is included in the website build?",
     answer:
-      "Olivia handles your back-office workflows — invoices, reminders, follow-ups, reports. She works through email and automated actions. Bella is your AI receptionist — she answers your phone 24/7 with a natural voice, books appointments, remembers repeat callers, and sends follow-up texts. Think of Olivia as your office manager and Bella as your front desk.",
+      "A clean mobile-friendly site, clear business positioning, contact or booking paths, lead forms, and an AI chatbot if you want one. The goal is to make the business easy to understand and easy to reach.",
   },
   {
-    question: "Can I cancel anytime?",
+    question: "Where does Olivia fit now?",
     answer:
-      "Yes, no contracts. Cancel from your dashboard with one click. Your data stays accessible for 30 days after cancellation. We don't believe in locking people in — if we're not saving you time and money, you should be free to leave.",
+      "Olivia is part of the add-on automation suite. Once Bella and the website are working, Olivia can help with reminders, invoices, review requests, follow-ups, reports, and other simple workflows.",
   },
   {
     question: "How long does setup take?",
     answer:
-      "Most businesses are up and running within 15 minutes on the Starter plan. Growth and Full Ops plans include a personal onboarding call where we set everything up together. Your first workflows start running the same day.",
+      "The first version can move quickly. Bella setup depends on the call flow, and a simple website can be built much faster than a traditional agency project because the structure, copy, chatbot, and lead capture are handled together.",
   },
   {
-    question: "What tools do you integrate with?",
+    question: "Can this work for any local business?",
     answer:
-      "We connect with Google Workspace, QuickBooks, PayPal, Square, HubSpot, Canva, DocuSign, Calendly, and more. The Starter plan includes 3 tool connections, Growth includes all 7, and Full Ops includes unlimited connections with custom integrations for industry-specific tools.",
+      "It works best for service businesses where missed calls, weak websites, and slow follow-up cost money. Salons, trades, gyms, restaurants, clinics, real estate, and appointment-based businesses are strong fits.",
   },
   {
     question: "What if I need something custom?",
     answer:
-      "Growth plan members get 1 custom workflow per month built by our team. Full Ops members get unlimited custom workflows, custom API integrations, and a dedicated support channel. We've built custom automations for salons, gyms, plumbers, restaurants, and dozens of other local businesses.",
+      "Start with Bella or the website first. If there is a clear repeated task after that, we can add a custom workflow, dashboard, reminder system, or follow-up process without overbuilding from day one.",
   },
 ];
 

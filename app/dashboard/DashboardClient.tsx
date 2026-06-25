@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 interface DashboardClientProps {
@@ -44,9 +45,9 @@ export default function DashboardClient({
         {loading ? "Loading..." : "Manage Subscription"}
       </button>
       {currentPlan !== "full_ops" && (
-        <a href="/#pricing" className="btn btn-primary">
+        <Link href="/#pricing" className="btn btn-primary">
           Upgrade
-        </a>
+        </Link>
       )}
     </>
   );

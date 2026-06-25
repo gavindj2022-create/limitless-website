@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -114,9 +115,9 @@ export default async function DashboardPage() {
             <p>
               Choose a plan to get started with Olivia, your AI employee.
             </p>
-            <a href="/#pricing" className="btn btn-primary">
+            <Link href="/#pricing" className="btn btn-primary">
               View Plans
-            </a>
+            </Link>
           </div>
         </div>
       )}

@@ -7,7 +7,7 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type Animation = "fadeUp" | "fadeIn" | "fadeScale";
+type Animation = "fadeUp" | "fadeIn" | "fadeScale" | "blurUp";
 
 interface RevealOnScrollProps {
   children: ReactNode;
@@ -23,12 +23,14 @@ const INITIAL_STATES: Record<Animation, gsap.TweenVars> = {
   fadeUp: { opacity: 0, y: 40 },
   fadeIn: { opacity: 0 },
   fadeScale: { opacity: 0, scale: 0.95 },
+  blurUp: { opacity: 0, y: 28, filter: "blur(12px)" },
 };
 
 const ANIMATE_TO: Record<Animation, gsap.TweenVars> = {
   fadeUp: { opacity: 1, y: 0 },
   fadeIn: { opacity: 1 },
   fadeScale: { opacity: 1, scale: 1 },
+  blurUp: { opacity: 1, y: 0, filter: "blur(0px)" },
 };
 
 export default function RevealOnScroll({

@@ -2,13 +2,54 @@
 
 import Nav from "@/components/Nav";
 import HeroDemoPanel from "@/components/HeroDemoPanel";
-import ServiceCard from "@/components/ServiceCard";
 import PricingCard from "@/components/PricingCard";
 import TeamCard from "@/components/TeamCard";
 import FAQSection from "@/components/FAQSection";
-import ExplainerSection from "@/components/ExplainerSection";
 import RevealOnScroll from "@/components/RevealOnScroll";
-import ProcessLine from "@/components/ProcessLine";
+import ScrollProgress from "@/components/ScrollProgress";
+import ScrollParallax from "@/components/ScrollParallax";
+
+const flowSteps = [
+  {
+    label: "Step 1",
+    title: "Book a call",
+    copy: "A quick, no-pressure call to understand your business and where time and money quietly leak out.",
+    visual: "ring",
+  },
+  {
+    label: "Step 2",
+    title: "We find the gaps",
+    copy: "We look at how leads come in, how calls get handled, and what slows you down — then pinpoint exactly what AI can fix.",
+    visual: "chat",
+  },
+  {
+    label: "Step 3",
+    title: "We build it for you",
+    copy: "We build the full system — receptionist, website, automations — done-for-you, not a DIY toolkit you have to figure out.",
+    visual: "summary",
+  },
+  {
+    label: "Step 4",
+    title: "You run leaner",
+    copy: "You go live with AI handling the busywork, and we keep it tuned as your business grows.",
+    visual: "voice",
+  },
+];
+
+const addOns = [
+  {
+    title: "Olivia follow-ups",
+    copy: "Invoices, reminders, review requests, and customer follow-up when you are ready for more automation.",
+  },
+  {
+    title: "Simple dashboards",
+    copy: "Weekly snapshots of calls, bookings, leads, and the work that needs attention.",
+  },
+  {
+    title: "Custom workflows",
+    copy: "Lightweight automations for the tools you already use, built around your day-to-day process.",
+  },
+];
 
 export default function Home() {
   return (
@@ -17,434 +58,322 @@ export default function Home() {
         Skip to content
       </a>
 
-      {/* ───── NAV ───── */}
+      <ScrollProgress />
+
       <Nav />
 
       <main id="main">
-        {/* ───── HERO ───── */}
-        <section className="hero">
-          <div className="hero-bg">
-            <div className="orb orb-1" />
-            <div className="orb orb-2" />
-            <div className="orb orb-3" />
-            <div className="hero-grid" />
-          </div>
-          <div className="wrap hero-split">
+        <section className="hero world-hero">
+          <ScrollParallax distance={140} className="hero-world" aria-hidden="true">
+            <span className="world-glow" />
+            <span className="world-sphere" />
+            <span className="world-ring" />
+          </ScrollParallax>
+
+          <div className="wrap">
             <div className="hero-content">
               <div className="hero-badge">
                 <span className="dot" />
-                Powered by AI — built for small business
+                AI Automation Company
               </div>
               <h1>
-                AI that runs your{" "}
-                <span className="serif-em">back office</span>
+                Less busywork.
+                <br />
+                Limitless growth.
               </h1>
               <p className="sub">
-                Olivia sends invoices, answers calls, books appointments, and
-                follows up with customers — so you can focus on the work that
-                matters. Starting at $29/month.
+                We hand the repetitive stuff to AI so you can spend your time on
+                the work that actually grows the business.
               </p>
               <div className="ctas">
-                <a href="#pricing" className="btn btn-primary">
-                  Start Free Trial
+                <a href="/book?service=system" className="btn btn-world">
+                  Build My AI
                   <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 14 14"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
                     fill="none"
+                    aria-hidden="true"
                   >
                     <path
-                      d="M1 7H13M13 7L7 1M13 7L7 13"
+                      d="M5 12h14M13 6l6 6-6 6"
                       stroke="currentColor"
-                      strokeWidth="1.6"
+                      strokeWidth="1.8"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
                   </svg>
                 </a>
-                <a href="#how-it-works" className="btn btn-ghost">
-                  See How It Works
-                </a>
               </div>
+              <a href="#how-it-works" className="hero-scroll-hint">
+                See how it works
+              </a>
             </div>
-            <HeroDemoPanel />
           </div>
         </section>
 
-        {/* ───── LOGO / TRUST STRIP ───── */}
-        <RevealOnScroll animation="fadeIn">
-          <section className="logo-strip">
-            <div className="wrap logo-strip-inner">
-              {[
-                "QuickBooks",
-                "Google Workspace",
-                "HubSpot",
-                "PayPal",
-                "Square",
-                "Canva",
-                "DocuSign",
-              ].map((name) => (
-                <span className="logo-strip-item" key={name}>
-                  {name}
-                </span>
-              ))}
-            </div>
-          </section>
-        </RevealOnScroll>
-
-        {/* ───── HOW IT WORKS ───── */}
-        <section className="section" id="how-it-works">
+        <section className="mission-band">
           <div className="wrap">
-            <RevealOnScroll animation="fadeUp">
-              <div className="section-head center">
-                <span className="eyebrow">How It Works</span>
-                <h2>
-                  Up and running in{" "}
-                  <span className="serif-em">minutes</span>
-                </h2>
-                <p className="lead">
-                  No coding, no complicated setup. Connect your tools and let
-                  Olivia handle the rest.
-                </p>
-              </div>
+            <RevealOnScroll animation="blurUp">
+              <p className="mission-eyebrow">Our mission</p>
+              <p className="mission-statement">
+                We make AI <em>practical</em> for everyday businesses — so the
+                phone gets answered, the leads get captured, and growth is never
+                capped by hours in the day.
+              </p>
             </RevealOnScroll>
-            <div className="process">
-              <ProcessLine />
-              <div className="process-track">
-                <RevealOnScroll animation="fadeUp" delay={0}>
-                  <div className="step-card">
-                    <div className="step-num">1</div>
-                    <h3>Sign Up</h3>
-                    <p>
-                      Create your account in 30 seconds. No credit card required
-                      for the 14-day free trial. Pick the plan that fits your
-                      business.
-                    </p>
-                  </div>
-                </RevealOnScroll>
-                <RevealOnScroll animation="fadeUp" delay={0.15}>
-                  <div className="step-card">
-                    <div className="step-num">2</div>
-                    <h3>Connect Your Tools</h3>
-                    <p>
-                      Link Google Workspace, QuickBooks, Square, or any of our
-                      supported tools. Our setup wizard handles the technical
-                      stuff.
-                    </p>
-                  </div>
-                </RevealOnScroll>
-                <RevealOnScroll animation="fadeUp" delay={0.3}>
-                  <div className="step-card">
-                    <div className="step-num">3</div>
-                    <h3>Olivia Handles the Rest</h3>
-                    <p>
-                      Your AI employee starts working immediately — sending
-                      invoices, confirming appointments, following up with
-                      customers, and more.
-                    </p>
-                  </div>
-                </RevealOnScroll>
-              </div>
-            </div>
           </div>
         </section>
 
-        {/* ───── SERVICES ───── */}
+        <section className="demo-showcase">
+          <div className="wrap">
+            <RevealOnScroll animation="fadeScale">
+              <HeroDemoPanel />
+            </RevealOnScroll>
+          </div>
+        </section>
+
         <section className="section" id="services">
           <div className="wrap">
             <RevealOnScroll animation="fadeUp">
-              <div className="section-head">
-                <span className="eyebrow">Services</span>
+              <div className="section-head center">
+                <span className="eyebrow">Two Clear Offers</span>
                 <h2>
-                  Everything your business needs,{" "}
-                  <span className="serif-em">automated</span>
+                  Front desk and web presence, built to work together.
                 </h2>
                 <p className="lead">
-                  From answering phones to sending invoices — our AI handles the
-                  tasks that eat up your day.
+                  The first version stays simple: make the business easier to
+                  reach, easier to understand, and easier to book.
                 </p>
               </div>
             </RevealOnScroll>
-            <div className="services-grid">
+
+            <div className="offer-pillars">
               <RevealOnScroll animation="fadeUp" delay={0}>
-                <ServiceCard
-                  eyebrow="AI ASSISTANT"
-                  title="Olivia"
-                  description="Your AI employee handles invoices, appointment reminders, follow-ups, and review requests — all on autopilot. She learns your business patterns and gets smarter over time."
-                  icon={
-                    <svg
-                      width="32"
-                      height="32"
-                      viewBox="0 0 32 32"
-                      fill="none"
-                    >
-                      <rect
-                        x="4"
-                        y="4"
-                        width="24"
-                        height="24"
-                        rx="6"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                      />
-                      <path
-                        d="M12 16h8M12 12h8M12 20h5"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  }
-                  features={[
-                    "Invoice reminders & follow-ups",
-                    "Appointment confirmations",
-                    "Review request campaigns",
-                    "Included in all plans",
-                  ]}
-                />
+                <article className="pillar-card bella-card" id="bella">
+                  <div className="pillar-visual phone-visual" aria-hidden="true">
+                    <span className="live-dot" />
+                    <span className="call-ring call-ring-one" />
+                    <span className="call-ring call-ring-two" />
+                    <div className="mini-phone">
+                      <span />
+                      <span />
+                      <span />
+                    </div>
+                    <div className="mini-calendar">
+                      <strong>2:00</strong>
+                      <small>Booked</small>
+                    </div>
+                  </div>
+                  <span className="svc-eyebrow">AI Receptionist</span>
+                  <h3>Bella answers when you cannot.</h3>
+                  <p>
+                    Natural phone answering for missed calls, appointment
+                    booking, lead capture, simple questions, and follow-up
+                    messages.
+                  </p>
+                  <ul className="clean-list">
+                    <li>Answers calls day or night</li>
+                    <li>Books appointments and sends confirmations</li>
+                    <li>Captures leads instead of losing them to voicemail</li>
+                    <li>Sends you a short summary after every call</li>
+                  </ul>
+                </article>
               </RevealOnScroll>
-              <RevealOnScroll animation="fadeUp" delay={0.1}>
-                <ServiceCard
-                  eyebrow="AI RECEPTIONIST"
-                  title="Bella"
-                  description="24/7 phone answering with a natural voice. Bella books appointments, remembers repeat callers, and follows up on missed calls — so you never lose a customer to voicemail."
-                  icon={
-                    <svg
-                      width="32"
-                      height="32"
-                      viewBox="0 0 32 32"
-                      fill="none"
-                    >
-                      <path
-                        d="M8 6a2 2 0 012-2h12a2 2 0 012 2v20a2 2 0 01-2 2H10a2 2 0 01-2-2V6z"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                      />
-                      <circle
-                        cx="16"
-                        cy="22"
-                        r="1.5"
-                        fill="currentColor"
-                      />
-                      <path
-                        d="M12 4v2M20 4v2"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  }
-                  features={[
-                    "24/7 natural voice answering",
-                    "Appointment booking & calendar sync",
-                    "Caller memory & missed-call texts",
-                    "Growth & Full Ops plans",
-                  ]}
-                />
-              </RevealOnScroll>
-              <RevealOnScroll animation="fadeUp" delay={0.2}>
-                <ServiceCard
-                  eyebrow="WEB PRESENCE"
-                  title="Website & Web Presence"
-                  description="A full custom website with dark luxury design, mobile-responsive layout, AI chat widget, and ongoing maintenance — all included in your plan. No $5,000 agency fees."
-                  icon={
-                    <svg
-                      width="32"
-                      height="32"
-                      viewBox="0 0 32 32"
-                      fill="none"
-                    >
-                      <rect
-                        x="3"
-                        y="6"
-                        width="26"
-                        height="18"
-                        rx="3"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                      />
-                      <path
-                        d="M3 11h26"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                      />
-                      <circle cx="7" cy="8.5" r="1" fill="currentColor" />
-                      <circle cx="10" cy="8.5" r="1" fill="currentColor" />
-                      <circle cx="13" cy="8.5" r="1" fill="currentColor" />
-                      <path
-                        d="M10 27h12"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  }
-                  features={[
-                    "Custom dark luxury website",
-                    "Mobile-responsive & SEO-optimized",
-                    "AI chat widget embedded",
-                    "Full Ops plan only",
-                  ]}
-                />
-              </RevealOnScroll>
-              <RevealOnScroll animation="fadeUp" delay={0.3}>
-                <ServiceCard
-                  eyebrow="INTELLIGENCE"
-                  title="Dashboards & BI"
-                  description="Automated weekly business intelligence reports with revenue trends, customer insights, cash flow projections, and custom KPI tracking — delivered straight to your inbox."
-                  icon={
-                    <svg
-                      width="32"
-                      height="32"
-                      viewBox="0 0 32 32"
-                      fill="none"
-                    >
-                      <path
-                        d="M4 24V14M10 24V10M16 24V16M22 24V8M28 24V12"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  }
-                  features={[
-                    "Automated weekly BI reports",
-                    "Revenue & cash flow projections",
-                    "Custom KPI dashboard",
-                    "Full Ops plan only",
-                  ]}
-                />
+
+              <RevealOnScroll animation="fadeUp" delay={0.12}>
+                <article className="pillar-card website-card" id="websites">
+                  <div className="pillar-visual website-visual" aria-hidden="true">
+                    <span className="site-spark site-spark-one" />
+                    <span className="site-spark site-spark-two" />
+                    <div className="mini-browser">
+                      <span />
+                      <span />
+                      <span />
+                    </div>
+                    <div className="mini-page">
+                      <span />
+                      <span />
+                      <span />
+                    </div>
+                    <span className="site-cursor" />
+                    <div className="mini-chat">
+                      <strong>AI</strong>
+                      <small>Ready</small>
+                    </div>
+                  </div>
+                  <span className="svc-eyebrow">AI-powered web presence</span>
+                  <h3>A clean website that starts conversations.</h3>
+                  <p>
+                    Fast, polished websites for local businesses with mobile
+                    layouts, AI chatbots, lead forms, and a brand that looks
+                    like it belongs.
+                  </p>
+                  <ul className="clean-list">
+                    <li>Simple modern website built quickly</li>
+                    <li>AI chatbot embedded into the experience</li>
+                    <li>Contact forms and booking paths that are easy to use</li>
+                    <li>Ongoing updates without the agency headache</li>
+                  </ul>
+                </article>
               </RevealOnScroll>
             </div>
           </div>
         </section>
 
-        {/* ───── EXPLAINER — OLIVIA HUB ───── */}
-        <section className="section" id="olivia">
+        <section className="section visual-section" id="how-it-works">
           <div className="wrap">
-            <RevealOnScroll animation="fadeUp">
+            <RevealOnScroll animation="blurUp">
               <div className="section-head center">
-                <span className="eyebrow">The Olivia System</span>
-                <h2>
-                  One AI, all your{" "}
-                  <span className="serif-em">tools</span>
-                </h2>
+                <span className="eyebrow">How It Works</span>
+                <h2>From first call to fully built — done for you.</h2>
                 <p className="lead">
-                  Olivia sits at the center of your business — connecting your
-                  tools, learning your patterns, and handling the work you
-                  shouldn&apos;t have to do yourself.
+                  You book a call, we find what is slowing your business down,
+                  and we build the AI that fixes it. No DIY, no busywork.
                 </p>
               </div>
             </RevealOnScroll>
-            <RevealOnScroll animation="fadeScale">
-              <ExplainerSection />
-            </RevealOnScroll>
+
+            <div className="visual-flow">
+              {flowSteps.map((step, index) => (
+                <RevealOnScroll animation="fadeScale" delay={index * 0.08} key={step.label}>
+                  <div className={`flow-card flow-${step.visual}`}>
+                    <span className="flow-index">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div className="flow-picture" aria-hidden="true">
+                      <span />
+                      <span />
+                      <span />
+                    </div>
+                    <small>{step.label}</small>
+                    <h3>{step.title}</h3>
+                    <p className="flow-copy">{step.copy}</p>
+                  </div>
+                </RevealOnScroll>
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* ───── PRICING ───── */}
+        <section className="section addon-section">
+          <div className="wrap">
+            <RevealOnScroll animation="fadeUp">
+              <div className="section-head">
+                <span className="eyebrow">Add-on automation suite</span>
+                <h2>More help when the basics are humming.</h2>
+                <p className="lead">
+                  Olivia and the extra systems stay on the back burner until a
+                  business is ready for more. Then we add only what saves time.
+                </p>
+              </div>
+            </RevealOnScroll>
+            <div className="addon-grid">
+              {addOns.map((item, index) => (
+                <RevealOnScroll animation="fadeUp" delay={index * 0.08} key={item.title}>
+                  <article className="addon-tile">
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <h3>{item.title}</h3>
+                    <p>{item.copy}</p>
+                  </article>
+                </RevealOnScroll>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="section" id="pricing">
           <div className="wrap">
             <RevealOnScroll animation="fadeUp">
               <div className="section-head center">
                 <span className="eyebrow">Pricing</span>
-                <h2>
-                  Simple pricing,{" "}
-                  <span className="serif-em">real value</span>
-                </h2>
+                <h2>Start with the part your business needs most.</h2>
                 <p className="lead">
-                  Start with the basics and upgrade as you grow. Every plan
-                  includes a 14-day free trial — no credit card required.
+                  Keep it focused: website, receptionist, or the full front
+                  door system with the add-ons connected.
                 </p>
               </div>
             </RevealOnScroll>
             <div className="pricing-grid">
               <RevealOnScroll animation="fadeUp" delay={0}>
                 <PricingCard
-                  tier="Starter"
+                  tier="Website Starter"
                   price="$29"
                   period="/mo"
-                  description="Perfect for solopreneurs who want to automate the basics and save a few hours every week."
+                  description="A clean online presence for businesses that need to look real, capture leads, and stay easy to contact."
                   features={[
-                    "3 pre-built workflows",
-                    "3 tool connections",
-                    "Olivia AI assistant (email-based)",
-                    "Self-serve onboarding",
-                    "Email support (48hr response)",
-                    "14-day free trial",
+                    "Simple website foundation",
+                    "Mobile-first layout",
+                    "Lead form or chat starter",
+                    "Basic updates and support",
                   ]}
-                  cta="Start Free Trial"
+                  cta="Build My Website"
+                  plan="starter"
+                  href="/book?service=website"
                 />
               </RevealOnScroll>
               <RevealOnScroll animation="fadeUp" delay={0.15}>
                 <PricingCard
-                  tier="Growth"
+                  tier="Bella Receptionist"
                   price="$199"
                   period="/mo"
-                  description="For established businesses ready to stop losing customers after hours and automate everything."
+                  description="AI phone answering for businesses that miss calls, lose leads, or need help booking appointments."
                   features={[
-                    "All 15 AI workflows",
-                    "All 7 tool connections",
-                    "Bella AI Receptionist — 24/7 phone",
-                    "Olivia AI assistant (email + chat)",
-                    "1 custom workflow per month",
-                    "Monthly strategy call",
-                    "Priority support (24hr)",
+                    "24/7 phone answering",
+                    "Booking and confirmation flow",
+                    "Missed-call follow-up",
+                    "Simple call summaries",
                   ]}
-                  cta="Start Free Trial"
+                  cta="Book With Bella"
                   featured
-                  badge="RECOMMENDED"
+                  badge="MAIN OFFER"
+                  plan="growth"
+                  href="/book?service=bella"
                 />
               </RevealOnScroll>
               <RevealOnScroll animation="fadeUp" delay={0.3}>
                 <PricingCard
-                  tier="Full Ops"
+                  tier="Full Presence"
                   price="$499"
                   period="/mo"
-                  description="Everything we offer. Your entire back office — phones, workflows, website, dashboards — handled."
+                  description="Website, Bella, AI chat, lead capture, and the practical automations that keep the front office moving."
                   features={[
-                    "Unlimited workflows + custom builds",
-                    "Unlimited tool connections",
-                    "Full website build included",
-                    "Bella + Olivia full AI suite",
-                    "BI dashboards & weekly reports",
-                    "Dedicated Slack channel",
-                    "Quarterly business review",
+                    "Website build included",
+                    "Bella and AI chatbot",
+                    "Olivia follow-ups",
+                    "Dashboards and custom workflows",
                   ]}
-                  cta="Start Free Trial"
+                  cta="Build The System"
+                  plan="full_ops"
+                  href="/book?service=system"
                 />
               </RevealOnScroll>
             </div>
           </div>
         </section>
 
-        {/* ───── TESTIMONIALS / TRUST ───── */}
         <section className="section" id="testimonials">
           <div className="wrap">
             <RevealOnScroll animation="fadeUp">
               <div className="section-head center">
-                <span className="eyebrow">Results</span>
-                <h2>
-                  Businesses that run on{" "}
-                  <span className="serif-em">Limitless</span>
-                </h2>
+                <span className="eyebrow">What This Fixes</span>
+                <h2>Fewer missed chances. Cleaner first impressions.</h2>
               </div>
             </RevealOnScroll>
             <div className="testimonial-grid">
               <RevealOnScroll animation="fadeUp" delay={0}>
                 <div className="testimonial-card">
                   <p className="testimonial-quote">
-                    &ldquo;We were missing 40% of our after-hours calls. Bella
-                    picks up every single one now — and books the appointment
-                    before we even open. Revenue is up 22% in the first
-                    month.&rdquo;
+                    &quot;We stopped sending new customers to voicemail. Bella
+                    answers, books, and sends the summary before I even check my
+                    phone.&quot;
                   </p>
                   <div className="testimonial-author">
                     <div className="testimonial-avatar">BT</div>
                     <div>
                       <div className="testimonial-name">Becky Thompson</div>
                       <div className="testimonial-role">
-                        Owner, Studio B Hair Design — Peoria, IL
+                        Salon owner - Peoria, IL
                       </div>
                     </div>
                   </div>
@@ -453,16 +382,16 @@ export default function Home() {
               <RevealOnScroll animation="fadeUp" delay={0.1}>
                 <div className="testimonial-card">
                   <p className="testimonial-quote">
-                    &ldquo;I used to spend Sunday nights sending invoices and
-                    chasing late payments. Olivia handles all of it now. I
-                    haven&apos;t touched an invoice in 6 weeks.&rdquo;
+                    &quot;The website finally explains what we do without feeling
+                    busy. People can ask questions, request a quote, and move on
+                    fast.&quot;
                   </p>
                   <div className="testimonial-author">
                     <div className="testimonial-avatar">MR</div>
                     <div>
                       <div className="testimonial-name">Marcus Reyes</div>
                       <div className="testimonial-role">
-                        Owner, Reyes Plumbing — Phoenix, AZ
+                        Home service owner - Phoenix, AZ
                       </div>
                     </div>
                   </div>
@@ -471,35 +400,15 @@ export default function Home() {
               <RevealOnScroll animation="fadeUp" delay={0.2}>
                 <div className="testimonial-card">
                   <p className="testimonial-quote">
-                    &ldquo;The weekly BI reports alone are worth the price. I
-                    can see exactly which services are driving revenue and where
-                    I&apos;m losing customers. Game-changer for a gym my
-                    size.&rdquo;
+                    &quot;The AI chat catches the easy questions and the form sends
+                    clean leads. It feels like a front desk, not a contact page.&quot;
                   </p>
                   <div className="testimonial-author">
                     <div className="testimonial-avatar">JW</div>
                     <div>
                       <div className="testimonial-name">Jordan Williams</div>
                       <div className="testimonial-role">
-                        Owner, Core Training Center — Galena, IL
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </RevealOnScroll>
-              <RevealOnScroll animation="fadeUp" delay={0.3}>
-                <div className="testimonial-card">
-                  <p className="testimonial-quote">
-                    &ldquo;We went from juggling 4 different apps to having
-                    everything in one place. Setup took 10 minutes. My only
-                    regret is not doing it sooner.&rdquo;
-                  </p>
-                  <div className="testimonial-author">
-                    <div className="testimonial-avatar">LD</div>
-                    <div>
-                      <div className="testimonial-name">Lisa Dominguez</div>
-                      <div className="testimonial-role">
-                        Owner, Casa Bonita Restaurant — Tucson, AZ
+                        Gym owner - Galena, IL
                       </div>
                     </div>
                   </div>
@@ -509,20 +418,16 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ───── ABOUT / TEAM ───── */}
         <section className="section" id="about">
           <div className="wrap">
             <RevealOnScroll animation="fadeUp">
               <div className="section-head center">
                 <span className="eyebrow">About</span>
-                <h2>
-                  Meet the team behind{" "}
-                  <span className="serif-em">Limitless</span>
-                </h2>
+                <h2>Built for businesses that need help, not hype.</h2>
                 <p className="lead">
-                  We&apos;re DAWGS AGI — a small team that believes AI should
-                  work for local businesses, not just big tech. We build the
-                  tools that let you compete with companies ten times your size.
+                  Limitless brings practical AI to local businesses: answer the
+                  phone, make the website clearer, capture the lead, and keep
+                  the owner informed.
                 </p>
               </div>
             </RevealOnScroll>
@@ -530,23 +435,23 @@ export default function Home() {
               <RevealOnScroll animation="fadeUp" delay={0}>
                 <TeamCard
                   name="Gavin Johnson"
-                  role="Founder & CEO"
-                  bio="Entrepreneur, AI builder, and real estate investor. Gavin started DAWGS AGI to bring enterprise-grade AI to the businesses that need it most — local shops, salons, restaurants, and trades."
+                  role="Founder"
+                  bio="AI builder and business operator focused on simple systems that help local companies look sharper, answer faster, and waste less time."
                   initials="GJ"
-                  gradient={["#667eea", "#764ba2"]}
-                  tags={["AI Strategy", "Business Operations", "Product"]}
+                  gradient={["#C2997A", "#8A6A4F"]}
+                  tags={["AI Receptionists", "Web Design", "Automation"]}
                   location="Illinois, USA"
-                  linkedin="https://linkedin.com/in/gavin-johnson"
+                  linkedin="https://www.linkedin.com/in/gavin-johnson-lkdn/"
                 />
               </RevealOnScroll>
               <RevealOnScroll animation="fadeUp" delay={0.15}>
                 <TeamCard
                   name="Fabian"
-                  role="Head of Customer Relations"
-                  bio="Fabian ensures every client gets white-glove onboarding and ongoing support. He runs monthly optimization calls, handles custom workflow requests, and makes sure your AI is always working at peak performance."
+                  role="Customer Relations"
+                  bio="Fabian helps clients get onboarded, keeps communication simple, and makes sure the system stays useful after launch."
                   initials="F"
-                  gradient={["#f093fb", "#f5576c"]}
-                  tags={["Customer Success", "Onboarding", "Support"]}
+                  gradient={["#7A93C2", "#4F648A"]}
+                  tags={["Onboarding", "Support", "Client Care"]}
                   location="Illinois, USA"
                 />
               </RevealOnScroll>
@@ -554,16 +459,12 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ───── FAQ ───── */}
         <section className="section" id="faq">
           <div className="wrap">
             <RevealOnScroll animation="fadeUp">
               <div className="section-head center">
                 <span className="eyebrow">FAQ</span>
-                <h2>
-                  Questions?{" "}
-                  <span className="serif-em">Answers.</span>
-                </h2>
+                <h2>Plain answers.</h2>
               </div>
             </RevealOnScroll>
             <RevealOnScroll animation="fadeUp" delay={0.1}>
@@ -572,40 +473,22 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ───── FOOTER CTA ───── */}
         <section className="section">
           <div className="wrap">
             <RevealOnScroll animation="fadeScale">
               <div className="cta-banner">
                 <span className="eyebrow">Ready?</span>
-                <h2>
-                  Stop losing customers to{" "}
-                  <span className="serif-em">voicemail.</span>
-                </h2>
+                <h2>Make your business easier to reach.</h2>
                 <p className="lead">
-                  Start your 14-day free trial today. No credit card required. See
-                  what Olivia can do for your business in the first week.
+                  Start with Bella, a sharper website, or both. Keep it clean,
+                  useful, and easy for customers to act.
                 </p>
-                <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                  <a href="#pricing" className="btn btn-primary">
-                    Start Free Trial
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 14 14"
-                      fill="none"
-                    >
-                      <path
-                        d="M1 7H13M13 7L7 1M13 7L7 13"
-                        stroke="currentColor"
-                        strokeWidth="1.6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
+                <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
+                  <a href="/book?service=bella" className="btn btn-primary">
+                    Book With Bella
                   </a>
-                  <a href="#how-it-works" className="btn btn-ghost">
-                    See How It Works
+                  <a href="/book?service=website" className="btn btn-ghost">
+                    Build My Website
                   </a>
                 </div>
               </div>
@@ -614,7 +497,6 @@ export default function Home() {
         </section>
       </main>
 
-      {/* ───── FOOTER ───── */}
       <footer className="footer">
         <div className="wrap">
           <div className="footer-grid">
@@ -624,33 +506,31 @@ export default function Home() {
                 style={{ marginBottom: 8, display: "inline-flex" }}
               >
                 <span className="brand-mark">
-                  <svg viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M13 3L4 14h7l-1 7 9-11h-7l1-7z"
-                      fill="currentColor"
-                    />
-                  </svg>
+                  <span className="infinity-mark" aria-hidden="true">
+                    &infin;
+                  </span>
                 </span>
                 Limitless
               </span>
               <p>
-                AI-powered automation for small businesses. Built by DAWGS AGI.
+                Bella, clean websites, AI chat, and practical automation for
+                local businesses.
               </p>
             </div>
             <div className="footer-col">
-              <h5>Product</h5>
+              <h5>Offers</h5>
               <ul>
+                <li>
+                  <a href="#bella">Bella Receptionist</a>
+                </li>
+                <li>
+                  <a href="#websites">Web Design</a>
+                </li>
                 <li>
                   <a href="#how-it-works">How It Works</a>
                 </li>
                 <li>
-                  <a href="#services">Services</a>
-                </li>
-                <li>
                   <a href="#pricing">Pricing</a>
-                </li>
-                <li>
-                  <a href="#faq">FAQ</a>
                 </li>
               </ul>
             </div>
@@ -672,75 +552,31 @@ export default function Home() {
               </ul>
             </div>
             <div className="footer-col">
-              <h5>Resources</h5>
+              <h5>Next</h5>
               <ul>
                 <li>
-                  <a href="#">Blog</a>
+                  <a href="/book?service=website">Book a Build</a>
                 </li>
                 <li>
-                  <a href="#">Case Studies</a>
+                  <a href="#faq">Questions</a>
                 </li>
                 <li>
-                  <a href="#">Help Center</a>
+                  <a href="#services">Services</a>
                 </li>
                 <li>
-                  <a href="#">Status</a>
+                  <a href="#main">Back to Top</a>
                 </li>
               </ul>
             </div>
           </div>
           <div className="footer-bottom">
             <div className="footer-meta">
-              <span>&copy; 2026 DAWGS AGI. All rights reserved.</span>
-            </div>
-            <div className="footer-socials">
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                </svg>
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitter / X"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-              >
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-                </svg>
-              </a>
+              <span>&copy; 2026 Limitless. All rights reserved.</span>
             </div>
           </div>
+        </div>
+        <div className="footer-wordmark" aria-hidden="true">
+          <span>LIMITLESS</span>
         </div>
       </footer>
     </>

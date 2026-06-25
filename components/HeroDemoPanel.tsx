@@ -3,37 +3,32 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import gsap from "gsap";
 
-interface DemoTask {
-  label: string;
-  status: "done" | "active" | "pending";
-}
-
 const DEMO_SCENARIOS = [
   {
-    title: "Olivia is working…",
+    title: "Bella answers",
     tasks: [
-      { label: "Invoice #1047 sent to Studio B Hair Design", status: "done" as const },
-      { label: "Payment confirmed — $320.00 deposited", status: "done" as const },
-      { label: "Appointment reminder sent to 3 clients", status: "done" as const },
-      { label: "Following up on overdue invoice #1038…", status: "active" as const },
+      { label: "Call answered before voicemail", status: "done" as const },
+      { label: "Service and preferred time collected", status: "done" as const },
+      { label: "Appointment booked for Thursday at 2:00 PM", status: "done" as const },
+      { label: "Summary sent to the owner", status: "active" as const },
     ],
   },
   {
-    title: "Bella is answering…",
+    title: "Website chat",
     tasks: [
-      { label: "Incoming call from (309) 555-0142", status: "done" as const },
-      { label: "Booked haircut — Sarah M, Thursday 2pm", status: "done" as const },
-      { label: "Sent confirmation text to customer", status: "done" as const },
-      { label: "Updating your calendar…", status: "active" as const },
+      { label: "Visitor asks about pricing and availability", status: "done" as const },
+      { label: "AI answers from your business details", status: "done" as const },
+      { label: "Lead form completed with phone and email", status: "done" as const },
+      { label: "Consultation request saved", status: "active" as const },
     ],
   },
   {
-    title: "Alfred is reporting…",
+    title: "Owner summary",
     tasks: [
-      { label: "Weekly revenue: $4,820 (+12% vs last week)", status: "done" as const },
-      { label: "5 new reviews collected — avg 4.8★", status: "done" as const },
-      { label: "3 appointments rescheduled automatically", status: "done" as const },
-      { label: "Generating insights report…", status: "active" as const },
+      { label: "3 calls answered after hours", status: "done" as const },
+      { label: "2 bookings added to the calendar", status: "done" as const },
+      { label: "4 website leads captured", status: "done" as const },
+      { label: "Follow-up queue ready for review", status: "active" as const },
     ],
   },
 ];
@@ -44,7 +39,6 @@ export default function HeroDemoPanel() {
   const bodyRef = useRef<HTMLDivElement>(null);
   const prefersReducedRef = useRef(false);
 
-  // Check reduced motion preference once on mount
   useEffect(() => {
     prefersReducedRef.current = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
@@ -88,16 +82,12 @@ export default function HeroDemoPanel() {
   }, []);
 
   useEffect(() => {
-    // Animate initial scenario in
     animateIn();
 
     intervalRef.current = setInterval(() => {
       const doTransition = async () => {
         await animateOut();
-        setActiveIndex((prev) => {
-          const next = (prev + 1) % DEMO_SCENARIOS.length;
-          return next;
-        });
+        setActiveIndex((prev) => (prev + 1) % DEMO_SCENARIOS.length);
       };
       doTransition();
     }, 4000);
@@ -107,12 +97,10 @@ export default function HeroDemoPanel() {
     };
   }, [animateIn, animateOut]);
 
-  // When activeIndex changes, animate in the new content
   useEffect(() => {
     const body = bodyRef.current;
     if (!body) return;
 
-    // Reset body opacity to 1 (it may have been faded out)
     gsap.set(body, { opacity: 1 });
     animateIn();
   }, [activeIndex, animateIn]);
@@ -134,8 +122,8 @@ export default function HeroDemoPanel() {
           </div>
         ))}
         <div className="demo-actions">
-          <button className="btn-approve">Approve All</button>
-          <button className="btn-review">Review</button>
+          <button className="btn-approve">Mark Done</button>
+          <button className="btn-review">View Summary</button>
         </div>
       </div>
     </div>

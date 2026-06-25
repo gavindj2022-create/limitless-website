@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import CheckIcon from "./icons/CheckIcon";
 
@@ -13,6 +14,7 @@ interface PricingCardProps {
   featured?: boolean;
   badge?: string;
   plan?: string;
+  href?: string;
 }
 
 export default function PricingCard({
@@ -25,6 +27,7 @@ export default function PricingCard({
   featured = false,
   badge,
   plan,
+  href,
 }: PricingCardProps) {
   const [loading, setLoading] = useState(false);
 
@@ -78,13 +81,22 @@ export default function PricingCard({
           </div>
         ))}
       </div>
-      <button
-        onClick={handleCheckout}
-        disabled={loading}
-        className={`btn ${featured ? "btn-primary" : "btn-ghost"}`}
-      >
-        {loading ? "Loading..." : cta}
-      </button>
+      {href ? (
+        <Link
+          href={href}
+          className={`btn ${featured ? "btn-primary" : "btn-ghost"}`}
+        >
+          {cta}
+        </Link>
+      ) : (
+        <button
+          onClick={handleCheckout}
+          disabled={loading}
+          className={`btn ${featured ? "btn-primary" : "btn-ghost"}`}
+        >
+          {loading ? "Loading..." : cta}
+        </button>
+      )}
     </div>
   );
 }
