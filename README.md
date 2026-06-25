@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Limitless
 
-## Getting Started
+Marketing site and customer dashboard for **Limitless** — an AI automation
+company for local businesses (AI receptionist "Bella" + AI-powered websites).
 
-First, run the development server:
+Built with Next.js 16, GSAP, Prisma/Postgres, NextAuth, Stripe, and Resend.
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev          # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Copy `.env.example` to `.env.local` and fill in values to exercise auth, Stripe,
+and email locally. The homepage and marketing pages run without any env vars.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build        # prisma generate runs on install; next build for prod
+```
 
-## Learn More
+## Deploy / publish
 
-To learn more about Next.js, take a look at the following resources:
+See **[DEPLOY.md](./DEPLOY.md)** for the full publish checklist (Vercel, env
+vars, database, Stripe webhook, custom domain).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project layout
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `app/` — routes. `/` homepage, `/roi`, `/book`, `/dashboard`, `/api/*`.
+- `components/` — UI. Hero/world, pricing, team, FAQ, and scroll-animation
+  helpers (`ScrollProgress`, `ScrollParallax`, `RevealOnScroll`).
+- `prisma/schema.prisma` — NextAuth + subscriptions + booking/lead models.
+- `docs/superpowers/` — design specs and implementation plans.
