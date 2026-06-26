@@ -86,11 +86,11 @@ export default function Nav() {
 
           <div className="nav-right">
             <a
-              href="/book?service=website"
+              href="/build"
               className="btn btn-primary"
               style={{ padding: "10px 18px", fontSize: "14px" }}
             >
-              Book a Build
+              Build My AI
             </a>
             <button
               className="hamburger"
@@ -127,11 +127,11 @@ export default function Nav() {
             </a>
           ))}
           <a
-            href="/book?service=website"
+            href="/build"
             className="btn btn-primary"
             onClick={() => setDrawerOpen(false)}
           >
-            Book a Build
+            Build My AI
           </a>
         </div>
       </div>

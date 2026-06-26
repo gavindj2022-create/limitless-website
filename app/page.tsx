@@ -86,7 +86,7 @@ export default function Home() {
                 the work that actually grows the business.
               </p>
               <div className="ctas">
-                <a href="/book?service=system" className="btn btn-world">
+                <a href="/build" className="btn btn-world">
                   Build My AI
                   <svg
                     width="18"
@@ -469,11 +469,11 @@ export default function Home() {
                   useful, and easy for customers to act.
                 </p>
                 <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
-                  <a href="/book?service=bella" className="btn btn-primary">
-                    Book With Bella
+                  <a href="/build" className="btn btn-primary">
+                    Build My AI
                   </a>
-                  <a href="/book?service=website" className="btn btn-ghost">
-                    Build My Website
+                  <a href="/book?service=bella" className="btn btn-ghost">
+                    Book With Bella
                   </a>
                 </div>
               </div>
