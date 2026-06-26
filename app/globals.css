@@ -431,6 +431,31 @@ p { color: var(--ink-2); }
   text-underline-offset: 2px;
 }
 
+/* Outcome cards (honest, non-attributed benefit cards in the "What This Fixes" grid) */
+.outcome-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: flex-start;
+}
+.outcome-tag {
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-2);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+.outcome-text {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
 /* Floating chips — the work, drifting around the statement */
 .hero-chips { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .chip {

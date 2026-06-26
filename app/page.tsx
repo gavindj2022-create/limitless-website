@@ -380,38 +380,23 @@ export default function Home() {
                 </div>
               </RevealOnScroll>
               <RevealOnScroll animation="fadeUp" delay={0.1}>
-                <div className="testimonial-card">
-                  <p className="testimonial-quote">
-                    &quot;The website finally explains what we do without feeling
-                    busy. People can ask questions, request a quote, and move on
-                    fast.&quot;
+                <div className="testimonial-card outcome-card">
+                  <span className="outcome-tag">Your website</span>
+                  <p className="outcome-text">
+                    A clean, fast site that explains what you do and lets people
+                    ask questions, request a quote, and book — instead of
+                    bouncing off a busy, confusing page.
                   </p>
-                  <div className="testimonial-author">
-                    <div className="testimonial-avatar">MR</div>
-                    <div>
-                      <div className="testimonial-name">Marcus Reyes</div>
-                      <div className="testimonial-role">
-                        Home service owner - Phoenix, AZ
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </RevealOnScroll>
               <RevealOnScroll animation="fadeUp" delay={0.2}>
-                <div className="testimonial-card">
-                  <p className="testimonial-quote">
-                    &quot;The AI chat catches the easy questions and the form sends
-                    clean leads. It feels like a front desk, not a contact page.&quot;
+                <div className="testimonial-card outcome-card">
+                  <span className="outcome-tag">Lead capture</span>
+                  <p className="outcome-text">
+                    AI chat answers the easy questions and the contact form sends
+                    clean, organized leads straight to you — a real front desk,
+                    not just a contact page.
                   </p>
-                  <div className="testimonial-author">
-                    <div className="testimonial-avatar">JW</div>
-                    <div>
-                      <div className="testimonial-name">Jordan Williams</div>
-                      <div className="testimonial-role">
-                        Gym owner - Galena, IL
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </RevealOnScroll>
             </div>
