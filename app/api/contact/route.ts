@@ -37,7 +37,7 @@ export async function POST(request: Request) {
 
     // Send notification email
     await getResend().emails.send({
-      from: "Limitless <noreply@dawgs-agi.com>",
+      from: process.env.EMAIL_FROM || "Limitless <onboarding@resend.dev>",
       to: "gavindj2022@gmail.com",
       subject: `New contact: ${name}${company ? ` (${company})` : ""}`,
       text: [

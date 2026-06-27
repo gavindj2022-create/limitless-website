@@ -85,7 +85,7 @@ export async function POST(request: Request) {
     const resend = getResend();
     if (resend) {
       await resend.emails.send({
-        from: "Limitless <noreply@dawgs-agi.com>",
+        from: process.env.EMAIL_FROM || "Limitless <onboarding@resend.dev>",
         to: process.env.LEAD_NOTIFY_EMAIL || "gavindj2022@gmail.com",
         subject: `New Limitless request: ${serviceLabel}`,
         text: leadSummary,

@@ -4,6 +4,11 @@ import { Resend } from "resend";
 import { prisma } from "@/lib/prisma";
 import { rateLimit, rateLimitConfigs } from "@/lib/rate-limit";
 import { QUESTIONS, scoreAnswers, labelFor } from "@/lib/quiz";
+import {
+  customerRecommendationEmail,
+  leadNotificationEmail,
+} from "@/lib/email-templates";
+import { generateBuildPrompt } from "@/lib/build-prompt";
 
 function getResend() {
   const key = process.env.RESEND_API_KEY;
@@ -75,8 +80,18 @@ export async function POST(request: Request) {
     // Best-effort persistence + notification. We only fail the request if BOTH
     // the database write and the email send fail — so once the Resend key is
     // set, leads still deliver even before the database is wired up.
+    const from = process.env.EMAIL_FROM || "Limitless <onboarding@resend.dev>";
+    const ownerTo = process.env.LEAD_NOTIFY_EMAIL || "gavindj2022@gmail.com";
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://limitless-website.vercel.app";
+    const bookUrl = `${appUrl}/book?service=${reco.serviceKey}`;
+    const contact = { name, business, email, phone };
+    const qa = QUESTIONS.map((q) =>
+      answers[q.id] ? { q: q.prompt, a: labelFor(q.id, answers[q.id]) } : null
+    ).filter((x): x is { q: string; a: string } => x !== null);
+    const buildPrompt = generateBuildPrompt({ contact, reco, qa });
+
     let saved = false;
-    let emailed = false;
+    let emailedOwner = false;
 
     try {
       await prisma.contactSubmission.create({
@@ -93,34 +108,41 @@ export async function POST(request: Request) {
     }
 
     try {
-      await getResend().emails.send({
-        from: "Limitless <noreply@dawgs-agi.com>",
-        to: "gavindj2022@gmail.com",
-        subject: `🧩 Build-My-AI: ${name}${business ? ` (${business})` : ""} → ${reco.title}`,
-        text: [
-          `New "Build Your AI" quiz lead.`,
-          ``,
-          `Name: ${name}`,
-          `Email: ${email}`,
-          business ? `Business: ${business}` : null,
-          phone ? `Phone: ${phone}` : null,
-          ``,
-          recoBlock,
-          ``,
-          `--- Answers ---`,
-          transcript,
-          ``,
-          `→ Follow up and build out the recommended ${reco.serviceKey}.`,
-        ]
-          .filter(Boolean)
-          .join("\n"),
-      });
-      emailed = true;
+      const resend = getResend();
+
+      // Notify the team (works as soon as the Resend key is set).
+      try {
+        await resend.emails.send({
+          from,
+          to: ownerTo,
+          subject: `🧩 Build-My-AI: ${name}${business ? ` (${business})` : ""} → ${reco.title}`,
+          html: leadNotificationEmail({ contact, reco, qa, bookUrl, buildPrompt }),
+          text: `New "Build Your AI" quiz lead.\n\nName: ${name}\nEmail: ${email}\n${business ? `Business: ${business}\n` : ""}${phone ? `Phone: ${phone}\n` : ""}\n${recoBlock}\n\n--- Answers ---\n${transcript}\n\n=== BUILD PROMPT (paste into your build loop) ===\n${buildPrompt}`,
+        });
+        emailedOwner = true;
+      } catch (err) {
+        console.error("[QUIZ-LEAD] owner email failed", err);
+      }
+
+      // Send the prospect their personalized recommendation. Reaching addresses
+      // other than the account owner requires a verified sending domain in
+      // Resend — best-effort until that's set up.
+      try {
+        await resend.emails.send({
+          from,
+          to: email,
+          subject: `Here's the AI we'd build for ${business?.trim() || "your business"} 🚀`,
+          html: customerRecommendationEmail({ contact, reco, bookUrl }),
+          text: `Hi ${name},\n\nThanks for taking the quiz! Here's the AI we'd build for ${business?.trim() || "your business"}:\n\n${recoBlock}\n\nBook your free build call: ${bookUrl}\n\n— Limitless`,
+        });
+      } catch (err) {
+        console.error("[QUIZ-LEAD] customer email failed", err);
+      }
     } catch (err) {
-      console.error("[QUIZ-LEAD] email failed", err);
+      console.error("[QUIZ-LEAD] resend init failed", err);
     }
 
-    if (!saved && !emailed) {
+    if (!saved && !emailedOwner) {
       return NextResponse.json(
         { error: "We couldn't submit that. Please try again or email us directly." },
         { status: 500 }

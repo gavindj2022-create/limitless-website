@@ -90,7 +90,7 @@ export async function POST(request: Request) {
     });
 
     await getResend().emails.send({
-      from: "Limitless <noreply@dawgs-agi.com>",
+      from: process.env.EMAIL_FROM || "Limitless <onboarding@resend.dev>",
       to: "gavindj2022@gmail.com",
       subject: `🔥 ROI lead: ${name}${business ? ` (${business})` : ""} — ${usd(
         lostPerMonth
