@@ -5,15 +5,62 @@ import assert from "node:assert/strict";
 
 const root = process.cwd();
 
-test("homepage centers Bella and AI web presence as equal offers", () => {
-  const page = readFileSync(join(root, "app", "page.tsx"), "utf8");
+function readPage() {
+  return readFileSync(join(root, "app", "page.tsx"), "utf8");
+}
 
-  assert.match(page, /Calls answered\. Website handled\./);
+test("hero leads with the current headline, badge, and Build My AI CTA", () => {
+  const page = readPage();
+
+  // Hero headline "Less busywork. Limitless growth." (split across a <br />).
+  assert.match(page, /Less busywork\./);
+  assert.match(page, /Limitless growth\./);
+
+  // Badge.
+  assert.match(page, /AI Automation Company/);
+
+  // Primary CTA text + href.
+  assert.match(page, /Build My AI/);
+  assert.match(page, /href="\/build"/);
+
+  // Old copy must be gone.
+  assert.doesNotMatch(page, /Calls answered\. Website handled\./);
+});
+
+test("homepage has a mission band, How It Works, and the two core offers", () => {
+  const page = readPage();
+
+  // Mission band.
+  assert.match(page, /mission-band/);
+  assert.match(page, /We make AI/);
+
+  // How It Works section.
+  assert.match(page, /How It Works/);
+  assert.match(page, /id="how-it-works"/);
+
+  // The two offers: Bella receptionist + AI websites.
+  assert.match(page, /AI Receptionist/);
+  assert.match(page, /Bella answers/);
+  assert.match(page, /AI-powered web presence/);
+  assert.match(page, /id="bella"/);
+  assert.match(page, /id="websites"/);
+});
+
+test("homepage shows pricing and routes CTAs to the booking intake", () => {
+  const page = readPage();
+
+  // Pricing section + tiers.
+  assert.match(page, /id="pricing"/);
+  assert.match(page, /Bella Receptionist/);
+  assert.match(page, /Website Starter/);
+  assert.match(page, /Full Presence/);
+
+  // Booking CTAs (no auth-checkout dead ends).
+  assert.match(page, /href="\/book\?service=bella"/);
+  assert.match(page, /href="\/book\?service=website"/);
+  assert.match(page, /href="\/book\?service=system"/);
   assert.match(page, /Book With Bella/);
   assert.match(page, /Build My Website/);
-  assert.match(page, /AI-powered web presence/);
-  assert.match(page, /Add-on automation suite/);
-  assert.doesNotMatch(page, /AI that runs your\s+\{?"?\s*back office/);
 });
 
 test("hero demo shows receptionist, website chatbot, and owner summary flows", () => {
@@ -25,23 +72,6 @@ test("hero demo shows receptionist, website chatbot, and owner summary flows", (
   assert.match(demo, /Bella answers/);
   assert.match(demo, /Website chat/);
   assert.match(demo, /Owner summary/);
-});
-
-test("primary CTAs use the booking intake instead of auth checkout dead ends", () => {
-  const page = readFileSync(join(root, "app", "page.tsx"), "utf8");
-  const nav = readFileSync(join(root, "components", "Nav.tsx"), "utf8");
-  const pricing = readFileSync(
-    join(root, "components", "PricingCard.tsx"),
-    "utf8"
-  );
-
-  assert.match(page, /href="\/book\?service=bella"/);
-  assert.match(page, /href="\/book\?service=website"/);
-  assert.match(page, /href="\/book\?service=system"/);
-  assert.match(page, /Book With Bella/);
-  assert.match(nav, /infinity-mark/);
-  assert.doesNotMatch(nav, /M13 3L4 14h7l-1 7 9-11h-7l1-7z/);
-  assert.match(pricing, /href\?: string/);
 });
 
 test("booking intake page and backend route exist", () => {

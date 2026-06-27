@@ -47,6 +47,25 @@ Mirror them into `.env.local` if you want forms/checkout working locally too.
 | `STRIPE_PRICE_GROWTH` | Pricing → checkout | Stripe product price ID ($199/mo) |
 | `STRIPE_PRICE_FULL_OPS` | Pricing → checkout | Stripe product price ID ($499/mo) |
 | `RESEND_API_KEY` | Contact / lead / booking emails | resend.com → API keys (`re_…`) |
+| `EMAIL_FROM` | Sender of customer-facing emails | Optional. Defaults to `onboarding@resend.dev`; set to a verified-domain address for production (see below) |
+| `LEAD_NOTIFY_EMAIL` | Where lead/booking notifications go | Optional. Defaults to `gavindj2022@gmail.com` |
+
+---
+
+## Resend sending domain
+
+Until you verify a sending domain in Resend, the customer-facing emails only
+deliver to the **Resend account owner's own email address**. With the default
+`EMAIL_FROM=onboarding@resend.dev`, Resend will accept and "send" the message but
+silently drop anything addressed to a different recipient — so booking
+confirmations and lead replies will not reach customers.
+
+To send to anyone, add and verify your domain in **Resend → Domains** (add the
+DNS records Resend gives you: SPF, DKIM, and the return-path/MX records). Once the
+domain shows **Verified**, set `EMAIL_FROM` to an address on that domain (e.g.
+`hello@yourdomain.com`) and redeploy. `LEAD_NOTIFY_EMAIL` (the internal
+notification recipient) is unaffected by this, but customer-facing mail needs the
+verified domain.
 
 ---
 
