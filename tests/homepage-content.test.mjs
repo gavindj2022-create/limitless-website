@@ -9,7 +9,7 @@ function readPage() {
   return readFileSync(join(root, "app", "page.tsx"), "utf8");
 }
 
-test("hero leads with the current headline, badge, and Build My AI CTA", () => {
+test("hero leads with the current headline, badge, and Build My Agent CTA", () => {
   const page = readPage();
 
   // Hero headline "Less busywork. Limitless growth." (split across a <br />).
@@ -20,7 +20,7 @@ test("hero leads with the current headline, badge, and Build My AI CTA", () => {
   assert.match(page, /AI Automation Company/);
 
   // Primary CTA text + href.
-  assert.match(page, /Build My AI/);
+  assert.match(page, /Build My Agent/);
   assert.match(page, /href="\/build"/);
 
   // Old copy must be gone.

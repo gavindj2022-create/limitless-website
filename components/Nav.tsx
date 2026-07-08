@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from "react";
 
+// Anchor targets live on the homepage. Links are always absolute (`/#id`) so a
+// tab click works from any route (e.g. /book, /build) — not just the homepage.
 const NAV_LINKS = [
-  { label: "Bella", href: "#bella" },
-  { label: "Websites", href: "#websites" },
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Pricing", href: "#pricing" },
+  { label: "Bella", id: "bella" },
+  { label: "Websites", id: "websites" },
+  { label: "How It Works", id: "how-it-works" },
+  { label: "Pricing", id: "pricing" },
 ];
 
 const SECTION_IDS = ["bella", "websites", "how-it-works", "pricing"];
@@ -61,7 +63,7 @@ export default function Nav() {
     <>
       <nav className={`nav${scrolled ? " is-scrolled" : ""}`}>
         <div className="wrap nav-inner">
-          <a href="#" className="brand" aria-label="Limitless home">
+          <a href="/" className="brand" aria-label="Limitless home">
             <span className="brand-mark">
               <span className="infinity-mark" aria-hidden="true">
                 &infin;
@@ -73,11 +75,9 @@ export default function Nav() {
           <div className="nav-links">
             {NAV_LINKS.map((link) => (
               <a
-                key={link.href}
-                href={link.href}
-                className={
-                  activeSection === link.href.slice(1) ? "active" : undefined
-                }
+                key={link.id}
+                href={`/#${link.id}`}
+                className={activeSection === link.id ? "active" : undefined}
               >
                 {link.label}
               </a>
@@ -90,7 +90,7 @@ export default function Nav() {
               className="btn btn-primary"
               style={{ padding: "10px 18px", fontSize: "14px" }}
             >
-              Build My AI
+              Build My Agent
             </a>
             <button
               className="hamburger"
@@ -110,8 +110,8 @@ export default function Nav() {
         <div className="drawer-panel" onClick={(e) => e.stopPropagation()}>
           {NAV_LINKS.map((link) => (
             <a
-              key={link.href}
-              href={link.href}
+              key={link.id}
+              href={`/#${link.id}`}
               onClick={() => setDrawerOpen(false)}
             >
               {link.label}
@@ -131,7 +131,7 @@ export default function Nav() {
             className="btn btn-primary"
             onClick={() => setDrawerOpen(false)}
           >
-            Build My AI
+            Build My Agent
           </a>
         </div>
       </div>

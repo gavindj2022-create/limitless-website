@@ -87,7 +87,7 @@ export default function Home() {
               </p>
               <div className="ctas">
                 <a href="/build" className="btn btn-world">
-                  Build My AI
+                  Build My Agent
                   <svg
                     width="18"
                     height="18"
@@ -470,7 +470,7 @@ export default function Home() {
                 </p>
                 <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
                   <a href="/build" className="btn btn-primary">
-                    Build My AI
+                    Build My Agent
                   </a>
                   <a href="/book?service=bella" className="btn btn-ghost">
                     Book With Bella

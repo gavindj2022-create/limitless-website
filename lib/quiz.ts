@@ -176,10 +176,10 @@ export const QUESTIONS: QuizQuestion[] = [
   },
   {
     id: "automateOne",
-    prompt: "If you could automate ONE thing tomorrow, what would it be?",
-    helper: "Optional — this tells us exactly where to start.",
+    prompt: "What's the one task you'd love to stop doing yourself?",
+    helper: "Optional — it just helps us know where to start.",
     type: "text",
-    placeholder: "Following up with leads, answering the phone, booking...",
+    placeholder: "Type here…",
     optional: true,
   },
   {

@@ -69,6 +69,12 @@ export async function POST(request: Request) {
       .filter((line) => line !== null)
       .join("\n");
 
+    // Best-effort persistence + notification. The request only fails if BOTH
+    // the database write and the email fail — so a lead still reaches us before
+    // the database is wired up, as long as the Resend key is set.
+    let saved = false;
+    let emailed = false;
+
     try {
       await prisma.contactSubmission.create({
         data: {
@@ -78,20 +84,33 @@ export async function POST(request: Request) {
           message: leadSummary,
         },
       });
+      saved = true;
     } catch (dbError) {
       console.error("[BOOK:DB]", dbError);
     }
 
-    const resend = getResend();
-    if (resend) {
-      await resend.emails.send({
-        from: process.env.EMAIL_FROM || "Limitless <onboarding@resend.dev>",
-        to: process.env.LEAD_NOTIFY_EMAIL || "gavindj2022@gmail.com",
-        subject: `New Limitless request: ${serviceLabel}`,
-        text: leadSummary,
-      });
-    } else {
-      console.info("[BOOK] Resend not configured; lead accepted locally.");
+    try {
+      const resend = getResend();
+      if (resend) {
+        await resend.emails.send({
+          from: process.env.EMAIL_FROM || "Limitless <onboarding@resend.dev>",
+          to: process.env.LEAD_NOTIFY_EMAIL || "gavindj2022@gmail.com",
+          subject: `New Limitless request: ${serviceLabel}`,
+          text: leadSummary,
+        });
+        emailed = true;
+      } else {
+        console.info("[BOOK] Resend not configured; lead accepted locally.");
+      }
+    } catch (mailError) {
+      console.error("[BOOK:MAIL]", mailError);
+    }
+
+    if (!saved && !emailed) {
+      return NextResponse.json(
+        { error: "Failed to submit. Please try again." },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({ ok: true });

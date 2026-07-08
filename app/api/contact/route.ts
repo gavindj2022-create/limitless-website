@@ -30,25 +30,46 @@ export async function POST(request: Request) {
 
     const { name, email, company, message } = parsed.data;
 
-    // Save to database
-    await prisma.contactSubmission.create({
-      data: { name, email, company, message },
-    });
+    // Best-effort persistence + notification. The request only fails if BOTH
+    // the database write and the email fail — so a lead still reaches us before
+    // the database is wired up, as long as the Resend key is set.
+    let saved = false;
+    let emailed = false;
 
-    // Send notification email
-    await getResend().emails.send({
-      from: process.env.EMAIL_FROM || "Limitless <onboarding@resend.dev>",
-      to: "gavindj2022@gmail.com",
-      subject: `New contact: ${name}${company ? ` (${company})` : ""}`,
-      text: [
-        `Name: ${name}`,
-        `Email: ${email}`,
-        company ? `Company: ${company}` : null,
-        `\nMessage:\n${message}`,
-      ]
-        .filter(Boolean)
-        .join("\n"),
-    });
+    try {
+      await prisma.contactSubmission.create({
+        data: { name, email, company, message },
+      });
+      saved = true;
+    } catch (dbError) {
+      console.error("[CONTACT:DB]", dbError);
+    }
+
+    try {
+      await getResend().emails.send({
+        from: process.env.EMAIL_FROM || "Limitless <onboarding@resend.dev>",
+        to: process.env.LEAD_NOTIFY_EMAIL || "gavindj2022@gmail.com",
+        subject: `New contact: ${name}${company ? ` (${company})` : ""}`,
+        text: [
+          `Name: ${name}`,
+          `Email: ${email}`,
+          company ? `Company: ${company}` : null,
+          `\nMessage:\n${message}`,
+        ]
+          .filter(Boolean)
+          .join("\n"),
+      });
+      emailed = true;
+    } catch (mailError) {
+      console.error("[CONTACT:MAIL]", mailError);
+    }
+
+    if (!saved && !emailed) {
+      return NextResponse.json(
+        { error: "Failed to process contact form" },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({ ok: true });
   } catch (error) {

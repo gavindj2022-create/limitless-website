@@ -12,19 +12,32 @@ function createClient() {
     const { PrismaClient } = require("@prisma/client");
     return new PrismaClient();
   } catch {
-    // Prisma client not generated yet — return a proxy that warns on use
+    // No DATABASE_URL yet (or client not generated) — return a proxy that
+    // rejects cleanly on the `prisma.model.method(...)` access pattern instead
+    // of throwing a TypeError. Every model access returns a nested proxy whose
+    // every method resolves to a promise-returning function that rejects, so
+    // callers' try/catch blocks handle the degraded state gracefully.
+    const unavailable = () =>
+      Promise.reject(
+        new Error(
+          "Database unavailable — set DATABASE_URL and run `npx prisma db push`."
+        )
+      );
+    const modelProxy = new Proxy(
+      {},
+      {
+        get(_t, prop) {
+          if (prop === "then") return undefined; // not a thenable
+          return unavailable; // create / findMany / update / ... -> rejecting fn
+        },
+      }
+    );
     return new Proxy(
       {},
       {
         get(_target, prop) {
           if (prop === "then") return undefined; // prevent promise detection
-          console.warn(
-            `Prisma client not generated. Run \`npx prisma generate\` first. Tried to access: ${String(prop)}`
-          );
-          return () =>
-            Promise.reject(
-              new Error("Prisma client not generated. Run `npx prisma generate`.")
-            );
+          return modelProxy; // prisma.contactSubmission -> modelProxy
         },
       }
     );

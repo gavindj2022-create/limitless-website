@@ -1542,30 +1542,39 @@ p { color: var(--ink-2); }
 }
 
 .quiz-text {
-  margin-top: 24px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
   align-items: flex-start;
 }
+/* A quiet, understated typing line — not a heavy form field. Keeps optional
+   free-text steps feeling low-pressure and human. */
 .quiz-text textarea {
   width: 100%;
-  border: 1px solid var(--border-hi);
-  border-radius: 14px;
-  background: var(--surface-2);
+  border: none;
+  border-bottom: 1.5px solid var(--border-hi);
+  border-radius: 0;
+  background: transparent;
   color: var(--ink);
   font: inherit;
-  font-size: 16px;
-  padding: 14px 16px;
+  font-size: 17px;
+  line-height: 1.5;
+  padding: 8px 2px;
   outline: none;
-  resize: vertical;
-  min-height: 96px;
-  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  resize: none;
+  min-height: 52px;
+  transition: border-color 0.2s ease;
+}
+.quiz-text textarea::placeholder {
+  color: var(--muted-2);
+  opacity: 0.65;
+  font-weight: 400;
 }
 .quiz-text textarea:focus {
-  border-color: rgba(12, 12, 11, 0.38);
-  background: var(--surface);
-  box-shadow: 0 0 0 4px rgba(122, 147, 194, 0.12);
+  border-bottom-color: var(--ink);
+  box-shadow: none;
+  background: transparent;
 }
 
 .quiz-contact {
