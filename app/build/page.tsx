@@ -2,7 +2,7 @@ import Nav from "@/components/Nav";
 import BuildQuiz from "@/components/BuildQuiz";
 
 export const metadata = {
-  title: "Build Your AI - Limitless",
+  title: "Build Your Agent - Limitless",
   description:
     "Answer a few quick questions about your business and see exactly what AI we'd build for you.",
 };

@@ -28,7 +28,7 @@ export default function TermsPage() {
 
               <h3>Our services</h3>
               <p>
-                Limitless provides AI automation, AI receptionist (Bella),
+                Limitless provides AI automation, a receptionist agent (Bella),
                 website, and related services for businesses. The specific scope
                 of any engagement is what we agree with you in writing or what
                 your selected plan includes.

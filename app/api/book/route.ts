@@ -5,8 +5,8 @@ import { prisma } from "@/lib/prisma";
 import { rateLimit, rateLimitConfigs } from "@/lib/rate-limit";
 
 const services = {
-  bella: "Bella AI receptionist",
-  website: "AI website build",
+  bella: "Bella receptionist agent",
+  website: "Agent-powered website",
   system: "Full presence system",
 } as const;
 

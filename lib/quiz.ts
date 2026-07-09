@@ -203,12 +203,12 @@ const TIER_BY_SERVICE: Record<ServiceKey, string> = {
 };
 
 const BELLA_MODULE: RecoModule = {
-  name: "Bella — AI receptionist",
+  name: "Bella — receptionist agent",
   detail: "Answers calls 24/7, books appointments, texts back missed callers, and sends you a summary after every call.",
 };
 const WEBSITE_MODULE: RecoModule = {
-  name: "AI-powered website",
-  detail: "A fast, clean site with an AI chatbot and lead forms so visitors can ask, quote, and book in seconds.",
+  name: "Agent-powered website",
+  detail: "A fast, clean site with a chat agent and lead forms so visitors can ask, quote, and book in seconds.",
 };
 const AUTOMATIONS_MODULE: RecoModule = {
   name: "Follow-up automations",
@@ -283,9 +283,9 @@ function buildRecommendation(
     : "Based on your answers, here's the cleanest place for AI to start working for you.";
 
   const titleByService: Record<ServiceKey, string> = {
-    bella: "Start with Bella, your AI receptionist.",
-    website: "Start with an AI-powered website.",
-    system: "Build the full AI front office.",
+    bella: "Start with Bella, your receptionist agent.",
+    website: "Start with an agent-powered website.",
+    system: "Build the full agent front office.",
   };
   const summaryByService: Record<ServiceKey, string> = {
     bella: "Stop losing customers to missed calls and voicemail — Bella picks up, books, and follows up for you.",

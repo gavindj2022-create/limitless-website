@@ -82,7 +82,7 @@ export default function Home() {
                 Limitless growth.
               </h1>
               <p className="sub">
-                We hand the repetitive stuff to AI so you can spend your time on
+                We hand the repetitive stuff to smart agents so you can spend your time on
                 the work that actually grows the business.
               </p>
               <div className="ctas">
@@ -165,7 +165,7 @@ export default function Home() {
                       <small>Booked</small>
                     </div>
                   </div>
-                  <span className="svc-eyebrow">AI Receptionist</span>
+                  <span className="svc-eyebrow">Receptionist Agent</span>
                   <h3>Bella answers when you cannot.</h3>
                   <p>
                     Natural phone answering for missed calls, appointment
@@ -202,16 +202,16 @@ export default function Home() {
                       <small>Ready</small>
                     </div>
                   </div>
-                  <span className="svc-eyebrow">AI-powered web presence</span>
+                  <span className="svc-eyebrow">Agent-powered web presence</span>
                   <h3>A clean website that starts conversations.</h3>
                   <p>
                     Fast, polished websites for local businesses with mobile
-                    layouts, AI chatbots, lead forms, and a brand that looks
+                    layouts, a built-in chat agent, lead forms, and a brand that looks
                     like it belongs.
                   </p>
                   <ul className="clean-list">
                     <li>Simple modern website built quickly</li>
-                    <li>AI chatbot embedded into the experience</li>
+                    <li>A chat agent embedded into the experience</li>
                     <li>Contact forms and booking paths that are easy to use</li>
                     <li>Ongoing updates without the agency headache</li>
                   </ul>
@@ -229,7 +229,7 @@ export default function Home() {
                 <h2>From first call to fully built — done for you.</h2>
                 <p className="lead">
                   You book a call, we find what is slowing your business down,
-                  and we build the AI that fixes it. No DIY, no busywork.
+                  and we build the agent that fixes it. No DIY, no busywork.
                 </p>
               </div>
             </RevealOnScroll>
@@ -317,7 +317,7 @@ export default function Home() {
                   tier="Bella Receptionist"
                   price="$199"
                   period="/mo"
-                  description="AI phone answering for businesses that miss calls, lose leads, or need help booking appointments."
+                  description="A receptionist agent for businesses that miss calls, lose leads, or need help booking appointments."
                   features={[
                     "24/7 phone answering",
                     "Booking and confirmation flow",
@@ -336,10 +336,10 @@ export default function Home() {
                   tier="Full Presence"
                   price="$499"
                   period="/mo"
-                  description="Website, Bella, AI chat, lead capture, and the practical automations that keep the front office moving."
+                  description="Website, Bella, a chat agent, lead capture, and the practical automations that keep the front office moving."
                   features={[
                     "Website build included",
-                    "Bella and AI chatbot",
+                    "Bella and a chat agent",
                     "Olivia follow-ups",
                     "Dashboards and custom workflows",
                   ]}
@@ -393,7 +393,7 @@ export default function Home() {
                 <div className="testimonial-card outcome-card">
                   <span className="outcome-tag">Lead capture</span>
                   <p className="outcome-text">
-                    AI chat answers the easy questions and the contact form sends
+                    The chat agent answers the easy questions and the contact form sends
                     clean, organized leads straight to you — a real front desk,
                     not just a contact page.
                   </p>
@@ -424,7 +424,7 @@ export default function Home() {
                   bio="AI builder and business operator focused on simple systems that help local companies look sharper, answer faster, and waste less time."
                   initials="GJ"
                   gradient={["#C2997A", "#8A6A4F"]}
-                  tags={["AI Receptionists", "Web Design", "Automation"]}
+                  tags={["Receptionist Agents", "Web Design", "Automation"]}
                   location="Illinois, USA"
                   linkedin="https://www.linkedin.com/in/gavin-johnson-lkdn/"
                 />
@@ -498,7 +498,7 @@ export default function Home() {
                 Limitless
               </span>
               <p>
-                Bella, clean websites, AI chat, and practical automation for
+                Bella, clean websites, a chat agent, and practical automation for
                 local businesses.
               </p>
             </div>

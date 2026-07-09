@@ -5,8 +5,8 @@ import { FormEvent, useState } from "react";
 export type ServiceKey = "bella" | "website" | "system";
 
 const services: Array<{ value: ServiceKey; label: string }> = [
-  { value: "bella", label: "Bella AI receptionist" },
-  { value: "website", label: "AI website build" },
+  { value: "bella", label: "Bella — receptionist agent" },
+  { value: "website", label: "Agent-powered website" },
   { value: "system", label: "Full presence system" },
 ];
 
@@ -154,7 +154,7 @@ export default function LeadIntakeForm({
           value={form.message}
           onChange={(event) => updateField("message", event.target.value)}
           rows={5}
-          placeholder="Missed calls, a cleaner website, bookings, AI chat, follow-ups..."
+          placeholder="Missed calls, a cleaner website, bookings, a chat agent, follow-ups..."
           required
         />
       </label>

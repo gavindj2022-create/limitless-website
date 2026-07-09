@@ -39,9 +39,9 @@ test("homepage has a mission band, How It Works, and the two core offers", () =>
   assert.match(page, /id="how-it-works"/);
 
   // The two offers: Bella receptionist + AI websites.
-  assert.match(page, /AI Receptionist/);
+  assert.match(page, /Receptionist Agent/);
   assert.match(page, /Bella answers/);
-  assert.match(page, /AI-powered web presence/);
+  assert.match(page, /Agent-powered web presence/);
   assert.match(page, /id="bella"/);
   assert.match(page, /id="websites"/);
 });

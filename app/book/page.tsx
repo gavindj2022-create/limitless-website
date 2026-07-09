@@ -11,14 +11,14 @@ const serviceCopy: Record<
     copy: "Tell me where calls are getting missed, how appointments should be handled, and what a good first week would look like.",
   },
   website: {
-    eyebrow: "AI Website Build",
+    eyebrow: "Agent-Powered Website",
     title: "Let's build the website front door.",
-    copy: "Share the business, what customers need to do next, and whether AI chat or a booking path should be included from day one.",
+    copy: "Share the business, what customers need to do next, and whether a chat agent or a booking path should be included from day one.",
   },
   system: {
     eyebrow: "Full Presence System",
     title: "Let's connect the whole front office.",
-    copy: "Website, Bella, AI chat, follow-ups, and the simple automations that help the business respond faster.",
+    copy: "Website, Bella, a chat agent, follow-ups, and the simple automations that help the business respond faster.",
   },
 };
 

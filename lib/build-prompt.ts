@@ -16,10 +16,10 @@ interface Contact {
 function deliverableFor(moduleName: string): string {
   const n = moduleName.toLowerCase();
   if (n.includes("bella") || n.includes("receptionist")) {
-    return "Bella AI receptionist — provision a Retell voice agent (use the DAWGS Retell API key), persona tuned to this business. It must answer calls 24/7, book appointments, text back missed callers, and send the owner a summary after each call. Provision a phone number and place a live test call.";
+    return "Bella receptionist agent — provision a Retell voice agent (use the DAWGS Retell API key), persona tuned to this business. It must answer calls 24/7, book appointments, text back missed callers, and send the owner a summary after each call. Provision a phone number and place a live test call.";
   }
   if (n.includes("website") || n.includes("web")) {
-    return "AI website — build a fast, mobile-first site on-brand for this business with an AI chat widget, a lead form, and an easy booking path. Deploy it to a live URL (Cloudflare Pages) and confirm the form + chat work.";
+    return "Agent-powered website — build a fast, mobile-first site on-brand for this business with a chat agent widget, a lead form, and an easy booking path. Deploy it to a live URL (Cloudflare Pages) and confirm the form + chat work.";
   }
   if (n.includes("automation") || n.includes("follow")) {
     return "Follow-up automations — set up review requests, appointment reminders, rebooking nudges, and invoice follow-ups (Olivia / n8n). Trigger one end-to-end to verify.";

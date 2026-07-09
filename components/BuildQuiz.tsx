@@ -110,8 +110,8 @@ export default function BuildQuiz() {
     return (
       <div className="quiz-shell">
         <div className="quiz-intro">
-          <span className="eyebrow">Build Your AI</span>
-          <h1>Let&apos;s find the AI worth building for your business.</h1>
+          <span className="eyebrow">Build Your Agent</span>
+          <h1>Let&apos;s find the agent worth building for your business.</h1>
           <p className="lead">
             {`Answer ${QUESTIONS.length} quick questions about how your business runs. We'll show you exactly what we'd build — and where it pays off first. Takes about 2 minutes.`}
           </p>
@@ -131,8 +131,8 @@ export default function BuildQuiz() {
     return (
       <div className="quiz-shell">
         <div className="quiz-result">
-          <span className="eyebrow">Your AI build</span>
-          <h2>Here&apos;s the AI we&apos;d build for {who}.</h2>
+          <span className="eyebrow">Your agent build</span>
+          <h2>Here&apos;s the agent we&apos;d build for {who}.</h2>
           <p className="result-title">{reco.title}</p>
           <p className="lead">{reco.summary}</p>
 

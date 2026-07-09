@@ -116,7 +116,7 @@ export function customerRecommendationEmail(opts: {
       <td style="padding:14px 32px 0;">
         <div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:${C.muted};font-weight:bold;">Your AI build</div>
         <h1 style="font-size:26px;line-height:1.2;margin:10px 0 6px;color:${C.ink};">Hi ${esc(contact.name)} 👋</h1>
-        <p style="font-size:16px;color:${C.ink2};margin:0;line-height:1.55;">Thanks for taking the quiz! Here's the AI we'd build for <strong>${who}</strong>:</p>
+        <p style="font-size:16px;color:${C.ink2};margin:0;line-height:1.55;">Thanks for taking the quiz! Here's the agent we'd build for <strong>${who}</strong>:</p>
       </td>
     </tr>
     <tr>

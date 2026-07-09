@@ -10,13 +10,13 @@ const instrumentSans = Instrument_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Limitless - Bella AI Receptionist and AI Websites",
+  title: "Limitless - Bella Receptionist Agent and Agent-Powered Websites",
   description:
-    "Bella answers calls and captures leads while Limitless builds clean AI-powered websites with chatbots, booking paths, and simple automation.",
+    "Bella answers calls and captures leads while Limitless builds clean agent-powered websites with chat agents, booking paths, and simple automation.",
   openGraph: {
-    title: "Limitless - Bella AI Receptionist and AI Websites",
+    title: "Limitless - Bella Receptionist Agent and Agent-Powered Websites",
     description:
-      "AI receptionist service and clean web presence builds for local businesses that need to answer faster and look sharper.",
+      "Receptionist agent service and clean web presence builds for local businesses that need to answer faster and look sharper.",
     type: "website",
   },
 };

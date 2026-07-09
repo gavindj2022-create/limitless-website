@@ -117,7 +117,7 @@ export async function POST(request: Request) {
           to: ownerTo,
           subject: `🧩 Build-My-AI: ${name}${business ? ` (${business})` : ""} → ${reco.title}`,
           html: leadNotificationEmail({ contact, reco, qa, bookUrl, buildPrompt }),
-          text: `New "Build Your AI" quiz lead.\n\nName: ${name}\nEmail: ${email}\n${business ? `Business: ${business}\n` : ""}${phone ? `Phone: ${phone}\n` : ""}\n${recoBlock}\n\n--- Answers ---\n${transcript}\n\n=== BUILD PROMPT (paste into your build loop) ===\n${buildPrompt}`,
+          text: `New "Build Your Agent" quiz lead.\n\nName: ${name}\nEmail: ${email}\n${business ? `Business: ${business}\n` : ""}${phone ? `Phone: ${phone}\n` : ""}\n${recoBlock}\n\n--- Answers ---\n${transcript}\n\n=== BUILD PROMPT (paste into your build loop) ===\n${buildPrompt}`,
         });
         emailedOwner = true;
       } catch (err) {
@@ -131,9 +131,9 @@ export async function POST(request: Request) {
         await resend.emails.send({
           from,
           to: email,
-          subject: `Here's the AI we'd build for ${business?.trim() || "your business"} 🚀`,
+          subject: `Here's the agent we'd build for ${business?.trim() || "your business"} 🚀`,
           html: customerRecommendationEmail({ contact, reco, bookUrl }),
-          text: `Hi ${name},\n\nThanks for taking the quiz! Here's the AI we'd build for ${business?.trim() || "your business"}:\n\n${recoBlock}\n\nBook your free build call: ${bookUrl}\n\n— Limitless`,
+          text: `Hi ${name},\n\nThanks for taking the quiz! Here's the agent we'd build for ${business?.trim() || "your business"}:\n\n${recoBlock}\n\nBook your free build call: ${bookUrl}\n\n— Limitless`,
         });
       } catch (err) {
         console.error("[QUIZ-LEAD] customer email failed", err);
