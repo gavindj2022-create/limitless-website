@@ -45,3 +45,6 @@ nul
 
 # local agent artifacts
 .claude/
+
+.vercel
+.env*
