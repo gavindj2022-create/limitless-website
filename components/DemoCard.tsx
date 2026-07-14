@@ -5,11 +5,11 @@ import { useEffect, useRef, useState } from "react";
 export interface Demo {
   /** Display name, e.g. "CÉLESTE". */
   name: string;
-  /** Fable-25 slug, used for the poster filename. */
+  /** Static demo slug, used for the poster filename. */
   slug: string;
-  /** Full live site URL on Cloudflare Pages. */
+  /** Full live demo URL. */
   live: string;
-  /** "How it was built" guide URL. */
+  /** Short AI-build note URL. */
   guide: string;
   /** One-line industry / description. */
   blurb: string;
@@ -109,7 +109,7 @@ export default function DemoCard({ demo }: { demo: Demo }) {
           <span className="demo-frame-dot" aria-hidden="true" />
           {allowLive ? "Hover to preview" : "Live site"}
         </span>
-        <span className="demo-frame-cta">Open ↗</span>
+        <span className="demo-frame-cta">Open demo ↗</span>
       </a>
 
       <div className="demo-meta">
@@ -120,10 +120,10 @@ export default function DemoCard({ demo }: { demo: Demo }) {
         <p className="demo-blurb">{demo.blurb}</p>
         <div className="demo-links">
           <a href={demo.live} target="_blank" rel="noopener noreferrer">
-            View live ↗
+            Open demo ↗
           </a>
           <a href={demo.guide} target="_blank" rel="noopener noreferrer">
-            How it was built ↗
+            Built with AI ↗
           </a>
         </div>
       </div>

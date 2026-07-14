@@ -5,54 +5,58 @@ import Nav from "@/components/Nav";
 import DemoCard, { type Demo } from "@/components/DemoCard";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
-const GALLERY_URL = "https://fable25-9qg.pages.dev/";
+const GALLERY_URL = "https://limitless-demo-websites.pages.dev/";
+
+function demoUrl(slug: string, section = "") {
+  return `${GALLERY_URL}${slug}/${section}`;
+}
 
 const demos: Demo[] = [
   {
     name: "CÉLESTE",
     slug: "01-celeste",
-    live: "https://fable25-9qg.pages.dev/01-celeste/",
-    guide: "https://fable25-9qg.pages.dev/01-celeste/guide/",
+    live: demoUrl("01-celeste"),
+    guide: demoUrl("01-celeste", "guide/"),
     blurb: "Haute perfumery house — AI-filmed silk chapters.",
     tag: "Cinematic film",
   },
   {
     name: "EMBER & OAK",
     slug: "10-ember-oak",
-    live: "https://fable25-9qg.pages.dev/10-ember-oak/",
-    guide: "https://fable25-9qg.pages.dev/10-ember-oak/guide/",
+    live: demoUrl("10-ember-oak"),
+    guide: demoUrl("10-ember-oak", "guide/"),
     blurb: "Wood-fired restaurant — drifting ember particles.",
     tag: "Canvas particles",
   },
   {
     name: "AURUM",
     slug: "19-aurum",
-    live: "https://fable25-9qg.pages.dev/19-aurum/",
-    guide: "https://fable25-9qg.pages.dev/19-aurum/guide/",
+    live: demoUrl("19-aurum"),
+    guide: demoUrl("19-aurum", "guide/"),
     blurb: "Private wealth firm — art-deco gold and foil.",
     tag: "SVG deco",
   },
   {
     name: "NEON DYNASTY",
     slug: "17-neon-dynasty",
-    live: "https://fable25-9qg.pages.dev/17-neon-dynasty/",
-    guide: "https://fable25-9qg.pages.dev/17-neon-dynasty/guide/",
+    live: demoUrl("17-neon-dynasty"),
+    guide: demoUrl("17-neon-dynasty", "guide/"),
     blurb: "Game studio — glitch effects and CRT haze.",
     tag: "Glitch · CRT",
   },
   {
     name: "POLYFORM",
     slug: "13-polyform",
-    live: "https://fable25-9qg.pages.dev/13-polyform/",
-    guide: "https://fable25-9qg.pages.dev/13-polyform/guide/",
+    live: demoUrl("13-polyform"),
+    guide: demoUrl("13-polyform", "guide/"),
     blurb: "Generative art gallery — four live algorithms.",
     tag: "Generative art",
   },
   {
     name: "ALPENGLOW",
     slug: "24-alpenglow",
-    live: "https://fable25-9qg.pages.dev/24-alpenglow/",
-    guide: "https://fable25-9qg.pages.dev/24-alpenglow/guide/",
+    live: demoUrl("24-alpenglow"),
+    guide: demoUrl("24-alpenglow", "guide/"),
     blurb: "Mountain lodge — a day-to-night parallax scroll.",
     tag: "Scroll · parallax",
   },
@@ -73,11 +77,11 @@ export default function DemosPage() {
             <RevealOnScroll animation="blurUp">
               <div className="section-head center">
                 <span className="eyebrow">Our work</span>
-                <h2>Sites our agents built.</h2>
+                <h2>Limitless Demo Websites.</h2>
                 <p className="lead">
-                  These are live, in-browser — not screenshots. Each one was
-                  designed and built end-to-end by our agents. Scroll through,
-                  then open any of them full-screen.
+                  These are live, in-browser — not screenshots. Each demo was
+                  created with AI by Limitless, then reviewed and refined for
+                  layout, copy, motion, and mobile.
                 </p>
                 <div className="demos-intro-cta">
                   <a href="/build" className="btn btn-primary">
@@ -89,7 +93,7 @@ export default function DemosPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    See all 25 ↗
+                    View all 25 ↗
                   </a>
                 </div>
               </div>
