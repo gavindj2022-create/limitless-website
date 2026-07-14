@@ -1,12 +1,16 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useEffect } from "react";
 
 // Anchor targets live on the homepage. Links are always absolute (`/#id`) so a
 // tab click works from any route (e.g. /book, /build) — not just the homepage.
-const NAV_LINKS = [
+// A link may instead carry an explicit `href` to point at a real route (e.g.
+// /demos), in which case scroll-spy highlighting does not apply.
+const NAV_LINKS: { label: string; id?: string; href?: string }[] = [
   { label: "Bella", id: "bella" },
   { label: "Websites", id: "websites" },
+  { label: "Demos", href: "/demos" },
   { label: "How It Works", id: "how-it-works" },
   { label: "Pricing", id: "pricing" },
 ];
@@ -63,35 +67,37 @@ export default function Nav() {
     <>
       <nav className={`nav${scrolled ? " is-scrolled" : ""}`}>
         <div className="wrap nav-inner">
-          <a href="/" className="brand" aria-label="Limitless home">
+          <Link href="/" className="brand" aria-label="Limitless home">
             <span className="brand-mark">
               <span className="infinity-mark" aria-hidden="true">
                 &infin;
               </span>
             </span>
             Limitless
-          </a>
+          </Link>
 
           <div className="nav-links">
             {NAV_LINKS.map((link) => (
-              <a
-                key={link.id}
-                href={`/#${link.id}`}
-                className={activeSection === link.id ? "active" : undefined}
+              <Link
+                key={link.label}
+                href={link.href ?? `/#${link.id}`}
+                className={
+                  link.id && activeSection === link.id ? "active" : undefined
+                }
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
 
           <div className="nav-right">
-            <a
+            <Link
               href="/build"
               className="btn btn-primary"
               style={{ padding: "10px 18px", fontSize: "14px" }}
             >
               Build My Agent
-            </a>
+            </Link>
             <button
               className="hamburger"
               aria-label="Open menu"
@@ -109,9 +115,9 @@ export default function Nav() {
       >
         <div className="drawer-panel" onClick={(e) => e.stopPropagation()}>
           {NAV_LINKS.map((link) => (
-            <a
-              key={link.id}
-              href={`/#${link.id}`}
+            <Link
+              key={link.label}
+              href={link.href ?? `/#${link.id}`}
               onClick={() => setDrawerOpen(false)}
             >
               {link.label}
@@ -124,15 +130,15 @@ export default function Nav() {
                   strokeLinejoin="round"
                 />
               </svg>
-            </a>
+            </Link>
           ))}
-          <a
+          <Link
             href="/build"
             className="btn btn-primary"
             onClick={() => setDrawerOpen(false)}
           >
             Build My Agent
-          </a>
+          </Link>
         </div>
       </div>
     </>

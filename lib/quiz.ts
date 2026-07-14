@@ -253,13 +253,12 @@ export function scoreAnswers(answers: Answers): Recommendation {
     serviceKey = topBucket === "bella" ? "bella" : "website";
   }
 
-  return buildRecommendation(serviceKey, scores, answers);
+  return buildRecommendation(serviceKey, scores);
 }
 
 function buildRecommendation(
   serviceKey: ServiceKey,
-  scores: Record<Bucket, number>,
-  answers: Answers
+  scores: Record<Bucket, number>
 ): Recommendation {
   const modules: RecoModule[] = [];
   const wantBella = serviceKey === "bella" || serviceKey === "system" || scores.bella >= 2;

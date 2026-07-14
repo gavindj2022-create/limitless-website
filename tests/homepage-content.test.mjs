@@ -9,6 +9,13 @@ function readPage() {
   return readFileSync(join(root, "app", "page.tsx"), "utf8");
 }
 
+function readLedger() {
+  return readFileSync(
+    join(root, "components", "experience", "Ledger.tsx"),
+    "utf8"
+  );
+}
+
 test("hero leads with the current headline, badge, and Build My Agent CTA", () => {
   const page = readPage();
 
@@ -17,7 +24,7 @@ test("hero leads with the current headline, badge, and Build My Agent CTA", () =
   assert.match(page, /Limitless growth\./);
 
   // Badge.
-  assert.match(page, /AI Automation Company/);
+  assert.match(page, /Agent Automation Company/);
 
   // Primary CTA text + href.
   assert.match(page, /Build My Agent/);
@@ -32,7 +39,7 @@ test("homepage has a mission band, How It Works, and the two core offers", () =>
 
   // Mission band.
   assert.match(page, /mission-band/);
-  assert.match(page, /We make AI/);
+  assert.match(page, /We make agents/);
 
   // How It Works section.
   assert.match(page, /How It Works/);
@@ -88,4 +95,21 @@ test("booking intake page and backend route exist", () => {
   assert.match(page, /LeadIntakeForm/);
   assert.match(form, /fetch\("\/api\/book"/);
   assert.match(route, /export async function POST/);
+});
+
+test("homepage avoids unconfirmed customer proof and keeps About below FAQ", () => {
+  const page = readPage();
+  const ledger = readLedger();
+
+  assert.match(ledger, /service business on the Bella plan/);
+  assert.doesNotMatch(ledger, /salon on the Bella plan/i);
+
+  assert.doesNotMatch(page, /Becky Thompson/);
+  assert.doesNotMatch(page, /Salon owner - Peoria, IL/);
+  assert.match(page, /Every missed call becomes a handled lead/);
+
+  assert.ok(
+    page.indexOf('id="faq"') < page.indexOf('id="about"'),
+    "FAQ should appear before About"
+  );
 });

@@ -69,7 +69,7 @@ export default function Ledger() {
           </div>
         ))}
       </div>
-      <p className="night-ledger-note">Illustrative night for a salon on the Bella plan.</p>
+      <p className="night-ledger-note">Illustrative night for a service business on the Bella plan.</p>
     </div>
   );
 }

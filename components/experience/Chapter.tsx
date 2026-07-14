@@ -23,6 +23,8 @@ interface ChapterProps {
   poster: string;
   /** Scrim gradient — "center" darkens edges, "left"/"right" darken one side for copy. */
   scrim?: "center" | "left" | "right";
+  /** Eagerly preload + autoplay (use for the above-the-fold hero only). */
+  eager?: boolean;
   /** Extra class on the section. */
   className?: string;
   id?: string;
@@ -39,6 +41,7 @@ export default function Chapter({
   film,
   poster,
   scrim = "center",
+  eager = false,
   className,
   id,
   children,
@@ -85,7 +88,15 @@ export default function Chapter({
           // eslint-disable-next-line @next/next/no-img-element
           <img src={poster} alt="" />
         ) : (
-          <video muted loop playsInline preload="metadata" poster={poster} ref={videoRef}>
+          <video
+            muted
+            loop
+            playsInline
+            autoPlay={eager}
+            preload={eager ? "auto" : "metadata"}
+            poster={poster}
+            ref={videoRef}
+          >
             <source src={film} type="video/mp4" />
           </video>
         )}

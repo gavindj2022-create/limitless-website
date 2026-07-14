@@ -95,8 +95,8 @@ export const config = {
      * Match all request paths except:
      * - _next/static (static files)
      * - _next/image (image optimization)
-     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+     * - favicon.ico, sitemap.xml, robots.txt, and share/icon images
      */
-    "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|opengraph-image.png|twitter-image.png|icon.png|apple-icon.png).*)",
   ],
 };

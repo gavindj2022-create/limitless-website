@@ -1,24 +1,8 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { rateLimit, rateLimitConfigs } from "@/lib/rate-limit";
-
-const services = {
-  bella: "Bella receptionist agent",
-  website: "Agent-powered website",
-  system: "Full presence system",
-} as const;
-
-const bookSchema = z.object({
-  service: z.enum(["bella", "website", "system"]),
-  name: z.string().trim().min(1, "Name is required").max(120),
-  email: z.string().trim().email("Invalid email address").max(160),
-  phone: z.string().trim().max(40).optional(),
-  business: z.string().trim().max(160).optional(),
-  message: z.string().trim().min(8, "Message is required").max(2000),
-  website: z.string().max(0).optional(),
-});
+import { bookServices, parseBookLead } from "@/lib/book-intake";
 
 function getLeadIp(request: Request) {
   return (
@@ -35,6 +19,22 @@ function getResend() {
 
 export async function POST(request: Request) {
   try {
+    const body = await request.json().catch(() => null);
+    const parsed = parseBookLead(body);
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "Please fill out the required fields." },
+        { status: 400 }
+      );
+    }
+
+    const { service, name, email, phone, business, message, website } = parsed.data;
+
+    // Honeypot tripped. Pretend success, but do not save or email the lead.
+    if (website) {
+      return NextResponse.json({ ok: true });
+    }
+
     const limited = rateLimit.check(
       `book:${getLeadIp(request)}`,
       rateLimitConfigs.contact
@@ -46,17 +46,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const body = await request.json().catch(() => null);
-    const parsed = bookSchema.safeParse(body);
-    if (!parsed.success) {
-      return NextResponse.json(
-        { error: "Please fill out the required fields." },
-        { status: 400 }
-      );
-    }
-
-    const { service, name, email, phone, business, message } = parsed.data;
-    const serviceLabel = services[service];
+    const serviceLabel = bookServices[service];
     const leadSummary = [
       `[Website intake: ${serviceLabel}]`,
       `Name: ${name}`,

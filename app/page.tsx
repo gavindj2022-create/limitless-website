@@ -16,25 +16,25 @@ const flowSteps = [
   {
     label: "Step 1",
     title: "Book a call",
-    copy: "A quick, no-pressure call to understand your business and where time and money quietly leak out.",
+    copy: "A quick, no-pressure call about your business.",
     visual: "ring",
   },
   {
     label: "Step 2",
     title: "We find the gaps",
-    copy: "We look at how leads come in, how calls get handled, and what slows you down — then pinpoint exactly what AI can fix.",
+    copy: "Where leads arrive, where calls drop, what an agent can fix.",
     visual: "chat",
   },
   {
     label: "Step 3",
     title: "We build it for you",
-    copy: "We build the full system — receptionist, website, automations — done-for-you, not a DIY toolkit you have to figure out.",
+    copy: "Receptionist, website, automations — built for you. No DIY.",
     visual: "summary",
   },
   {
     label: "Step 4",
     title: "You run leaner",
-    copy: "You go live with AI handling the busywork, and we keep it tuned as your business grows.",
+    copy: "Agents handle the busywork. We keep them tuned.",
     visual: "voice",
   },
 ];
@@ -42,15 +42,15 @@ const flowSteps = [
 const addOns = [
   {
     title: "Olivia follow-ups",
-    copy: "Invoices, reminders, review requests, and customer follow-up when you are ready for more automation.",
+    copy: "Invoices, reminders, reviews, follow-ups.",
   },
   {
     title: "Simple dashboards",
-    copy: "Weekly snapshots of calls, bookings, leads, and the work that needs attention.",
+    copy: "Weekly snapshots of calls, bookings, and leads.",
   },
   {
     title: "Custom workflows",
-    copy: "Lightweight automations for the tools you already use, built around your day-to-day process.",
+    copy: "Light automations for the tools you already use.",
   },
 ];
 
@@ -65,17 +65,18 @@ export default function Home() {
 
       <Nav />
 
-      <main id="main">
+      <main id="main" className="xp-flow">
         <Chapter
           film="/media/threads.mp4"
-          poster="/media/threads-poster.webp"
+          poster="/media/threads-poster.jpg"
           scrim="center"
+          eager
           className="xp-hero"
         >
           <AgentField />
           <div className="hero-badge">
             <span className="dot" />
-            AI Automation Company
+            Agent Automation Company
           </div>
           <h1>
             Less busywork.
@@ -83,10 +84,8 @@ export default function Home() {
             Limitless growth.
           </h1>
           <p className="sub">
-            We hand the repetitive stuff to smart agents so you can spend your
-            time on the work that actually grows the business. The lights
-            drifting into the center? Those are leads being caught — that is
-            the whole idea.
+            Agents answer, book, and follow up — you do the real work.
+            The drifting lights? Leads being caught.
           </p>
           <div className="ctas">
             <a href="/build" className="btn btn-world">
@@ -121,9 +120,8 @@ export default function Home() {
             <RevealOnScroll animation="blurUp">
               <p className="mission-eyebrow">Our mission</p>
               <p className="mission-statement">
-                We make AI <em>practical</em> for everyday businesses — so the
-                phone gets answered, the leads get captured, and growth is never
-                capped by hours in the day.
+                We make agents <em>practical</em> — phones answered, leads
+                captured, growth uncapped.
               </p>
             </RevealOnScroll>
           </div>
@@ -146,8 +144,7 @@ export default function Home() {
                   Front desk and web presence, built to work together.
                 </h2>
                 <p className="lead">
-                  The first version stays simple: make the business easier to
-                  reach, easier to understand, and easier to book.
+                  Easier to reach. Easier to understand. Easier to book.
                 </p>
               </div>
             </RevealOnScroll>
@@ -172,15 +169,13 @@ export default function Home() {
                   <span className="svc-eyebrow">Receptionist Agent</span>
                   <h3>Bella answers when you cannot.</h3>
                   <p>
-                    Natural phone answering for missed calls, appointment
-                    booking, lead capture, simple questions, and follow-up
-                    messages.
+                    She answers, books, captures the lead, and follows up.
                   </p>
                   <ul className="clean-list">
-                    <li>Answers calls day or night</li>
-                    <li>Books appointments and sends confirmations</li>
-                    <li>Captures leads instead of losing them to voicemail</li>
-                    <li>Sends you a short summary after every call</li>
+                    <li>Answers day or night</li>
+                    <li>Books and confirms</li>
+                    <li>Captures every lead</li>
+                    <li>Texts you a summary</li>
                   </ul>
                 </article>
               </RevealOnScroll>
@@ -209,15 +204,13 @@ export default function Home() {
                   <span className="svc-eyebrow">Agent-powered web presence</span>
                   <h3>A clean website that starts conversations.</h3>
                   <p>
-                    Fast, polished websites for local businesses with mobile
-                    layouts, a built-in chat agent, lead forms, and a brand that looks
-                    like it belongs.
+                    Fast, polished sites with a chat agent built in.
                   </p>
                   <ul className="clean-list">
-                    <li>Simple modern website built quickly</li>
-                    <li>A chat agent embedded into the experience</li>
-                    <li>Contact forms and booking paths that are easy to use</li>
-                    <li>Ongoing updates without the agency headache</li>
+                    <li>Modern site, built fast</li>
+                    <li>Chat agent included</li>
+                    <li>Easy forms and booking</li>
+                    <li>Updates handled for you</li>
                   </ul>
                 </article>
               </RevealOnScroll>
@@ -227,7 +220,7 @@ export default function Home() {
 
         <Chapter
           film="/media/leak.mp4"
-          poster="/media/leak-poster.webp"
+          poster="/media/leak-poster.jpg"
           scrim="left"
           id="the-leak"
         >
@@ -239,14 +232,10 @@ export default function Home() {
               that went to <em>voicemail.</em>
             </h2>
             <p>
-              Most small businesses miss around <b>4 in 10 calls</b> — after
-              hours, mid-appointment, on the other line. Callers rarely leave a
-              message. They just dial the next name on the list.
+              Most small businesses miss <b>4 in 10 calls</b>. Callers rarely
+              leave a message — they dial the next name.
             </p>
-            <p>
-              It never shows up as a line item. It just shows up as a slower
-              month.
-            </p>
+            <p>It never shows up as a line item. Just a slower month.</p>
             <div className="leak-stats">
               <div className="leak-stat">
                 <b>~40%</b>
@@ -271,8 +260,7 @@ export default function Home() {
                 <span className="eyebrow">How It Works</span>
                 <h2>From first call to fully built — done for you.</h2>
                 <p className="lead">
-                  You book a call, we find what is slowing your business down,
-                  and we build the agent that fixes it. No DIY, no busywork.
+                  Book a call. We find the gaps. We build the agent.
                 </p>
               </div>
             </RevealOnScroll>
@@ -301,7 +289,7 @@ export default function Home() {
 
         <Chapter
           film="/media/night.mp4"
-          poster="/media/night-poster.webp"
+          poster="/media/night-poster.jpg"
           scrim="left"
           id="night-shift"
         >
@@ -438,21 +426,13 @@ export default function Home() {
             </RevealOnScroll>
             <div className="testimonial-grid">
               <RevealOnScroll animation="fadeUp" delay={0}>
-                <div className="testimonial-card">
-                  <p className="testimonial-quote">
-                    &quot;We stopped sending new customers to voicemail. Bella
-                    answers, books, and sends the summary before I even check my
-                    phone.&quot;
+                <div className="testimonial-card outcome-card">
+                  <span className="outcome-tag">Missed calls</span>
+                  <p className="outcome-text">
+                    Every missed call becomes a handled lead: Bella answers,
+                    collects the details, books when possible, and sends you the
+                    clean summary.
                   </p>
-                  <div className="testimonial-author">
-                    <div className="testimonial-avatar">BT</div>
-                    <div>
-                      <div className="testimonial-name">Becky Thompson</div>
-                      <div className="testimonial-role">
-                        Salon owner - Peoria, IL
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </RevealOnScroll>
               <RevealOnScroll animation="fadeUp" delay={0.1}>
@@ -476,6 +456,20 @@ export default function Home() {
                 </div>
               </RevealOnScroll>
             </div>
+          </div>
+        </section>
+
+        <section className="section" id="faq">
+          <div className="wrap">
+            <RevealOnScroll animation="fadeUp">
+              <div className="section-head center">
+                <span className="eyebrow">FAQ</span>
+                <h2>Plain answers.</h2>
+              </div>
+            </RevealOnScroll>
+            <RevealOnScroll animation="fadeUp" delay={0.1}>
+              <FAQSection />
+            </RevealOnScroll>
           </div>
         </section>
 
@@ -520,23 +514,9 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section" id="faq">
-          <div className="wrap">
-            <RevealOnScroll animation="fadeUp">
-              <div className="section-head center">
-                <span className="eyebrow">FAQ</span>
-                <h2>Plain answers.</h2>
-              </div>
-            </RevealOnScroll>
-            <RevealOnScroll animation="fadeUp" delay={0.1}>
-              <FAQSection />
-            </RevealOnScroll>
-          </div>
-        </section>
-
         <Chapter
           film="/media/dawn.mp4"
-          poster="/media/dawn-poster.webp"
+          poster="/media/dawn-poster.jpg"
           scrim="center"
           className="xp-dawn"
         >

@@ -10,14 +10,32 @@ const instrumentSans = Instrument_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Limitless - Bella Receptionist Agent and Agent-Powered Websites",
+  metadataBase: new URL("https://golimitlessagi.com"),
+  title: "limitless",
   description:
-    "Bella answers calls and captures leads while Limitless builds clean agent-powered websites with chat agents, booking paths, and simple automation.",
+    "Practical AI agents and clean websites for service businesses.",
   openGraph: {
-    title: "Limitless - Bella Receptionist Agent and Agent-Powered Websites",
+    title: "limitless",
     description:
-      "Receptionist agent service and clean web presence builds for local businesses that need to answer faster and look sharper.",
+      "Practical AI agents and clean websites for service businesses.",
+    url: "/",
+    siteName: "limitless",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Limitless logo",
+      },
+    ],
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "limitless",
+    description:
+      "Practical AI agents and clean websites for service businesses.",
+    images: ["/twitter-image.png"],
   },
 };
 
