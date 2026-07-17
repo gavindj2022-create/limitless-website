@@ -84,8 +84,8 @@ export default function Home() {
             Limitless growth.
           </h1>
           <p className="sub">
-            Agents answer, book, and follow up — you do the real work.
-            The drifting lights? Leads being caught.
+            AI agents that answer your calls, book appointments, and follow up
+            with every lead — automatically.
           </p>
           <div className="ctas">
             <a href="/build" className="btn btn-world">
@@ -120,8 +120,7 @@ export default function Home() {
             <RevealOnScroll animation="blurUp">
               <p className="mission-eyebrow">Our mission</p>
               <p className="mission-statement">
-                We make agents <em>practical</em> — phones answered, leads
-                captured, growth uncapped.
+                Your business, made <em>limitless</em>.
               </p>
             </RevealOnScroll>
           </div>

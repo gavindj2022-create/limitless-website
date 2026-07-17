@@ -39,7 +39,7 @@ test("homepage has a mission band, How It Works, and the two core offers", () =>
 
   // Mission band.
   assert.match(page, /mission-band/);
-  assert.match(page, /We make agents/);
+  assert.match(page, /Your business, made <em>limitless<\/em>\./);
 
   // How It Works section.
   assert.match(page, /How It Works/);

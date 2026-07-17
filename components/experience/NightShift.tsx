@@ -5,8 +5,8 @@ import { useEffect, useRef, useState } from "react";
 const SCRIPT = [
   { who: "caller" as const, text: "Hi — sorry to call so late. Do you have anything open Thursday?" },
   { who: "bella" as const, text: "No trouble at all — this is Bella, the after-hours assistant. Thursday I have 10:30 AM or 2:00 PM. Which suits you?" },
-  { who: "caller" as const, text: "2 PM works. It's for a colour and cut — I'm Dana." },
-  { who: "bella" as const, text: "Booked: Dana, colour & cut, Thursday 2:00 PM. You'll get a text confirmation in a moment. Anything else?" },
+  { who: "caller" as const, text: "2 PM works. It's for a color and cut — I'm Dana." },
+  { who: "bella" as const, text: "Booked: Dana, color & cut, Thursday 2:00 PM. You'll get a text confirmation in a moment. Anything else?" },
   { who: "caller" as const, text: "That was easy. No, that's all — thank you!" },
 ];
 
@@ -75,7 +75,7 @@ export default function NightShift() {
 
   return (
     <div ref={rootRef} className="night-convo" role="img"
-      aria-label="Example after-hours call: Bella answers at 2:47 AM, offers Thursday times, and books Dana for a colour and cut at 2 PM.">
+      aria-label="Example after-hours call: Bella answers at 2:47 AM, offers Thursday times, and books Dana for a color and cut at 2 PM.">
       <div className="night-convo-head">
         <span className="night-live" /> Incoming call · 2:47 AM
       </div>
@@ -97,7 +97,7 @@ export default function NightShift() {
       <div className={`night-booked${booked ? " on" : ""}`} aria-hidden={!booked}>
         <span className="night-booked-tick">✓</span>
         <div>
-          <b>Thursday · 2:00 PM — Dana, colour &amp; cut</b>
+          <b>Thursday · 2:00 PM — Dana, color &amp; cut</b>
           <small>Added to your calendar · confirmation sent · summary in your inbox</small>
         </div>
       </div>
