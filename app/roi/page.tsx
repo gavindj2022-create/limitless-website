@@ -14,7 +14,7 @@ const PRESETS: Preset[] = [
   { name: "Property Mgmt", ticket: 1500 },
 ];
 
-const BELLA_MONTHLY = 147;
+const BELLA_MONTHLY = 199;
 const usd = (n: number) => "$" + Math.round(n).toLocaleString("en-US");
 
 export default function RoiCalculatorPage() {
@@ -181,7 +181,7 @@ export default function RoiCalculatorPage() {
                 {r.breakeven === 1 ? "job" : "jobs"} a month.
                 {r.roi >= 1 && (
                   <span className="roi-pill">
-                    {r.roi >= 10 ? r.roi.toFixed(0) : r.roi.toFixed(1)}× return on the $147
+                    {r.roi >= 10 ? r.roi.toFixed(0) : r.roi.toFixed(1)}× return on the $199
                   </span>
                 )}
               </div>
