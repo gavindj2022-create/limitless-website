@@ -82,7 +82,7 @@ export async function POST(request: Request) {
     // set, leads still deliver even before the database is wired up.
     const from = process.env.EMAIL_FROM || "Limitless <onboarding@resend.dev>";
     const ownerTo = process.env.LEAD_NOTIFY_EMAIL || "gavindj2022@gmail.com";
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://limitless-website.vercel.app";
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://golimitlessagi.com";
     const bookUrl = `${appUrl}/book?service=${reco.serviceKey}`;
     const contact = { name, business, email, phone };
     const qa = QUESTIONS.map((q) =>

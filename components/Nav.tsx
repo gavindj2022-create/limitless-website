@@ -11,6 +11,7 @@ const NAV_LINKS: { label: string; id?: string; href?: string }[] = [
   { label: "Bella", id: "bella" },
   { label: "Websites", id: "websites" },
   { label: "Demos", href: "/demos" },
+  { label: "Leak audit", href: "/leak-audit" },
   { label: "How It Works", id: "how-it-works" },
   { label: "Pricing", id: "pricing" },
 ];

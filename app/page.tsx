@@ -276,6 +276,47 @@ export default function Home() {
           </div>
         </Chapter>
 
+        <section className="section" id="leak-audit-cta">
+          <div className="wrap">
+            <RevealOnScroll animation="fadeUp">
+              <div className="section-head center">
+                <span className="eyebrow">Free 60-second leak audit</span>
+                <h2>See what missed calls are costing you.</h2>
+                <p className="lead">
+                  Answer five quick questions and get a plain-English breakdown of
+                  the revenue slipping past your business — emailed instantly.
+                </p>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: 28,
+                  }}
+                >
+                  <a href="/leak-audit" className="btn btn-world">
+                    Run my free leak audit
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M5 12h14M13 6l6 6-6 6"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </RevealOnScroll>
+          </div>
+        </section>
+
         <section className="section visual-section" id="how-it-works">
           <div className="wrap">
             <RevealOnScroll animation="blurUp">
