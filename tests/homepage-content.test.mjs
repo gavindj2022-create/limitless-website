@@ -97,6 +97,33 @@ test("booking intake page and backend route exist", () => {
   assert.match(route, /export async function POST/);
 });
 
+test("homepage shows the risk-reversal line and the ROI hook to /roi", () => {
+  const page = readPage();
+
+  // Risk-reversal micro-copy appears under the hero CTA and near pricing.
+  const matches = page.match(/No contracts\. Cancel anytime\./g) || [];
+  assert.ok(
+    matches.length >= 2,
+    "expected the reassurance line under the hero and near pricing"
+  );
+
+  // ROI hook links to the existing /roi calculator without an inline widget.
+  assert.match(page, /See what missed calls cost you/);
+  assert.match(page, /href="\/roi"/);
+});
+
+test("private Hear Bella page exists and is set to noindex, nofollow", () => {
+  const page = readFileSync(
+    join(root, "app", "hear-bella", "page.tsx"),
+    "utf8"
+  );
+
+  assert.match(page, /Hear Bella take a call/);
+  assert.match(page, /robots/);
+  assert.match(page, /index:\s*false/);
+  assert.match(page, /follow:\s*false/);
+});
+
 test("homepage avoids unconfirmed customer proof and keeps About below FAQ", () => {
   const page = readPage();
   const ledger = readLedger();

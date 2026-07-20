@@ -7,6 +7,7 @@ import TeamCard from "@/components/TeamCard";
 import FAQSection from "@/components/FAQSection";
 import RevealOnScroll from "@/components/RevealOnScroll";
 import ScrollProgress from "@/components/ScrollProgress";
+import StickyMobileCTA from "@/components/StickyMobileCTA";
 import Chapter from "@/components/experience/Chapter";
 import AgentField from "@/components/experience/AgentField";
 import NightShift from "@/components/experience/NightShift";
@@ -65,6 +66,8 @@ export default function Home() {
 
       <Nav />
 
+      <StickyMobileCTA />
+
       <main id="main" className="xp-flow">
         <Chapter
           film="/media/threads.mp4"
@@ -107,6 +110,7 @@ export default function Home() {
               </svg>
             </a>
           </div>
+          <p className="reassure-line">No contracts. Cancel anytime.</p>
           <a href="#how-it-works" className="hero-scroll-hint">
             See how it works
           </a>
@@ -248,6 +252,26 @@ export default function Home() {
                 <b>$0</b>
                 <span>what silence invoices</span>
               </div>
+            </div>
+            <div className="leak-cta">
+              <a href="/roi" className="btn btn-ghost">
+                See what missed calls cost you
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M5 12h14M13 6l6 6-6 6"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
             </div>
           </div>
         </Chapter>
@@ -412,6 +436,9 @@ export default function Home() {
                 />
               </RevealOnScroll>
             </div>
+            <p className="reassure-line reassure-line-pricing">
+              No contracts. Cancel anytime.
+            </p>
           </div>
         </section>
 
