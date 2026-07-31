@@ -14,17 +14,48 @@ export default function StickyMobileCTA() {
 
   useEffect(() => {
     document.body.classList.add("sticky-cta-active");
+    const mq = window.matchMedia("(max-width: 768px)");
+    let teardown: (() => void) | null = null;
 
-    const onScroll = () => {
-      setShown(window.scrollY > window.innerHeight * 0.9);
+    // Observe a hero-height sentinel instead of listening to scroll, and only
+    // on the small screens this bar is visible on (CSS hides it above 768px).
+    const attach = () => {
+      if (teardown) return;
+      const sentinel = document.createElement("div");
+      sentinel.setAttribute("aria-hidden", "true");
+      sentinel.style.cssText =
+        "position:absolute;top:0;left:0;width:1px;height:90vh;pointer-events:none;";
+      document.body.appendChild(sentinel);
+
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) setShown(!entry.isIntersecting);
+        },
+        { threshold: 0 }
+      );
+      io.observe(sentinel);
+
+      teardown = () => {
+        io.disconnect();
+        sentinel.remove();
+        teardown = null;
+      };
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    const sync = () => {
+      if (mq.matches) attach();
+      else {
+        teardown?.();
+        setShown(false);
+      }
+    };
+    sync();
+    mq.addEventListener("change", sync);
 
     return () => {
       document.body.classList.remove("sticky-cta-active");
-      window.removeEventListener("scroll", onScroll);
+      mq.removeEventListener("change", sync);
+      teardown?.();
     };
   }, []);
 

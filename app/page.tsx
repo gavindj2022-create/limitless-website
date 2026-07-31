@@ -1,11 +1,10 @@
-"use client";
-
+import Image from "next/image";
 import Nav from "@/components/Nav";
+import Reveals from "@/components/Reveals";
+import { revealDelay } from "@/lib/reveal";
 import HeroDemoPanel from "@/components/HeroDemoPanel";
 import PricingCard from "@/components/PricingCard";
-import TeamCard from "@/components/TeamCard";
 import FAQSection from "@/components/FAQSection";
-import RevealOnScroll from "@/components/RevealOnScroll";
 import ScrollProgress from "@/components/ScrollProgress";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import Chapter from "@/components/experience/Chapter";
@@ -58,6 +57,13 @@ const addOns = [
 export default function Home() {
   return (
     <>
+      <link
+        rel="preload"
+        as="image"
+        href="/media/threads-poster-v2.jpg"
+        fetchPriority="high"
+      />
+
       <a href="#main" className="skip">
         Skip to content
       </a>
@@ -70,8 +76,8 @@ export default function Home() {
 
       <main id="main" className="xp-flow">
         <Chapter
-          film="/media/threads.mp4"
-          poster="/media/threads-poster.jpg"
+          film="/media/threads"
+          poster="/media/threads-poster-v2.jpg"
           scrim="center"
           eager
           className="xp-hero"
@@ -121,26 +127,26 @@ export default function Home() {
 
         <section className="mission-band">
           <div className="wrap">
-            <RevealOnScroll animation="blurUp">
+            <div>
               <p className="mission-eyebrow">Our mission</p>
               <p className="mission-statement">
                 Your business, made <em>limitless</em>.
               </p>
-            </RevealOnScroll>
+            </div>
           </div>
         </section>
 
         <section className="demo-showcase">
           <div className="wrap">
-            <RevealOnScroll animation="fadeScale">
+            <div>
               <HeroDemoPanel />
-            </RevealOnScroll>
+            </div>
           </div>
         </section>
 
         <section className="section" id="services">
           <div className="wrap">
-            <RevealOnScroll animation="fadeUp">
+            <div data-reveal>
               <div className="section-head center">
                 <span className="eyebrow">Two Clear Offers</span>
                 <h2>
@@ -150,10 +156,10 @@ export default function Home() {
                   Easier to reach. Easier to understand. Easier to book.
                 </p>
               </div>
-            </RevealOnScroll>
+            </div>
 
             <div className="offer-pillars">
-              <RevealOnScroll animation="fadeUp" delay={0}>
+              <div data-reveal>
                 <article className="pillar-card bella-card" id="bella">
                   <div className="pillar-visual phone-visual" aria-hidden="true">
                     <span className="live-dot" />
@@ -181,9 +187,9 @@ export default function Home() {
                     <li>Texts you a summary</li>
                   </ul>
                 </article>
-              </RevealOnScroll>
+              </div>
 
-              <RevealOnScroll animation="fadeUp" delay={0.12}>
+              <div data-reveal style={revealDelay(0.12)}>
                 <article className="pillar-card website-card" id="websites">
                   <div className="pillar-visual website-visual" aria-hidden="true">
                     <span className="site-spark site-spark-one" />
@@ -216,14 +222,14 @@ export default function Home() {
                     <li>Updates handled for you</li>
                   </ul>
                 </article>
-              </RevealOnScroll>
+              </div>
             </div>
           </div>
         </section>
 
         <Chapter
-          film="/media/leak.mp4"
-          poster="/media/leak-poster.jpg"
+          film="/media/leak"
+          poster="/media/leak-poster-v2.jpg"
           scrim="left"
           id="the-leak"
         >
@@ -254,6 +260,24 @@ export default function Home() {
               </div>
             </div>
             <div className="leak-cta">
+              <a href="/leak-audit" className="btn btn-world">
+                Run my free leak audit
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M5 12h14M13 6l6 6-6 6"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
               <a href="/roi" className="btn btn-ghost">
                 See what missed calls cost you
                 <svg
@@ -273,53 +297,15 @@ export default function Home() {
                 </svg>
               </a>
             </div>
+            <p className="leak-cta-note">
+              Free 60-second leak audit — five questions, emailed instantly.
+            </p>
           </div>
         </Chapter>
 
-        <section className="section" id="leak-audit-cta">
-          <div className="wrap">
-            <RevealOnScroll animation="fadeUp">
-              <div className="section-head center">
-                <span className="eyebrow">Free 60-second leak audit</span>
-                <h2>See what missed calls are costing you.</h2>
-                <p className="lead">
-                  Answer five quick questions and get a plain-English breakdown of
-                  the revenue slipping past your business — emailed instantly.
-                </p>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    marginTop: 28,
-                  }}
-                >
-                  <a href="/leak-audit" className="btn btn-world">
-                    Run my free leak audit
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      aria-hidden="true"
-                    >
-                      <path
-                        d="M5 12h14M13 6l6 6-6 6"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </RevealOnScroll>
-          </div>
-        </section>
-
         <section className="section visual-section" id="how-it-works">
           <div className="wrap">
-            <RevealOnScroll animation="blurUp">
+            <div data-reveal>
               <div className="section-head center">
                 <span className="eyebrow">How It Works</span>
                 <h2>From first call to fully built — done for you.</h2>
@@ -327,11 +313,11 @@ export default function Home() {
                   Book a call. We find the gaps. We build the agent.
                 </p>
               </div>
-            </RevealOnScroll>
+            </div>
 
             <div className="visual-flow">
               {flowSteps.map((step, index) => (
-                <RevealOnScroll animation="fadeScale" delay={index * 0.08} key={step.label}>
+                <div data-reveal="scale" key={step.label} style={revealDelay(index * 0.08)}>
                   <div className={`flow-card flow-${step.visual}`}>
                     <span className="flow-index">
                       {String(index + 1).padStart(2, "0")}
@@ -345,15 +331,15 @@ export default function Home() {
                     <h3>{step.title}</h3>
                     <p className="flow-copy">{step.copy}</p>
                   </div>
-                </RevealOnScroll>
+                </div>
               ))}
             </div>
           </div>
         </section>
 
         <Chapter
-          film="/media/night.mp4"
-          poster="/media/night-poster.jpg"
+          film="/media/night"
+          poster="/media/night-poster-v2.jpg"
           scrim="left"
           id="night-shift"
         >
@@ -386,7 +372,7 @@ export default function Home() {
 
         <section className="section addon-section">
           <div className="wrap">
-            <RevealOnScroll animation="fadeUp">
+            <div data-reveal>
               <div className="section-head">
                 <span className="eyebrow">Add-on automation suite</span>
                 <h2>More help when the basics are humming.</h2>
@@ -395,16 +381,15 @@ export default function Home() {
                   business is ready for more. Then we add only what saves time.
                 </p>
               </div>
-            </RevealOnScroll>
-            <div className="addon-grid">
-              {addOns.map((item, index) => (
-                <RevealOnScroll animation="fadeUp" delay={index * 0.08} key={item.title}>
-                  <article className="addon-tile">
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <h3>{item.title}</h3>
-                    <p>{item.copy}</p>
-                  </article>
-                </RevealOnScroll>
+            </div>
+            {/* Compact row of chips. These are "later, if you want them"
+                add-ons, so they no longer get full-height tiles. */}
+            <div data-reveal className="addon-row">
+              {addOns.map((item) => (
+                <article className="addon-chip" key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p>{item.copy}</p>
+                </article>
               ))}
             </div>
           </div>
@@ -412,7 +397,7 @@ export default function Home() {
 
         <section className="section" id="pricing">
           <div className="wrap">
-            <RevealOnScroll animation="fadeUp">
+            <div data-reveal>
               <div className="section-head center">
                 <span className="eyebrow">Pricing</span>
                 <h2>Start with the part your business needs most.</h2>
@@ -421,9 +406,9 @@ export default function Home() {
                   door system with the add-ons connected.
                 </p>
               </div>
-            </RevealOnScroll>
+            </div>
             <div className="pricing-grid">
-              <RevealOnScroll animation="fadeUp" delay={0}>
+              <div data-reveal>
                 <PricingCard
                   tier="Website Starter"
                   price="$29"
@@ -439,8 +424,8 @@ export default function Home() {
                   plan="starter"
                   href="/book?service=website"
                 />
-              </RevealOnScroll>
-              <RevealOnScroll animation="fadeUp" delay={0.15}>
+              </div>
+              <div data-reveal style={revealDelay(0.15)}>
                 <PricingCard
                   tier="Bella Receptionist"
                   price="$199"
@@ -458,8 +443,8 @@ export default function Home() {
                   plan="growth"
                   href="/book?service=bella"
                 />
-              </RevealOnScroll>
-              <RevealOnScroll animation="fadeUp" delay={0.3}>
+              </div>
+              <div data-reveal style={revealDelay(0.3)}>
                 <PricingCard
                   tier="Full Presence"
                   price="$499"
@@ -475,7 +460,7 @@ export default function Home() {
                   plan="full_ops"
                   href="/book?service=system"
                 />
-              </RevealOnScroll>
+              </div>
             </div>
             <p className="reassure-line reassure-line-pricing">
               No contracts. Cancel anytime.
@@ -485,14 +470,14 @@ export default function Home() {
 
         <section className="section" id="testimonials">
           <div className="wrap">
-            <RevealOnScroll animation="fadeUp">
+            <div data-reveal>
               <div className="section-head center">
                 <span className="eyebrow">What This Fixes</span>
                 <h2>Fewer missed chances. Cleaner first impressions.</h2>
               </div>
-            </RevealOnScroll>
+            </div>
             <div className="testimonial-grid">
-              <RevealOnScroll animation="fadeUp" delay={0}>
+              <div data-reveal>
                 <div className="testimonial-card outcome-card">
                   <span className="outcome-tag">Missed calls</span>
                   <p className="outcome-text">
@@ -501,8 +486,8 @@ export default function Home() {
                     clean summary.
                   </p>
                 </div>
-              </RevealOnScroll>
-              <RevealOnScroll animation="fadeUp" delay={0.1}>
+              </div>
+              <div data-reveal style={revealDelay(0.1)}>
                 <div className="testimonial-card outcome-card">
                   <span className="outcome-tag">Your website</span>
                   <p className="outcome-text">
@@ -511,8 +496,8 @@ export default function Home() {
                     bouncing off a busy, confusing page.
                   </p>
                 </div>
-              </RevealOnScroll>
-              <RevealOnScroll animation="fadeUp" delay={0.2}>
+              </div>
+              <div data-reveal style={revealDelay(0.2)}>
                 <div className="testimonial-card outcome-card">
                   <span className="outcome-tag">Lead capture</span>
                   <p className="outcome-text">
@@ -521,69 +506,28 @@ export default function Home() {
                     not just a contact page.
                   </p>
                 </div>
-              </RevealOnScroll>
+              </div>
             </div>
           </div>
         </section>
 
         <section className="section" id="faq">
           <div className="wrap">
-            <RevealOnScroll animation="fadeUp">
+            <div data-reveal>
               <div className="section-head center">
                 <span className="eyebrow">FAQ</span>
                 <h2>Plain answers.</h2>
               </div>
-            </RevealOnScroll>
-            <RevealOnScroll animation="fadeUp" delay={0.1}>
+            </div>
+            <div data-reveal style={revealDelay(0.1)}>
               <FAQSection />
-            </RevealOnScroll>
-          </div>
-        </section>
-
-        <section className="section" id="about">
-          <div className="wrap">
-            <RevealOnScroll animation="fadeUp">
-              <div className="section-head center">
-                <span className="eyebrow">About</span>
-                <h2>Built for businesses that need help, not hype.</h2>
-                <p className="lead">
-                  Limitless brings practical AI to local businesses: answer the
-                  phone, make the website clearer, capture the lead, and keep
-                  the owner informed.
-                </p>
-              </div>
-            </RevealOnScroll>
-            <div className="team-grid" style={{ margin: "0 auto" }}>
-              <RevealOnScroll animation="fadeUp" delay={0}>
-                <TeamCard
-                  name="Gavin Johnson"
-                  role="Founder"
-                  bio="AI builder and business operator focused on simple systems that help local companies look sharper, answer faster, and waste less time."
-                  initials="GJ"
-                  gradient={["#C2997A", "#8A6A4F"]}
-                  tags={["Receptionist Agents", "Web Design", "Automation"]}
-                  location="Illinois, USA"
-                  linkedin="https://www.linkedin.com/in/gavin-johnson-lkdn/"
-                />
-              </RevealOnScroll>
-              <RevealOnScroll animation="fadeUp" delay={0.15}>
-                <TeamCard
-                  name="Fabian"
-                  role="Customer Relations"
-                  bio="Fabian helps clients get onboarded, keeps communication simple, and makes sure the system stays useful after launch."
-                  initials="F"
-                  gradient={["#7A93C2", "#4F648A"]}
-                  tags={["Onboarding", "Support", "Client Care"]}
-                  location="Illinois, USA"
-                />
-              </RevealOnScroll>
             </div>
           </div>
         </section>
 
         <Chapter
-          film="/media/dawn.mp4"
-          poster="/media/dawn-poster.jpg"
+          film="/media/dawn"
+          poster="/media/dawn-poster-v2.jpg"
           scrim="center"
           className="xp-dawn"
         >
@@ -610,6 +554,7 @@ export default function Home() {
             </a>
           </div>
         </Chapter>
+        <Reveals />
       </main>
 
       <footer className="footer">
@@ -621,9 +566,14 @@ export default function Home() {
                 style={{ marginBottom: 8, display: "inline-flex" }}
               >
                 <span className="brand-mark">
-                  <span className="infinity-mark" aria-hidden="true">
-                    &infin;
-                  </span>
+                  <Image
+                    src="/brand/mark-white.webp"
+                    alt=""
+                    width={319}
+                    height={152}
+                    unoptimized
+                    aria-hidden="true"
+                  />
                 </span>
                 Limitless
               </span>
@@ -649,11 +599,13 @@ export default function Home() {
                 </li>
               </ul>
             </div>
+            {/* "Next" folded in here: #faq / #services / Back to Top were all
+                duplicates of the nav or the Offers column. */}
             <div className="footer-col">
               <h5>Company</h5>
               <ul>
                 <li>
-                  <a href="#about">About</a>
+                  <a href="/book?service=website">Book a Build</a>
                 </li>
                 <li>
                   <a href="mailto:gavindj2022@gmail.com">Contact</a>
@@ -663,23 +615,6 @@ export default function Home() {
                 </li>
                 <li>
                   <a href="/terms">Terms of Service</a>
-                </li>
-              </ul>
-            </div>
-            <div className="footer-col">
-              <h5>Next</h5>
-              <ul>
-                <li>
-                  <a href="/book?service=website">Book a Build</a>
-                </li>
-                <li>
-                  <a href="#faq">Questions</a>
-                </li>
-                <li>
-                  <a href="#services">Services</a>
-                </li>
-                <li>
-                  <a href="#main">Back to Top</a>
                 </li>
               </ul>
             </div>

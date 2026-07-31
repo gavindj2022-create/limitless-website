@@ -124,7 +124,7 @@ test("private Hear Bella page exists and is set to noindex, nofollow", () => {
   assert.match(page, /follow:\s*false/);
 });
 
-test("homepage avoids unconfirmed customer proof and keeps About below FAQ", () => {
+test("homepage avoids unconfirmed customer proof and has no About section", () => {
   const page = readPage();
   const ledger = readLedger();
 
@@ -135,8 +135,9 @@ test("homepage avoids unconfirmed customer proof and keeps About below FAQ", () 
   assert.doesNotMatch(page, /Salon owner - Peoria, IL/);
   assert.match(page, /Every missed call becomes a handled lead/);
 
-  assert.ok(
-    page.indexOf('id="faq"') < page.indexOf('id="about"'),
-    "FAQ should appear before About"
-  );
+  // The About/team section was removed deliberately (compact, minimal page).
+  assert.match(page, /id="faq"/);
+  assert.doesNotMatch(page, /id="about"/);
+  assert.doesNotMatch(page, /TeamCard/);
+  assert.doesNotMatch(page, /Gavin Johnson/);
 });
