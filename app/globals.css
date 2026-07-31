@@ -297,6 +297,45 @@ p { color: var(--ink-2); }
   text-decoration: underline;
   text-underline-offset: 2px;
 }
+/* Jump list at the top of long legal pages. scroll-margin on the headings
+   keeps the sticky nav from covering the target when a link is followed. */
+.legal-toc {
+  margin: 4px 0 34px;
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface-2);
+}
+.legal-toc-title {
+  margin: 0 0 10px;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.legal-toc ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 7px;
+}
+.legal-toc a {
+  font-size: 15px;
+  text-decoration: none;
+}
+.legal-toc a:hover {
+  text-decoration: underline;
+}
+.legal-body h3[id] {
+  scroll-margin-top: 96px;
+}
+@media (min-width: 620px) {
+  .legal-toc ul {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+  }
+}
 
 /* Outcome cards (honest, non-attributed benefit cards in the "What This Fixes" grid) */
 .outcome-card {
