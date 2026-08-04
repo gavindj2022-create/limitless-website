@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 
 // Anchor targets live on the homepage. Links are always absolute (`/#id`) so a
@@ -23,11 +24,28 @@ export default function Nav() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
 
+  // A sentinel at the top of the document tells us when we've scrolled past it.
+  // This replaces a scroll listener that re-rendered the whole nav on every
+  // scroll tick; the observer fires twice per crossing instead.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const sentinel = document.createElement("div");
+    sentinel.setAttribute("aria-hidden", "true");
+    sentinel.style.cssText =
+      "position:absolute;top:0;left:0;width:1px;height:40px;pointer-events:none;";
+    document.body.appendChild(sentinel);
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) setScrolled(!entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+    io.observe(sentinel);
+
+    return () => {
+      io.disconnect();
+      sentinel.remove();
+    };
   }, []);
 
   useEffect(() => {
@@ -70,9 +88,21 @@ export default function Nav() {
         <div className="wrap nav-inner">
           <Link href="/" className="brand" aria-label="Limitless home">
             <span className="brand-mark">
-              <span className="infinity-mark" aria-hidden="true">
-                &infin;
-              </span>
+              {/* The real brushstroke mark, extracted from app/icon.png by
+                  scripts/extract-logo.py. Decorative: "Limitless" is right
+                  there in text, and the link already has an aria-label. */}
+              {/* unoptimized: the source is only 4.9 KB, and letting the
+                  optimizer emit a 48px variant made the browser downscale
+                  twice, which mushed the fine brush strokes. One clean
+                  downscale from the full 319px source is sharper at every DPR. */}
+              <Image
+                src="/brand/mark-white.webp"
+                alt=""
+                width={319}
+                height={152}
+                unoptimized
+                aria-hidden="true"
+              />
             </span>
             Limitless
           </Link>

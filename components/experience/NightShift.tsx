@@ -10,17 +10,25 @@ const SCRIPT = [
   { who: "caller" as const, text: "That was easy. No, that's all — thank you!" },
 ];
 
+const FRAME_MS = 33;   // ~30fps
+const CHARS_PER_FRAME = 3; // keeps the original typing speed at fewer frames
+
 /**
  * The 2:47 AM conversation: types itself line by line when scrolled into
  * view, then lands the booking card. Runs once per visit; reduced-motion
  * users see the finished conversation immediately.
+ *
+ * Only line changes go through React state (6 renders total). The
+ * character-by-character typing writes to a text node through a ref, because
+ * putting it in state cost ~200 renders of this subtree for one playthrough.
  */
 export default function NightShift() {
   const rootRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLSpanElement>(null);
+  const caretRef = useRef<HTMLSpanElement>(null);
   const [visibleLines, setVisibleLines] = useState(0);
-  const [typedChars, setTypedChars] = useState(0);
   const [booked, setBooked] = useState(false);
-  const startedRef = useRef(false);
+  const [instant, setInstant] = useState(false);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -28,36 +36,56 @@ export default function NightShift() {
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    let raf = 0;
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    let started = false;
+    let cancelled = false;
+
     const begin = () => {
-      if (startedRef.current) return;
-      startedRef.current = true;
+      if (started) return;
+      started = true;
+
       if (reduced) {
+        setInstant(true);
         setVisibleLines(SCRIPT.length);
-        setTypedChars(Infinity);
         setBooked(true);
         return;
       }
+
       let line = 0;
+
       const typeLine = () => {
+        if (cancelled) return;
         if (line >= SCRIPT.length) {
-          setTimeout(() => setBooked(true), 500);
+          timer = setTimeout(() => setBooked(true), 500);
           return;
         }
+        // Advancing the line count is the only React render in this loop.
         setVisibleLines(line + 1);
-        setTypedChars(0);
+
         const text = SCRIPT[line].text;
         let ch = 0;
-        const iv = setInterval(() => {
-          ch += 2;
-          setTypedChars(ch);
-          if (ch >= text.length) {
-            clearInterval(iv);
-            line += 1;
-            setTimeout(typeLine, 550);
+        let last = 0;
+
+        const type = (now: number) => {
+          if (cancelled) return;
+          if (now - last >= FRAME_MS) {
+            last = now;
+            ch += CHARS_PER_FRAME;
+            if (textRef.current) textRef.current.textContent = text.slice(0, ch);
+            if (ch >= text.length) {
+              if (caretRef.current) caretRef.current.style.display = "none";
+              line += 1;
+              timer = setTimeout(typeLine, 550);
+              return;
+            }
           }
-        }, 24);
+          raf = requestAnimationFrame(type);
+        };
+        raf = requestAnimationFrame(type);
       };
-      setTimeout(typeLine, 600);
+
+      timer = setTimeout(typeLine, 600);
     };
 
     const io = new IntersectionObserver(
@@ -70,7 +98,15 @@ export default function NightShift() {
       { threshold: 0.45 }
     );
     io.observe(root);
-    return () => io.disconnect();
+
+    // The original interval was never cleared on unmount, which leaked a
+    // running timer plus setState calls into an unmounted tree.
+    return () => {
+      cancelled = true;
+      io.disconnect();
+      cancelAnimationFrame(raf);
+      if (timer) clearTimeout(timer);
+    };
   }, []);
 
   return (
@@ -81,15 +117,17 @@ export default function NightShift() {
       </div>
       <div className="night-lines">
         {SCRIPT.slice(0, visibleLines).map((line, i) => {
-          const isCurrent = i === visibleLines - 1;
-          const text = isCurrent && typedChars !== Infinity
-            ? line.text.slice(0, typedChars)
-            : line.text;
+          const isCurrent = i === visibleLines - 1 && !instant;
           return (
             <p key={i} className={`night-bubble ${line.who}`}>
               <b>{line.who === "bella" ? "Bella" : "Caller"}</b>
-              {text}
-              {isCurrent && typedChars < line.text.length ? <span className="night-caret" /> : null}
+              {/* The current line's text is filled in by the typing loop. */}
+              <span ref={isCurrent ? textRef : null}>
+                {isCurrent ? "" : line.text}
+              </span>
+              {isCurrent ? (
+                <span className="night-caret" ref={caretRef} />
+              ) : null}
             </p>
           );
         })}

@@ -17,7 +17,9 @@ Marketing site for **Limitless** (Gav's AI-automation agency; formerly DAWGS AGI
 npm run dev        # dev server
 npm run build      # production build (must stay clean)
 npm run lint       # eslint
-node --test tests/ # test suite (build-prompt, homepage-content, quiz)
+node --test "tests/**/*.mjs"   # test suite. NOTE: the bare `node --test tests/`
+                               # form fails on Node 25 (MODULE_NOT_FOUND) — it
+                               # needs the glob.
 ```
 
 ## Layout

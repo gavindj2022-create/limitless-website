@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 export interface Demo {
   /** Display name, e.g. "CÉLESTE". */
@@ -87,11 +88,17 @@ export default function DemoCard({ demo }: { demo: Demo }) {
         rel="noopener noreferrer"
         aria-label={`View the ${demo.name} demo site (opens in a new tab)`}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        {/* `fill` works because .demo-frame is position:relative with a fixed
+            aspect-ratio. These are 1440x900 JPGs served into a half-width
+            column, so the optimizer's AVIF at the real display size is a large
+            saving over the raw file. */}
+        <Image
           className="demo-poster"
           src={poster}
           alt={`${demo.name} website preview`}
+          fill
+          sizes="(max-width: 900px) 100vw, 50vw"
+          quality={75}
           data-faded={live && frameLoaded ? "true" : undefined}
         />
         {live && (

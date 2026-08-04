@@ -1,9 +1,8 @@
-"use client";
-
 import Link from "next/link";
 import Nav from "@/components/Nav";
+import Reveals from "@/components/Reveals";
+import { revealDelay } from "@/lib/reveal";
 import DemoCard, { type Demo } from "@/components/DemoCard";
-import RevealOnScroll from "@/components/RevealOnScroll";
 
 const GALLERY_URL = "https://limitless-demo-websites.pages.dev/";
 
@@ -74,7 +73,7 @@ export default function DemosPage() {
       <main id="main">
         <section className="section demos-intro">
           <div className="wrap">
-            <RevealOnScroll animation="blurUp">
+            <div data-reveal>
               <div className="section-head center">
                 <span className="eyebrow">Our work</span>
                 <h2>Limitless Demo Websites.</h2>
@@ -97,17 +96,13 @@ export default function DemosPage() {
                   </a>
                 </div>
               </div>
-            </RevealOnScroll>
+            </div>
 
             <div className="demos-grid">
               {demos.map((demo, i) => (
-                <RevealOnScroll
-                  key={demo.slug}
-                  animation="fadeUp"
-                  delay={(i % 2) * 0.08}
-                >
+                <div data-reveal key={demo.slug} style={revealDelay((i % 2) * 0.08)}>
                   <DemoCard demo={demo} />
-                </RevealOnScroll>
+                </div>
               ))}
             </div>
           </div>
@@ -115,7 +110,7 @@ export default function DemosPage() {
 
         <section className="section demos-outro">
           <div className="wrap">
-            <RevealOnScroll animation="fadeScale">
+            <div data-reveal="scale">
               <div className="demos-outro-card">
                 <span className="eyebrow">Want this for your business?</span>
                 <h3>We build the site. You run the business.</h3>
@@ -133,9 +128,10 @@ export default function DemosPage() {
                   </a>
                 </div>
               </div>
-            </RevealOnScroll>
+            </div>
           </div>
         </section>
+        <Reveals />
       </main>
 
       <footer className="footer">

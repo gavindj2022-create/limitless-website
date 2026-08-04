@@ -1,7 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
-import gsap from "gsap";
+import { useState, useEffect, useRef, type CSSProperties } from "react";
+
+const CYCLE_MS = 4000;
+const FADE_MS = 300;
 
 const DEMO_SCENARIOS = [
   {
@@ -33,95 +35,97 @@ const DEMO_SCENARIOS = [
   },
 ];
 
+/**
+ * Rotating "what an agent handled" panel.
+ *
+ * The crossfade and the staggered row entry are pure CSS (keyframes keyed on
+ * the row index), and the rotation timer only runs while the panel is on
+ * screen and the tab is visible. It previously ran a GSAP timeline on a
+ * forever-ticking interval, even with the panel scrolled well out of view.
+ */
 export default function HeroDemoPanel() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const bodyRef = useRef<HTMLDivElement>(null);
-  const prefersReducedRef = useRef(false);
+  const [leaving, setLeaving] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    prefersReducedRef.current = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-  }, []);
+    const panel = panelRef.current;
+    if (!panel) return;
 
-  const animateIn = useCallback(() => {
-    const body = bodyRef.current;
-    if (!body) return;
+    let interval: ReturnType<typeof setInterval> | null = null;
+    let fade: ReturnType<typeof setTimeout> | null = null;
+    let onScreen = false;
 
-    if (prefersReducedRef.current) {
-      gsap.set(body.children, { opacity: 1, y: 0 });
-      return;
-    }
-
-    gsap.from(body.querySelectorAll(".demo-task, .demo-actions"), {
-      y: 20,
-      opacity: 0,
-      stagger: 0.12,
-      duration: 0.5,
-      ease: "power2.out",
-    });
-  }, []);
-
-  const animateOut = useCallback(() => {
-    const body = bodyRef.current;
-    if (!body) return;
-
-    if (prefersReducedRef.current) {
-      return Promise.resolve();
-    }
-
-    return new Promise<void>((resolve) => {
-      gsap.to(body, {
-        opacity: 0,
-        duration: 0.3,
-        ease: "power2.in",
-        onComplete: resolve,
-      });
-    });
-  }, []);
-
-  useEffect(() => {
-    animateIn();
-
-    intervalRef.current = setInterval(() => {
-      const doTransition = async () => {
-        await animateOut();
+    const advance = () => {
+      setLeaving(true);
+      fade = setTimeout(() => {
         setActiveIndex((prev) => (prev + 1) % DEMO_SCENARIOS.length);
-      };
-      doTransition();
-    }, 4000);
+        setLeaving(false);
+      }, FADE_MS);
+    };
+
+    const start = () => {
+      if (interval || document.hidden) return;
+      interval = setInterval(advance, CYCLE_MS);
+    };
+    const stop = () => {
+      if (interval) clearInterval(interval);
+      interval = null;
+      if (fade) clearTimeout(fade);
+      fade = null;
+      setLeaving(false);
+    };
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          onScreen = entry.isIntersecting;
+          if (onScreen) start();
+          else stop();
+        }
+      },
+      { threshold: 0.3 }
+    );
+    io.observe(panel);
+
+    const onVisibility = () => {
+      if (document.hidden) stop();
+      else if (onScreen) start();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      stop();
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
     };
-  }, [animateIn, animateOut]);
-
-  useEffect(() => {
-    const body = bodyRef.current;
-    if (!body) return;
-
-    gsap.set(body, { opacity: 1 });
-    animateIn();
-  }, [activeIndex, animateIn]);
+  }, []);
 
   const scenario = DEMO_SCENARIOS[activeIndex];
 
   return (
-    <div className="demo-panel">
+    <div className="demo-panel" ref={panelRef}>
       <div className="demo-panel-head">
         <span className="demo-status-dot" />
         <span>{scenario.title}</span>
       </div>
-      <div className="demo-panel-body" ref={bodyRef}>
+      <div className={`demo-panel-body${leaving ? " is-leaving" : ""}`}>
         {scenario.tasks.map((task, i) => (
-          <div className="demo-task" key={`${activeIndex}-${i}`}>
+          <div
+            className="demo-task"
+            key={`${activeIndex}-${i}`}
+            style={{ "--i": i } as CSSProperties}
+          >
             {task.status === "done" && <span className="check">&#10003;</span>}
             {task.status === "active" && <span className="pending">&#10227;</span>}
             {task.label}
           </div>
         ))}
-        <div className="demo-actions">
+        <div
+          className="demo-actions"
+          key={`${activeIndex}-actions`}
+          style={{ "--i": scenario.tasks.length } as CSSProperties}
+        >
           <button className="btn-approve">Mark Done</button>
           <button className="btn-review">View Summary</button>
         </div>
