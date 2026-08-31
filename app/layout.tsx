@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Instrument_Sans } from "next/font/google";
 import "./globals.css";
+import { AnalyticsScripts, AnalyticsNoScript } from "@/components/Analytics";
 
 const instrumentSans = Instrument_Sans({
   variable: "--font-instrument-sans",
@@ -46,7 +47,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={instrumentSans.variable}>
-      <body>{children}</body>
+      <body>
+        <AnalyticsNoScript />
+        {children}
+        <AnalyticsScripts />
+      </body>
     </html>
   );
 }
