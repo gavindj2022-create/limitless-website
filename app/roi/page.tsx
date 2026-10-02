@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 
 type Preset = { name: string; ticket: number };
 
@@ -14,7 +15,6 @@ const PRESETS: Preset[] = [
   { name: "Property Mgmt", ticket: 1500 },
 ];
 
-const BELLA_MONTHLY = 199;
 const usd = (n: number) => "$" + Math.round(n).toLocaleString("en-US");
 
 export default function RoiCalculatorPage() {
@@ -35,15 +35,11 @@ export default function RoiCalculatorPage() {
   const r = useMemo(() => {
     const lostPerDay = callsMissed * (conv / 100) * ticket;
     const lostPerMonth = lostPerDay * days;
-    const breakeven = ticket > 0 ? Math.max(1, Math.ceil(BELLA_MONTHLY / ticket)) : 1;
-    const roi = lostPerMonth > 0 ? lostPerMonth / BELLA_MONTHLY : 0;
     return {
       lostPerDay,
       lostPerWeek: lostPerDay * 5,
       lostPerMonth,
       lostPerYear: lostPerMonth * 12,
-      breakeven,
-      roi,
     };
   }, [callsMissed, conv, ticket, days]);
 
@@ -57,19 +53,26 @@ export default function RoiCalculatorPage() {
     setStatus("sending");
     setErrMsg("");
     try {
-      const res = await fetch("/api/roi-lead", {
+      const res = await fetch("/api/audit-lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          source: "book",
           name,
           email,
-          business: business || undefined,
-          phone: phone || undefined,
-          vertical,
-          callsMissedPerDay: callsMissed,
-          avgTicket: ticket,
-          conversionPct: conv,
-          businessDays: days,
+          company: business,
+          phone,
+          page: "/roi",
+          website: "",
+          message: [
+            `ROI calculator: ${vertical}`,
+            `Calls missed per day: ${callsMissed}`,
+            `Average ticket: ${usd(ticket)}`,
+            `Assumed conversion: ${conv}%`,
+            `Business days per month: ${days}`,
+            `Estimated lost per month: ${usd(r.lostPerMonth)}`,
+            `Estimated lost per year: ${usd(r.lostPerYear)}`,
+          ].join("\n"),
         }),
       });
       if (!res.ok) {
@@ -95,8 +98,8 @@ export default function RoiCalculatorPage() {
               How much are missed calls costing your business?
             </h1>
             <p className="roi-sub">
-              When a call hits voicemail, ~85% of people just dial the next business on
-              Google. Here&apos;s the leak — and what Bella recovers.
+              85% of callers who reach voicemail never call back (411 Locals, 2024).
+              Here&apos;s a starting estimate of what those missed calls could cost.
             </p>
           </div>
 
@@ -174,16 +177,10 @@ export default function RoiCalculatorPage() {
                 <div className="roi-row"><span>Lost per day</span><b className="roi-lost">{usd(r.lostPerDay)}</b></div>
                 <div className="roi-row"><span>Lost per week</span><b className="roi-lost">{usd(r.lostPerWeek)}</b></div>
                 <div className="roi-row"><span>Lost per year</span><b className="roi-lost">{usd(r.lostPerYear)}</b></div>
-                <div className="roi-row"><span>Bella costs</span><b className="roi-bella">${BELLA_MONTHLY} / mo</b></div>
               </div>
               <div className="roi-verdict">
-                Bella pays for herself after just <b>{r.breakeven}</b> saved{" "}
-                {r.breakeven === 1 ? "job" : "jobs"} a month.
-                {r.roi >= 1 && (
-                  <span className="roi-pill">
-                    {r.roi >= 10 ? r.roi.toFixed(0) : r.roi.toFixed(1)}× return on the $199
-                  </span>
-                )}
+                Use this as a starting estimate, not a guarantee. On a free audit,
+                Gavin will check the assumptions and give you a written plan.
               </div>
             </div>
           </div>
@@ -194,15 +191,14 @@ export default function RoiCalculatorPage() {
               <div className="roi-done">
                 <h3>Got it, {name.split(" ")[0] || "thanks"}. 🎉</h3>
                 <p>
-                  Your numbers are on their way to my inbox — I&apos;ll reach out about
-                  your <b>free 2-week Bella pilot</b>. No card, your number stays the same.
+                  Your numbers reached Gavin. He&apos;ll follow up about a free 30-minute audit.
                 </p>
               </div>
             ) : (
               <form className="roi-form" onSubmit={submit}>
                 <div className="roi-form-head">
-                  <h3>Email me these numbers + claim my free 2-week pilot</h3>
-                  <p>No card. Your phone number stays the same. Cancel anytime.</p>
+                  <h3>Email me these numbers</h3>
+                  <p>Goes straight to Gavin. No pressure.</p>
                 </div>
                 <div className="roi-fields">
                   <input className="roi-input" placeholder="Your name" required
@@ -216,7 +212,7 @@ export default function RoiCalculatorPage() {
                 </div>
                 {status === "error" && <p className="roi-err">{errMsg}</p>}
                 <button className="roi-submit" type="submit" disabled={status === "sending"}>
-                  {status === "sending" ? "Sending…" : "Send my results & start my pilot"}
+                  {status === "sending" ? "Sending…" : "Send my results"}
                 </button>
               </form>
             )}
@@ -228,6 +224,7 @@ export default function RoiCalculatorPage() {
           </p>
         </section>
       </main>
+      <Footer />
 
       <style>{`
         .roi { padding-top: 56px; padding-bottom: 96px; }

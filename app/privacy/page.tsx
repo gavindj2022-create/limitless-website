@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav";
 import Link from "next/link";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Privacy Policy - Limitless",
@@ -27,14 +28,15 @@ const SECTIONS = [
 export default function PrivacyPage() {
   return (
     <>
+      <a href="#main" className="skip">Skip to content</a>
       <Nav />
       <main id="main">
         <section className="section">
           <div className="wrap" style={{ maxWidth: 760 }}>
             <div className="section-head">
               <span className="eyebrow">Legal</span>
-              <h2>Privacy Policy</h2>
-              <p className="lead">Last updated: July 30, 2026</p>
+              <h1>Privacy Policy</h1>
+              <p className="lead">Last updated: October 1, 2026</p>
             </div>
 
             <div className="legal-body">
@@ -66,17 +68,17 @@ export default function PrivacyPage() {
               <h3 id="information-we-collect">2. Information we collect</h3>
               <p>
                 <strong>Information you give us.</strong> When you submit a
-                contact form, request a demo, book a call, run the ROI
-                calculator, or use the leak audit tool, we collect what you
+                contact form, ask Bella a question, book a call, or run the ROI
+                calculator, we collect what you
                 enter, typically your name, business name, email address, phone
                 number, and anything you write in a message field.
               </p>
               <p>
-                <strong>Account and billing information.</strong> If you create
-                an account, we collect your login details through our
-                authentication provider. If you subscribe to a plan, your
-                payment is processed by Stripe. We never receive or store your
-                full card number.
+                <strong>Bella chat information.</strong> Bella uses what you type
+                to answer a question or complete a mini audit. General questions
+                are logged without names or email addresses. If you choose to
+                pass a mini audit to Gavin, we collect the name and email address
+                you submit with it.
               </p>
               <p>
                 <strong>Information collected automatically.</strong> Our
@@ -173,26 +175,24 @@ export default function PrivacyPage() {
                 behalf:
               </p>
               <p>
-                <strong>Retell AI</strong> — voice agent orchestration, call
+                <strong>Retell AI</strong>: voice agent orchestration, call
                 recording, transcription, and call logs.
                 <br />
-                <strong>ElevenLabs</strong> — synthetic voice generation for
+                <strong>ElevenLabs</strong>: synthetic voice generation for
                 calls.
                 <br />
-                <strong>Our telephony provider</strong> — carrying phone calls
+                <strong>Our telephony provider</strong>: carrying phone calls
                 and text messages.
                 <br />
-                <strong>Vercel</strong> — website hosting and request logs.
+                <strong>Anthropic</strong>: Bella&apos;s optional mini-audit answers.
                 <br />
-                <strong>Stripe</strong> — subscription and payment processing.
+                <strong>Vercel</strong>: website hosting, request logs, and
+                privacy-minded site analytics.
                 <br />
-                <strong>Resend</strong> — transactional and notification email.
+                <strong>Resend</strong>: lead notification and transactional email.
                 <br />
-                <strong>Our database provider</strong> — storing leads, bookings,
-                and account records.
-                <br />
-                <strong>Google</strong> — optional sign-in, if you choose to use
-                it.
+                <strong>Google</strong>: the booking calendar, video meetings,
+                and the private lead sheet when its connection is enabled.
               </p>
               <p>
                 We may change providers as the product develops. Material
@@ -223,19 +223,17 @@ export default function PrivacyPage() {
 
               <h3 id="cookies">8. Cookies and analytics</h3>
               <p>
-                This site uses cookies that are necessary for it to function,
-                such as keeping you signed in and securing form submissions. We
-                do not use advertising cookies or sell browsing data. Your
-                browser settings let you block or delete cookies, though parts of
-                the site may stop working if you do.
+                We do not set our own cookies at launch. Vercel Analytics gives
+                us aggregate site measurements without an advertising profile.
+                GTM and Meta Pixel stay off unless we add a consent choice first.
+                We do not sell browsing data.
               </p>
 
               <h3 id="retention">9. How long we keep information</h3>
               <p>
-                Leads and enquiries are kept while we are in contact with you and
-                for a reasonable period afterwards. Account and billing records
-                are kept for as long as your account is active and then as long
-                as tax and accounting rules require. Call recordings and
+                Leads and enquiries are kept until you ask us to delete them.
+                General Bella questions are stored without names or email
+                addresses. Call recordings and
                 transcripts are kept for as long as the client business needs
                 them for its own records, and are deleted on request. You can ask
                 us to delete your information sooner at any time.
@@ -285,7 +283,7 @@ export default function PrivacyPage() {
               <p>
                 Questions about this policy, or a request about your information?
                 Email{" "}
-                <a href="mailto:gavindj2022@gmail.com">gavindj2022@gmail.com</a>.
+                <a href="mailto:limitlessgav@gmail.com">limitlessgav@gmail.com</a>.
               </p>
               <p>
                 This page explains our practices in plain language. It is not
@@ -300,6 +298,7 @@ export default function PrivacyPage() {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 }

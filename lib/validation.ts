@@ -1,31 +1,46 @@
 import { z } from "zod";
 
-/** Contact form schema */
-export const contactFormSchema = z.object({
-  name: z
-    .string()
-    .min(1, "Name is required")
-    .max(100, "Name must be 100 characters or fewer"),
-  email: z.string().email("Invalid email address"),
-  business: z
-    .string()
-    .max(100, "Business name must be 100 characters or fewer")
-    .optional(),
-  message: z
-    .string()
-    .min(10, "Message must be at least 10 characters")
-    .max(2000, "Message must be 2000 characters or fewer"),
+export const consultingLeadSchema = z.object({
+  source: z.enum(["book", "bella"]),
+  name: z.string().trim().min(1, "Name is required").max(120),
+  email: z.email("Enter a valid email address").max(160),
+  phone: z.string().trim().max(40).optional().default(""),
+  company: z.string().trim().max(160).optional().default(""),
+  message: z.string().trim().min(1, "Tell us what you need help with").max(2000),
+  page: z.string().trim().max(160).regex(/^\//).optional().default("/book"),
+  website: z.string().max(500).optional().default(""),
 });
 
-/** Checkout schema */
-export const checkoutSchema = z.object({
-  plan: z.enum(["starter", "growth", "autopilot"], {
-    message: "Invalid plan selected",
+export type ConsultingLead = z.infer<typeof consultingLeadSchema>;
+
+const bellaAnswer = z.string().trim().max(500);
+const bellaHistoryTurn = z.object({
+  role: z.enum(["user", "assistant"]),
+  content: z.string().trim().max(600),
+});
+
+export const bellaRequestSchema = z.discriminatedUnion("action", [
+  z.object({
+    action: z.literal("ask"),
+    message: z.string().trim().min(1).max(600),
+    page: z.string().max(160).regex(/^\//).optional().default("/"),
+    history: z.array(bellaHistoryTurn).max(24).optional(),
   }),
-});
+  z.object({
+    action: z.literal("audit"),
+    page: z.string().max(160).regex(/^\//).optional().default("/"),
+    sessionId: z.uuid(),
+    answers: z.object({
+      businessType: bellaAnswer.optional(),
+      timeSink: bellaAnswer.optional(),
+      leadHandling: bellaAnswer.optional(),
+      currentTools: bellaAnswer.optional(),
+    }),
+    history: z.array(bellaHistoryTurn).max(24).optional(),
+  }),
+]);
 
-export type ContactFormData = z.infer<typeof contactFormSchema>;
-export type CheckoutData = z.infer<typeof checkoutSchema>;
+export type BellaRequest = z.infer<typeof bellaRequestSchema>;
 
 /** Validation result types */
 type ValidationSuccess<T> = {

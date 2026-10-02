@@ -1,0 +1,34 @@
+.cloud {
+  position: relative;
+  z-index: 4;
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #f3d98b;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.cloud:focus-visible {
+  outline: 2px solid #f3d98b;
+  outline-offset: 4px;
+}
+
+.canvas,
+.staticMark {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0.75;
+}
+
+@media (max-width: 767px) {
+  .cloud {
+    width: 100%;
+  }
+}

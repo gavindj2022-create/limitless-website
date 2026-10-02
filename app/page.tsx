@@ -1,634 +1,96 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import Nav from "@/components/Nav";
-import Reveals from "@/components/Reveals";
-import { revealDelay } from "@/lib/reveal";
-import HeroDemoPanel from "@/components/HeroDemoPanel";
-import PricingCard from "@/components/PricingCard";
-import FAQSection from "@/components/FAQSection";
-import ScrollProgress from "@/components/ScrollProgress";
-import StickyMobileCTA from "@/components/StickyMobileCTA";
+import Footer from "@/components/Footer";
+import SocialLinks from "@/components/SocialLinks";
 import Chapter from "@/components/experience/Chapter";
-import AgentField from "@/components/experience/AgentField";
-import NightShift from "@/components/experience/NightShift";
-import Ledger from "@/components/experience/Ledger";
+import DotCloud from "@/components/experience/DotCloud";
+import { AskBellaButton } from "@/components/WorkTiles";
+import styles from "./consulting.module.css";
 
-const flowSteps = [
-  {
-    label: "Step 1",
-    title: "Book a call",
-    copy: "A quick, no-pressure call about your business.",
-    visual: "ring",
-  },
-  {
-    label: "Step 2",
-    title: "We find the gaps",
-    copy: "Where leads arrive, where calls drop, what an agent can fix.",
-    visual: "chat",
-  },
-  {
-    label: "Step 3",
-    title: "We build it for you",
-    copy: "Receptionist, website, automations — built for you. No DIY.",
-    visual: "summary",
-  },
-  {
-    label: "Step 4",
-    title: "You run leaner",
-    copy: "Agents handle the busywork. We keep them tuned.",
-    visual: "voice",
-  },
-];
-
-const addOns = [
-  {
-    title: "Olivia follow-ups",
-    copy: "Invoices, reminders, reviews, follow-ups.",
-  },
-  {
-    title: "Simple dashboards",
-    copy: "Weekly snapshots of calls, bookings, and leads.",
-  },
-  {
-    title: "Custom workflows",
-    copy: "Light automations for the tools you already use.",
-  },
-];
+export const metadata: Metadata = {
+  title: "Limitless | We make AI easy",
+  description: "Founder-led AI audits, done-for-you agentic solutions, and one-on-one training for small-business owners.",
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   return (
     <>
-      <link
-        rel="preload"
-        as="image"
-        href="/media/threads-poster-v2.jpg"
-        fetchPriority="high"
-      />
-
-      <a href="#main" className="skip">
-        Skip to content
-      </a>
-
-      <ScrollProgress />
-
+      <a href="#main" className="skip">Skip to content</a>
       <Nav />
-
-      <StickyMobileCTA />
-
-      <main id="main" className="xp-flow">
-        <Chapter
-          film="/media/threads"
-          poster="/media/threads-poster-v2.jpg"
-          scrim="center"
-          eager
-          className="xp-hero"
-        >
-          <AgentField />
-          <div className="hero-badge">
-            <span className="dot" />
-            Agent Automation Company
+      <main id="main" className={styles.homeMain}>
+        <section className={`${styles.hero} ${styles.founderHero}`} aria-labelledby="hero-title">
+          <Image
+            src="/consulting/hero-city-bg.webp"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className={styles.heroCityBg}
+          />
+          <div className={styles.founderStage}>
+            <Image
+              src="/consulting/gav-founder-city.webp"
+              alt="Gavin Johnson, founder of Limitless"
+              fill
+              priority
+              sizes="(max-width: 767px) 70vw, 45vw"
+              className={styles.founderPhoto}
+            />
           </div>
-          <h1>
-            Less busywork.
-            <br />
-            Limitless growth.
-          </h1>
-          <p className="sub">
-            AI agents that answer your calls, book appointments, and follow up
-            with every lead — automatically.
-          </p>
-          <div className="ctas">
-            <a href="/build" className="btn btn-world">
-              Build My Agent
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M5 12h14M13 6l6 6-6 6"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
+          <div className={styles.heroInner}>
+            <div className={styles.heroCopy}>
+              <span className={styles.kicker}>Agentic solutions</span>
+              <h1 id="hero-title">We make AI easy.</h1>
+              <p>We find the busywork, build agents to handle it, and teach your team to run them.</p>
+              <div className={styles.actions}>
+                <Link href="/book" className={styles.lightPill}>Book a free audit</Link>
+                <AskBellaButton className={styles.outlinePill}>Ask Bella</AskBellaButton>
+              </div>
+            </div>
           </div>
-          <p className="reassure-line">No contracts. Cancel anytime.</p>
-          <a href="#how-it-works" className="hero-scroll-hint">
-            See how it works
-          </a>
-          <p className="xp-filmnote">
-            The films on this page were generated by our own agents
-          </p>
-        </Chapter>
+          <div className={styles.dotCorner} data-dotcloud-zone><DotCloud /></div>
+        </section>
 
-        <section className="mission-band">
-          <div className="wrap">
-            <div>
-              <p className="mission-eyebrow">Our mission</p>
-              <p className="mission-statement">
-                Your business, made <em>limitless</em>.
-              </p>
+        <section className={styles.choiceSection} aria-labelledby="where-title">
+          <div className={styles.container}>
+            <span className={styles.kicker}>A place to start</span>
+            <h2 id="where-title">Where are you with AI?</h2>
+            <div className={styles.choiceList}>
+              <div className={styles.choiceItem}><h3>I don’t know where to start.</h3><Link href="/book" className={styles.pill}>Start with an audit →</Link></div>
+              <div className={styles.choiceItem}><h3>I’m buried in busywork.</h3><Link href="/how-we-help" className={styles.pill}>See how we help →</Link></div>
+              <div className={styles.choiceItem}><h3>I want my team to use it.</h3><Link href="/how-we-help#train" className={styles.pill}>Learn about training →</Link></div>
             </div>
           </div>
         </section>
 
-        <section className="demo-showcase">
-          <div className="wrap">
-            <div>
-              <HeroDemoPanel />
+        <Chapter film="/media/dawn" poster="/media/dawn-poster-v2.jpg" className="xp-dawn" scrim="center">
+          <div className={styles.dawnCopy}>
+            <span className="xp-kicker">7:00 AM · YOUR DESK</span>
+            <h2>Wake up ahead.</h2>
+            <p className="lead">The busywork moved overnight. Now your morning starts with room to think.</p>
+            <div className={styles.actions}>
+              <Link href="/book" className={styles.lightPill}>Book a free audit</Link>
+              <AskBellaButton className={styles.outlinePill}>Ask Bella</AskBellaButton>
             </div>
-          </div>
-        </section>
-
-        <section className="section" id="services">
-          <div className="wrap">
-            <div data-reveal>
-              <div className="section-head center">
-                <span className="eyebrow">Two Clear Offers</span>
-                <h2>
-                  Front desk and web presence, built to work together.
-                </h2>
-                <p className="lead">
-                  Easier to reach. Easier to understand. Easier to book.
-                </p>
-              </div>
-            </div>
-
-            <div className="offer-pillars">
-              <div data-reveal>
-                <article className="pillar-card bella-card" id="bella">
-                  <div className="pillar-visual phone-visual" aria-hidden="true">
-                    <span className="live-dot" />
-                    <span className="call-ring call-ring-one" />
-                    <span className="call-ring call-ring-two" />
-                    <div className="mini-phone">
-                      <span />
-                      <span />
-                      <span />
-                    </div>
-                    <div className="mini-calendar">
-                      <strong>2:00</strong>
-                      <small>Booked</small>
-                    </div>
-                  </div>
-                  <span className="svc-eyebrow">Receptionist Agent</span>
-                  <h3>Bella answers when you cannot.</h3>
-                  <p>
-                    She answers, books, captures the lead, and follows up.
-                  </p>
-                  <ul className="clean-list">
-                    <li>Answers day or night</li>
-                    <li>Books and confirms</li>
-                    <li>Captures every lead</li>
-                    <li>Texts you a summary</li>
-                  </ul>
-                </article>
-              </div>
-
-              <div data-reveal style={revealDelay(0.12)}>
-                <article className="pillar-card website-card" id="websites">
-                  <div className="pillar-visual website-visual" aria-hidden="true">
-                    <span className="site-spark site-spark-one" />
-                    <span className="site-spark site-spark-two" />
-                    <div className="mini-browser">
-                      <span />
-                      <span />
-                      <span />
-                    </div>
-                    <div className="mini-page">
-                      <span />
-                      <span />
-                      <span />
-                    </div>
-                    <span className="site-cursor" />
-                    <div className="mini-chat">
-                      <strong>AI</strong>
-                      <small>Ready</small>
-                    </div>
-                  </div>
-                  <span className="svc-eyebrow">Agent-powered web presence</span>
-                  <h3>A clean website that starts conversations.</h3>
-                  <p>
-                    Fast, polished sites with a chat agent built in.
-                  </p>
-                  <ul className="clean-list">
-                    <li>Modern site, built fast</li>
-                    <li>Chat agent included</li>
-                    <li>Easy forms and booking</li>
-                    <li>Updates handled for you</li>
-                  </ul>
-                </article>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <Chapter
-          film="/media/leak"
-          poster="/media/leak-poster-v2.jpg"
-          scrim="left"
-          id="the-leak"
-        >
-          <div className="xp-copy">
-            <span className="xp-kicker">The quiet leak</span>
-            <h2>
-              Every light that fades is a call
-              <br />
-              that went to <em>voicemail.</em>
-            </h2>
-            <p>
-              Most small businesses miss <b>4 in 10 calls</b>. Callers rarely
-              leave a message — they dial the next name.
-            </p>
-            <p>It never shows up as a line item. Just a slower month.</p>
-            <div className="leak-stats">
-              <div className="leak-stat">
-                <b>~40%</b>
-                <span>calls missed</span>
-              </div>
-              <div className="leak-stat">
-                <b>80%</b>
-                <span>won&apos;t leave voicemail</span>
-              </div>
-              <div className="leak-stat">
-                <b>$0</b>
-                <span>what silence invoices</span>
-              </div>
-            </div>
-            <div className="leak-cta">
-              <a href="/leak-audit" className="btn btn-world">
-                Run my free leak audit
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M5 12h14M13 6l6 6-6 6"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </a>
-              <a href="/roi" className="btn btn-ghost">
-                See what missed calls cost you
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M5 12h14M13 6l6 6-6 6"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </a>
-            </div>
-            <p className="leak-cta-note">
-              Free 60-second leak audit — five questions, emailed instantly.
-            </p>
           </div>
         </Chapter>
 
-        <section className="section visual-section" id="how-it-works">
-          <div className="wrap">
-            <div data-reveal>
-              <div className="section-head center">
-                <span className="eyebrow">How It Works</span>
-                <h2>From first call to fully built — done for you.</h2>
-                <p className="lead">
-                  Book a call. We find the gaps. We build the agent.
-                </p>
-              </div>
-            </div>
-
-            <div className="visual-flow">
-              {flowSteps.map((step, index) => (
-                <div data-reveal="scale" key={step.label} style={revealDelay(index * 0.08)}>
-                  <div className={`flow-card flow-${step.visual}`}>
-                    <span className="flow-index">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <div className="flow-picture" aria-hidden="true">
-                      <span />
-                      <span />
-                      <span />
-                    </div>
-                    <small>{step.label}</small>
-                    <h3>{step.title}</h3>
-                    <p className="flow-copy">{step.copy}</p>
-                  </div>
-                </div>
-              ))}
+        <section className={`${styles.section} ${styles.contact}`} aria-labelledby="contact-title">
+          <div className={`${styles.container} ${styles.contactGrid}`}>
+            <div><span className={styles.kicker}>Contact</span><h2 id="contact-title">Let’s talk.</h2><p>Tell us what takes too much of your time. We’ll help you find a clear first step.</p></div>
+            <div className={styles.contactDetails}>
+              <div className={styles.actions}><Link href="/book" className={styles.pill}>Book a free audit</Link><AskBellaButton className={styles.textButton}>Ask Bella</AskBellaButton></div>
+              <a href="mailto:limitlessgav@gmail.com">limitlessgav@gmail.com</a>
+              <a href="tel:+13123131478" className={styles.pill}>Call our Front Desk Agent: (312) 313-1478</a>
+              <SocialLinks />
             </div>
           </div>
         </section>
-
-        <Chapter
-          film="/media/night"
-          poster="/media/night-poster-v2.jpg"
-          scrim="left"
-          id="night-shift"
-        >
-          <div className="xp-night-grid">
-            <div className="xp-copy">
-              <span className="xp-kicker">2:47 AM · Bella on shift</span>
-              <h2>
-                You were asleep.
-                <br />
-                This <em>booked itself.</em>
-              </h2>
-              <p>
-                This is the moment Limitless exists for: a real customer, an
-                unreasonable hour, and an agent that answers like a person —
-                books the slot, sends the confirmation, and files a summary for
-                your morning coffee.
-              </p>
-              <p>
-                <b>Watch it happen</b> — the conversation on the right is
-                Bella&apos;s actual flow.
-              </p>
-            </div>
-            <NightShift />
-          </div>
-        </Chapter>
-
-        <section className="night-ledger-band" aria-label="Overnight results">
-          <Ledger />
-        </section>
-
-        <section className="section addon-section">
-          <div className="wrap">
-            <div data-reveal>
-              <div className="section-head">
-                <span className="eyebrow">Add-on automation suite</span>
-                <h2>More help when the basics are humming.</h2>
-                <p className="lead">
-                  Olivia and the extra systems stay on the back burner until a
-                  business is ready for more. Then we add only what saves time.
-                </p>
-              </div>
-            </div>
-            {/* Compact row of chips. These are "later, if you want them"
-                add-ons, so they no longer get full-height tiles. */}
-            <div data-reveal className="addon-row">
-              {addOns.map((item) => (
-                <article className="addon-chip" key={item.title}>
-                  <h3>{item.title}</h3>
-                  <p>{item.copy}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section" id="pricing">
-          <div className="wrap">
-            <div data-reveal>
-              <div className="section-head center">
-                <span className="eyebrow">Pricing</span>
-                <h2>Start with the part your business needs most.</h2>
-                <p className="lead">
-                  Keep it focused: website, receptionist, or the full front
-                  door system with the add-ons connected.
-                </p>
-              </div>
-            </div>
-            <div className="pricing-grid">
-              <div data-reveal>
-                <PricingCard
-                  tier="Website Starter"
-                  price="$29"
-                  period="/mo"
-                  description="A clean online presence for businesses that need to look real, capture leads, and stay easy to contact."
-                  features={[
-                    "Simple website foundation",
-                    "Mobile-first layout",
-                    "Lead form or chat starter",
-                    "Basic updates and support",
-                  ]}
-                  cta="Build My Website"
-                  plan="starter"
-                  href="/book?service=website"
-                />
-              </div>
-              <div data-reveal style={revealDelay(0.15)}>
-                <PricingCard
-                  tier="Bella Receptionist"
-                  price="$199"
-                  period="/mo"
-                  description="A receptionist agent for businesses that miss calls, lose leads, or need help booking appointments."
-                  features={[
-                    "24/7 phone answering",
-                    "Booking and confirmation flow",
-                    "Missed-call follow-up",
-                    "Simple call summaries",
-                  ]}
-                  cta="Book With Bella"
-                  featured
-                  badge="MAIN OFFER"
-                  plan="growth"
-                  href="/book?service=bella"
-                />
-              </div>
-              <div data-reveal style={revealDelay(0.3)}>
-                <PricingCard
-                  tier="Full Presence"
-                  price="$499"
-                  period="/mo"
-                  description="Website, Bella, a chat agent, lead capture, and the practical automations that keep the front office moving."
-                  features={[
-                    "Website build included",
-                    "Bella and a chat agent",
-                    "Olivia follow-ups",
-                    "Dashboards and custom workflows",
-                  ]}
-                  cta="Build The System"
-                  plan="full_ops"
-                  href="/book?service=system"
-                />
-              </div>
-            </div>
-            <p className="reassure-line reassure-line-pricing">
-              No contracts. Cancel anytime.
-            </p>
-          </div>
-        </section>
-
-        <section className="section" id="testimonials">
-          <div className="wrap">
-            <div data-reveal>
-              <div className="section-head center">
-                <span className="eyebrow">What This Fixes</span>
-                <h2>Fewer missed chances. Cleaner first impressions.</h2>
-              </div>
-            </div>
-            <div className="testimonial-grid">
-              <div data-reveal>
-                <div className="testimonial-card outcome-card">
-                  <span className="outcome-tag">Missed calls</span>
-                  <p className="outcome-text">
-                    Every missed call becomes a handled lead: Bella answers,
-                    collects the details, books when possible, and sends you the
-                    clean summary.
-                  </p>
-                </div>
-              </div>
-              <div data-reveal style={revealDelay(0.1)}>
-                <div className="testimonial-card outcome-card">
-                  <span className="outcome-tag">Your website</span>
-                  <p className="outcome-text">
-                    A clean, fast site that explains what you do and lets people
-                    ask questions, request a quote, and book — instead of
-                    bouncing off a busy, confusing page.
-                  </p>
-                </div>
-              </div>
-              <div data-reveal style={revealDelay(0.2)}>
-                <div className="testimonial-card outcome-card">
-                  <span className="outcome-tag">Lead capture</span>
-                  <p className="outcome-text">
-                    The chat agent answers the easy questions and the contact form sends
-                    clean, organized leads straight to you — a real front desk,
-                    not just a contact page.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="section" id="faq">
-          <div className="wrap">
-            <div data-reveal>
-              <div className="section-head center">
-                <span className="eyebrow">FAQ</span>
-                <h2>Plain answers.</h2>
-              </div>
-            </div>
-            <div data-reveal style={revealDelay(0.1)}>
-              <FAQSection />
-            </div>
-          </div>
-        </section>
-
-        <Chapter
-          film="/media/dawn"
-          poster="/media/dawn-poster-v2.jpg"
-          scrim="center"
-          className="xp-dawn"
-        >
-          <span className="xp-kicker">7:00 AM · your desk</span>
-          <h2>Wake up ahead.</h2>
-          <p className="lead">
-            Three calls answered, two bookings made, every lead captured — and
-            all you did was sleep. Start with Bella, a sharper website, or
-            both.
-          </p>
-          <div
-            style={{
-              display: "flex",
-              gap: 12,
-              flexWrap: "wrap",
-              justifyContent: "center",
-            }}
-          >
-            <a href="/build" className="btn btn-world">
-              Build My Agent
-            </a>
-            <a href="/book?service=bella" className="btn btn-ghost">
-              Book With Bella
-            </a>
-          </div>
-        </Chapter>
-        <Reveals />
       </main>
-
-      <footer className="footer">
-        <div className="wrap">
-          <div className="footer-grid">
-            <div className="footer-col footer-about">
-              <span
-                className="brand"
-                style={{ marginBottom: 8, display: "inline-flex" }}
-              >
-                <span className="brand-mark">
-                  <Image
-                    src="/brand/mark-white.webp"
-                    alt=""
-                    width={319}
-                    height={152}
-                    unoptimized
-                    aria-hidden="true"
-                  />
-                </span>
-                Limitless
-              </span>
-              <p>
-                Bella, clean websites, a chat agent, and practical automation for
-                local businesses.
-              </p>
-            </div>
-            <div className="footer-col">
-              <h5>Offers</h5>
-              <ul>
-                <li>
-                  <a href="#bella">Bella Receptionist</a>
-                </li>
-                <li>
-                  <a href="#websites">Web Design</a>
-                </li>
-                <li>
-                  <a href="#how-it-works">How It Works</a>
-                </li>
-                <li>
-                  <a href="#pricing">Pricing</a>
-                </li>
-              </ul>
-            </div>
-            {/* "Next" folded in here: #faq / #services / Back to Top were all
-                duplicates of the nav or the Offers column. */}
-            <div className="footer-col">
-              <h5>Company</h5>
-              <ul>
-                <li>
-                  <a href="/book?service=website">Book a Build</a>
-                </li>
-                <li>
-                  <a href="mailto:gavindj2022@gmail.com">Contact</a>
-                </li>
-                <li>
-                  <a href="/privacy">Privacy Policy</a>
-                </li>
-                <li>
-                  <a href="/terms">Terms of Service</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="footer-bottom">
-            <div className="footer-meta">
-              <span>&copy; 2026 Limitless. All rights reserved.</span>
-            </div>
-          </div>
-        </div>
-        <div className="footer-wordmark" aria-hidden="true">
-          <span>LIMITLESS</span>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

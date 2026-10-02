@@ -48,3 +48,12 @@ nul
 
 .vercel
 .env*
+
+# Local QA backups and previews (never commit)
+.impeccable/backup-pre-founder-hero/
+.impeccable/plates/
+.impeccable/start-local.log
+start-local.cmd
+build-check.cmd
+.impeccable/build.log
+.impeccable/

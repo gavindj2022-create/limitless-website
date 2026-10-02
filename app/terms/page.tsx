@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav";
 import Link from "next/link";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Terms of Service - Limitless",
@@ -9,38 +10,37 @@ export const metadata = {
 export default function TermsPage() {
   return (
     <>
+      <a href="#main" className="skip">Skip to content</a>
       <Nav />
       <main id="main">
         <section className="section">
           <div className="wrap" style={{ maxWidth: 760 }}>
             <div className="section-head">
               <span className="eyebrow">Legal</span>
-              <h2>Terms of Service</h2>
-              <p className="lead">Last updated: June 25, 2026</p>
+              <h1>Terms of Service</h1>
+              <p className="lead">Last updated: October 1, 2026</p>
             </div>
 
             <div className="legal-body">
               <p>
                 These terms govern your use of the Limitless website and
-                services. By using our site or signing up for a plan, you agree
+                services. By using our site or agreeing to an engagement, you agree
                 to them.
               </p>
 
               <h3>Our services</h3>
               <p>
-                Limitless provides AI automation, a receptionist agent (Bella),
-                website, and related services for businesses. The specific scope
-                of any engagement is what we agree with you in writing or what
-                your selected plan includes.
+                Limitless provides AI strategy, done-for-you agentic solutions,
+                training, websites, and related services for businesses. The
+                specific scope of an engagement is what we agree with you in writing.
               </p>
 
-              <h3>Plans and payment</h3>
+              <h3>Scope and payment</h3>
               <p>
-                Paid plans are billed monthly through Stripe at the price shown
-                at checkout. Subscriptions renew automatically until canceled.
-                You can cancel at any time; access continues through the end of
-                the current billing period. Fees already paid are
-                non-refundable except where required by law.
+                The free audit is followed by a written plan and clear quote.
+                Work starts only after we agree on the scope, timing, and fees in
+                writing. Payment terms for that work appear in the proposal or
+                service agreement.
               </p>
 
               <h3>Acceptable use</h3>
@@ -48,7 +48,7 @@ export default function TermsPage() {
                 You agree not to misuse the services, including by attempting to
                 disrupt them, using them for unlawful purposes, or infringing
                 the rights of others. You are responsible for the accuracy of
-                the information you provide and for activity under your account.
+                the information you provide and for how you use delivered work.
               </p>
 
               <h3>Disclaimers</h3>
@@ -76,7 +76,7 @@ export default function TermsPage() {
               <h3>Contact</h3>
               <p>
                 Questions? Email{" "}
-                <a href="mailto:gavindj2022@gmail.com">gavindj2022@gmail.com</a>.
+                <a href="mailto:limitlessgav@gmail.com">limitlessgav@gmail.com</a>.
               </p>
 
               <p style={{ marginTop: 32 }}>
@@ -86,6 +86,7 @@ export default function TermsPage() {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 }

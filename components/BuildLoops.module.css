@@ -1,0 +1,83 @@
+/* "Our work" tile loops. Transform/opacity/dashoffset only; paused offscreen; static for reduced motion. */
+.art{position:relative;display:block;width:100%;height:118px;margin-bottom:26px;border-radius:14px;overflow:hidden;background:var(--bg);contain:layout paint}
+.art svg{display:block;width:100%;height:100%}
+.art *{transform-box:fill-box;transform-origin:center}
+.art[data-play="0"] *{animation-play-state:paused!important}
+
+/* 1 — Website: a page assembles itself, cursor clicks the CTA */
+.site{--c:#3F63B0;--soft:#C9D6EE;--bg:#EAF0FA}
+.frame{fill:#fff;stroke:var(--c);stroke-width:1.5}
+.rule{stroke:var(--soft);stroke-width:1.5}
+.dot{fill:var(--soft)}
+.block{fill:var(--c)}
+.soft{fill:var(--soft)}
+.cta{fill:#fff}
+.b1,.b2,.b3,.b4,.b5,.b6,.b7{transform-origin:left center;animation:grow 6s cubic-bezier(.2,.8,.2,1) infinite both}
+.b1{animation-delay:.1s}.b2{animation-delay:.45s}.b3{animation-delay:.8s}.b5{animation-delay:1.5s}.b6{animation-delay:1.7s}.b7{animation-delay:1.9s}
+.b4{animation:grow 6s cubic-bezier(.2,.8,.2,1) 1.15s infinite both,ctaFlash 6s ease 1.15s infinite both}
+.cursor{fill:#0B0B0A;stroke:#fff;stroke-width:1;transform-origin:0 0;transform:translate(112px,68px);animation:cursor 6s ease-in-out infinite both}
+@keyframes grow{0%{transform:scaleX(0);opacity:0}10%{transform:scaleX(1);opacity:1}86%{transform:scaleX(1);opacity:1}95%,100%{transform:scaleX(1);opacity:0}}
+@keyframes ctaFlash{0%,46%{fill:#fff}50%{fill:#FFD27A}64%,100%{fill:#fff}}
+@keyframes cursor{0%,28%{transform:translate(262px,104px);opacity:0}34%{opacity:1}52%{transform:translate(112px,68px) scale(1)}56%{transform:translate(112px,68px) scale(.8)}60%,84%{transform:translate(112px,68px) scale(1);opacity:1}93%,100%{transform:translate(112px,68px);opacity:0}}
+
+/* 2 — Memory: knowledge flows from sources into one shared core */
+.memory{--c:#B7792F;--soft:#E8D3B4;--bg:#F8F0E3}
+.edge{stroke:var(--soft);stroke-width:1.5}
+.pulse{stroke:var(--c);stroke-width:3.2;stroke-linecap:round;stroke-dasharray:9 100;stroke-dashoffset:9;animation:flow 3.3s cubic-bezier(.45,0,.55,1) infinite;animation-delay:calc(var(--i) * .62s)}
+.node{fill:#fff;stroke:var(--c);stroke-width:2}
+.core{fill:var(--c)}
+.coreMark{fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round}
+.halo{fill:var(--c);opacity:0;animation:halo 1.65s ease-out infinite}
+@keyframes flow{from{stroke-dashoffset:9}to{stroke-dashoffset:-100}}
+@keyframes halo{0%{transform:scale(.55);opacity:.35}100%{transform:scale(1.55);opacity:0}}
+
+/* 3 — Bella: the phone rings, she answers, the conversation waveform runs */
+.bella{--c:#2F8A57;--soft:#BFDDC9;--bg:#E9F4EC}
+.badge{fill:var(--c)}
+.phone{fill:#fff;animation:ringing 3.2s ease-in-out infinite}
+.ring{fill:none;stroke:var(--c);stroke-width:2;opacity:0;animation:ripple 3.2s ease-out infinite}
+.r2{animation-delay:.45s}
+.bar{fill:var(--c);transform:scaleY(.4);animation:talk 1.15s ease-in-out infinite;animation-delay:calc(var(--i) * -.17s)}
+.bar:nth-of-type(3n){fill:var(--soft)}
+@keyframes ringing{0%,34%,100%{transform:rotate(0)}4%,12%,20%{transform:rotate(-13deg)}8%,16%,24%{transform:rotate(13deg)}28%{transform:rotate(0)}}
+@keyframes ripple{0%{transform:scale(1);opacity:.55}70%,100%{transform:scale(1.9);opacity:0}}
+@keyframes talk{0%,100%{transform:scaleY(.22)}50%{transform:scaleY(1)}}
+
+/* 4 — Inbox: mail lands, gets sorted, the one that needs you is flagged, a reply goes out */
+.inbox{--c:#E0702E;--soft:#F3C8AE;--bg:#FCEDE3}
+.tray{fill:#fff;stroke:var(--c);stroke-width:1.6;stroke-linejoin:round}
+.trayLip{fill:none;stroke:var(--c);stroke-width:1.6;stroke-linejoin:round}
+.mail rect{fill:#fff;stroke:var(--c);stroke-width:1.6}
+.mail path{fill:none;stroke:var(--c);stroke-width:1.6;stroke-linejoin:round}
+.mail{transform:translate(0,48px);animation:drop 4.6s cubic-bezier(.3,.7,.3,1) infinite both;animation-delay:calc(var(--i) * .32s)}
+.flag{fill:var(--c);animation:pop 4.6s ease-out infinite both}
+.reply{fill:none;stroke:var(--c);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;animation:send 4.6s ease-in-out infinite both}
+@keyframes drop{0%{transform:translate(var(--x),-46px);opacity:0}12%{opacity:1}28%{transform:translate(var(--x),6px)}44%{transform:translate(0,48px)}82%{transform:translate(0,48px);opacity:1}92%,100%{transform:translate(0,48px);opacity:0}}
+@keyframes pop{0%,50%{transform:scale(0)}57%{transform:scale(1.35)}62%,84%{transform:scale(1)}92%,100%{transform:scale(0)}}
+@keyframes send{0%,60%{transform:translateX(-14px);opacity:0}68%{opacity:1}80%{transform:translateX(8px);opacity:1}90%,100%{transform:translateX(18px);opacity:0}}
+
+/* 5 — Demo sites: a carousel of different site styles */
+.gallery{--c:#6E52C2;--soft:#D5CBF1;--bg:#F0ECFA}
+.cardBody{fill:#fff;stroke:var(--c);stroke-width:1.5}
+.cardBar{fill:var(--soft)}
+.cardHero{fill:var(--c)}
+.card:nth-of-type(2) .cardHero{fill:#2F8A57}
+.card:nth-of-type(3) .cardHero{fill:#E0702E}
+.card{animation:carousel 6.6s cubic-bezier(.6,0,.25,1) infinite both;animation-delay:calc(var(--i) * -2.2s)}
+@keyframes carousel{0%,22%{transform:translateX(0) scale(1);opacity:1}33%,52%{transform:translateX(-96px) scale(.76);opacity:.55}57%{transform:translateX(-96px) scale(.76);opacity:0}59%{transform:translateX(96px) scale(.76);opacity:0}64%,88%{transform:translateX(96px) scale(.76);opacity:.55}100%{transform:translateX(0) scale(1);opacity:1}}
+
+/* 6 — Custom builds: modules snap into one system, then it's checked off */
+.build{--c:#1B1B1A;--accent:#C2997A;--bg:#EFEBE5}
+.mod{fill:#fff;stroke:var(--c);stroke-width:1.6;animation:snap 5s cubic-bezier(.2,.9,.25,1.15) infinite both}
+.accent{fill:var(--accent);stroke:var(--accent)}
+.m1{--tx:-62px;--ty:-12px;--r:-14deg}
+.m2{--tx:66px;--ty:-16px;--r:11deg;animation-delay:.14s}
+.m3{--tx:-58px;--ty:20px;--r:9deg;animation-delay:.28s}
+.m4{--tx:70px;--ty:18px;--r:-12deg;animation-delay:.42s}
+.check{fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:30;stroke-dashoffset:0;animation:draw 5s ease infinite both}
+.spark{fill:var(--accent);animation:twinkle 5s ease infinite both}
+@keyframes snap{0%{transform:translate(var(--tx),var(--ty)) rotate(var(--r));opacity:0}10%{opacity:1}34%,86%{transform:translate(0,0) rotate(0);opacity:1}95%,100%{transform:translate(0,0);opacity:0}}
+@keyframes draw{0%,44%{stroke-dashoffset:30}56%,86%{stroke-dashoffset:0;opacity:1}95%,100%{stroke-dashoffset:0;opacity:0}}
+@keyframes twinkle{0%,50%{transform:scale(0) rotate(0)}60%{transform:scale(1.25) rotate(45deg)}68%,86%{transform:scale(1) rotate(45deg)}95%,100%{transform:scale(0)}}
+
+@media (prefers-reduced-motion: reduce){.art *{animation:none!important}.halo,.ring{opacity:0}}

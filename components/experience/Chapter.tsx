@@ -49,7 +49,7 @@ interface ChapterProps {
  *
  * Loading is deliberately lazy in two stages, because four full-viewport
  * films on one page is otherwise ~11 MB and four live video decoders:
- *   1. The <video> element only exists in the DOM within ~1.5 viewports of
+ *   1. The <video> element only exists in the DOM within half a viewport of
  *      the section (off-screen chapters render a lazy poster <img> instead).
  *      Unmounting hard-releases the decoder and its buffered bytes.
  *   2. While mounted, playback is gated on actual visibility, plus a pause
@@ -68,6 +68,8 @@ export default function Chapter({
 }: ChapterProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const inViewRef = useRef(false);
+  const eagerReadyRef = useRef(!eager);
   const [mounted, setMounted] = useState(eager);
   const reduced = useSyncExternalStore(
     subscribeReduced,
@@ -85,7 +87,7 @@ export default function Chapter({
       (entries) => {
         for (const entry of entries) setMounted(entry.isIntersecting);
       },
-      { rootMargin: "150% 0px 150% 0px", threshold: 0 }
+      { rootMargin: "50% 0px 50% 0px", threshold: 0 }
     );
     io.observe(section);
     return () => io.disconnect();
@@ -101,7 +103,8 @@ export default function Chapter({
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) {
+          inViewRef.current = entry.isIntersecting && entry.intersectionRatio >= 0.15;
+          if (inViewRef.current && !document.hidden && eagerReadyRef.current) {
             video.play().catch(() => {});
             section.classList.add("is-playing");
           } else {
@@ -115,8 +118,10 @@ export default function Chapter({
 
     const onVisibility = () => {
       if (document.hidden) video.pause();
-      else if (section.classList.contains("is-playing"))
+      else if (inViewRef.current && eagerReadyRef.current) {
         video.play().catch(() => {});
+        section.classList.add("is-playing");
+      }
     };
     document.addEventListener("visibilitychange", onVisibility);
 
@@ -128,7 +133,7 @@ export default function Chapter({
 
   // Release the decoder and buffered bytes when the element goes away.
   useEffect(() => {
-    if (!mounted) return;
+    if (!mounted || reduced) return;
     const video = videoRef.current;
     if (!video) return;
     return () => {
@@ -141,7 +146,7 @@ export default function Chapter({
         /* element already torn down */
       }
     };
-  }, [mounted]);
+  }, [mounted, reduced]);
 
   // Hero only: poster paints first, film bytes fetch once the main thread is idle.
   useEffect(() => {
@@ -151,10 +156,13 @@ export default function Chapter({
     if (!video) return;
 
     const start = () => {
+      eagerReadyRef.current = true;
       video.preload = "auto";
       video.load();
-      video.play().catch(() => {});
-      section?.classList.add("is-playing");
+      if (inViewRef.current && !document.hidden) {
+        video.play().catch(() => {});
+        section?.classList.add("is-playing");
+      }
     };
 
     const w = window as IdleWindow;
@@ -188,7 +196,7 @@ export default function Chapter({
           >
             <source
               src={`${film}.webm`}
-              type='video/webm; codecs="av01.0.05M.08"'
+              type="video/webm"
             />
             <source src={`${film}-slim.mp4`} type="video/mp4" />
           </video>

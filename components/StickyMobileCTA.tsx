@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 /**
- * Bottom-fixed "Build My Agent" bar for small screens only.
+ * Bottom-fixed audit CTA for small screens only.
  * Appears once the user scrolls past the full-viewport hero. Adds a body
  * class so the page can reserve matching space and the bar never covers
  * content. CSS handles the mobile-only visibility and reduced-motion
@@ -61,8 +61,8 @@ export default function StickyMobileCTA() {
 
   return (
     <div className={`sticky-cta${shown ? " on" : ""}`} aria-hidden={!shown}>
-      <a href="/build" className="btn btn-world sticky-cta-btn" tabIndex={shown ? 0 : -1}>
-        Build My Agent
+      <a href="/book" className="btn btn-world sticky-cta-btn" tabIndex={shown ? 0 : -1}>
+        Book a free audit
         <svg
           width="18"
           height="18"

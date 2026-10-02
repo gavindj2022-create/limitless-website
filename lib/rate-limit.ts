@@ -84,10 +84,48 @@ export const rateLimitConfigs = {
   auth: { maxRequests: 10, windowMs: 60_000 } satisfies RateLimitConfig,
   /** Contact form: 5 requests per minute */
   contact: { maxRequests: 5, windowMs: 60_000 } satisfies RateLimitConfig,
+  /** Bella questions: 20 per IP per minute. */
+  bella: { maxRequests: 20, windowMs: 60_000 } satisfies RateLimitConfig,
+  /** Bella mini-audits: 12 model calls per IP per day, per process. */
+  bellaDaily: { maxRequests: 12, windowMs: 86_400_000 } satisfies RateLimitConfig,
+  /** A single visitor session cannot request more than 12 model calls. */
+  bellaSession: { maxRequests: 12, windowMs: 86_400_000 } satisfies RateLimitConfig,
 } as const;
+
+let modelBudgetDay = "";
+let modelBudgetReserved = 0;
+
+interface BellaAiAllowance {
+  dailyAllowed: boolean;
+  sessionAllowed: boolean;
+  budgetReserved: boolean;
+}
+
+/** False means the audit must use its scripted, zero-cost fallback. */
+export function canUseBellaAi({
+  dailyAllowed,
+  sessionAllowed,
+  budgetReserved,
+}: BellaAiAllowance): boolean {
+  return dailyAllowed && sessionAllowed && budgetReserved;
+}
+
+/** Per-process cost reservation. Production-wide spend needs a shared store. */
+function reserveBellaBudget(maxUsd: number, estimatedCallUsd = 0.05): boolean {
+  if (!Number.isFinite(maxUsd) || maxUsd <= 0) return false;
+  const today = new Date().toISOString().slice(0, 10);
+  if (modelBudgetDay !== today) {
+    modelBudgetDay = today;
+    modelBudgetReserved = 0;
+  }
+  if (modelBudgetReserved + estimatedCallUsd > maxUsd) return false;
+  modelBudgetReserved += estimatedCallUsd;
+  return true;
+}
 
 export const rateLimit = {
   check,
+  reserveBellaBudget,
 };
 
 export type { RateLimitConfig, RateLimitResult };

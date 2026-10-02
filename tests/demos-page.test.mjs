@@ -1,29 +1,22 @@
+import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import test from "node:test";
-import assert from "node:assert/strict";
 
-const root = process.cwd();
+const config = readFileSync(join(process.cwd(), "next.config.ts"), "utf8");
 
-function read(relativePath) {
-  return readFileSync(join(root, relativePath), "utf8");
-}
-
-test("demos page points to the branded Limitless demo domain", () => {
-  const page = read(join("app", "demos", "page.tsx"));
-
-  assert.match(page, /https:\/\/limitless-demo-websites\.pages\.dev\//);
-  assert.doesNotMatch(page, /fable25-9qg\.pages\.dev/);
-  assert.match(page, /View all 25/);
-  assert.match(page, /Limitless Demo Websites/);
-  assert.match(page, /created with AI by Limitless/);
+test("retired product and demo routes are permanent redirects", () => {
+  for (const route of ["/build", "/leak-audit", "/dashboard/:path*", "/signin", "/sign-in", "/checkout", "/api/checkout", "/api/billing-portal", "/api/auth/:path*", "/demos"]) {
+    assert.match(config, new RegExp(`source: "${route.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"[\\s\\S]{0,80}permanent: true`), route);
+  }
 });
 
-test("demo cards use Limitless AI-build language instead of how-to language", () => {
-  const card = read(join("components", "DemoCard.tsx"));
-
-  assert.match(card, /Built with AI/);
-  assert.match(card, /Open demo/);
-  assert.doesNotMatch(card, /How it was built/);
-  assert.doesNotMatch(card, /Fable-25/);
+test("security headers and immutable consulting media cache are configured", () => {
+  for (const header of ["Content-Security-Policy", "X-Frame-Options", "X-Content-Type-Options", "Referrer-Policy", "Strict-Transport-Security", "Permissions-Policy"]) {
+    assert.match(config, new RegExp(header));
+  }
+  // 'unsafe-eval' is allowed only for the local dev server (React dev tooling), never in production.
+  assert.equal((config.match(/unsafe-eval/g) || []).length, 1);
+  assert.match(config, /process\.env\.NODE_ENV === "development" \? " 'unsafe-eval'" : ""/);
+  assert.match(config, /source: "\/consulting\/:path\*"[\s\S]*headers: immutableCache/);
 });

@@ -1,6 +1,26 @@
 import type { NextConfig } from "next";
 
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  "object-src 'none'",
+  // React dev tooling needs eval() locally; production builds never allow it.
+  `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""} https://va.vercel-scripts.com https://www.googletagmanager.com https://connect.facebook.net`,
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: blob: https://www.facebook.com",
+  "font-src 'self' data:",
+  "media-src 'self'",
+  "connect-src 'self' https://vitals.vercel-insights.com https://www.google-analytics.com https://www.googletagmanager.com https://connect.facebook.net",
+  "frame-src https://www.googletagmanager.com",
+].join("; ");
+
 const securityHeaders = [
+  {
+    key: "Content-Security-Policy",
+    value: contentSecurityPolicy,
+  },
   {
     key: "X-Frame-Options",
     value: "DENY",
@@ -51,6 +71,8 @@ const nextConfig: NextConfig = {
     localPatterns: [
       { pathname: "/demos/**", search: "" },
       { pathname: "/brand/**", search: "" },
+      { pathname: "/consulting/**", search: "" },
+      { pathname: "/gav/**", search: "" },
     ],
     minimumCacheTTL: 2678400, // 31 days
   },
@@ -68,6 +90,28 @@ const nextConfig: NextConfig = {
         source: "/brand/:path*",
         headers: immutableCache,
       },
+      {
+        source: "/consulting/:path*",
+        headers: immutableCache,
+      },
+      {
+        source: "/gav/:path*",
+        headers: immutableCache,
+      },
+    ];
+  },
+  async redirects() {
+    return [
+      { source: "/build", destination: "/book", permanent: true },
+      { source: "/leak-audit", destination: "/book", permanent: true },
+      { source: "/dashboard/:path*", destination: "/book", permanent: true },
+      { source: "/signin", destination: "/book", permanent: true },
+      { source: "/sign-in", destination: "/book", permanent: true },
+      { source: "/checkout", destination: "/book", permanent: true },
+      { source: "/api/checkout", destination: "/book", permanent: true },
+      { source: "/api/billing-portal", destination: "/book", permanent: true },
+      { source: "/api/auth/:path*", destination: "/book", permanent: true },
+      { source: "/demos", destination: "/work", permanent: true },
     ];
   },
 };

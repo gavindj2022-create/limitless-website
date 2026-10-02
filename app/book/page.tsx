@@ -1,69 +1,51 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
 import Nav from "@/components/Nav";
-import LeadIntakeForm, { type ServiceKey } from "@/components/LeadIntakeForm";
+import Footer from "@/components/Footer";
+import ConsultingLeadForm from "@/components/ConsultingLeadForm";
+import styles from "@/app/consulting.module.css";
 
-const serviceCopy: Record<
-  ServiceKey,
-  { eyebrow: string; title: string; copy: string }
-> = {
-  bella: {
-    eyebrow: "Bella Receptionist",
-    title: "Let's get Bella ready to answer.",
-    copy: "Tell me where calls are getting missed, how appointments should be handled, and what a good first week would look like.",
-  },
-  website: {
-    eyebrow: "Agent-Powered Website",
-    title: "Let's build the website front door.",
-    copy: "Share the business, what customers need to do next, and whether a chat agent or a booking path should be included from day one.",
-  },
-  system: {
-    eyebrow: "Full Presence System",
-    title: "Let's connect the whole front office.",
-    copy: "Website, Bella, a chat agent, follow-ups, and the simple automations that help the business respond faster.",
-  },
+const calendarUrl = "https://calendar.app.google/CaCfThGeGv6bMpXX9";
+
+export const metadata: Metadata = {
+  title: "Book a free AI audit | Limitless",
+  description: "Book a free 30-minute AI audit with Gavin Johnson and receive a written plan in 3 business days.",
+  alternates: { canonical: "/book" },
 };
 
-function normalizeService(value: unknown): ServiceKey {
-  if (value === "website" || value === "system" || value === "bella") {
-    return value;
-  }
-
-  return "bella";
-}
-
-type BookPageProps = {
-  searchParams?: Promise<Record<string, string | string[] | undefined>>;
-};
-
-export default async function BookPage({ searchParams }: BookPageProps) {
-  const params = searchParams ? await searchParams : {};
-  const serviceParam = Array.isArray(params.service)
-    ? params.service[0]
-    : params.service;
-  const service = normalizeService(serviceParam);
-  const active = serviceCopy[service];
-
+export default function BookPage() {
   return (
     <>
+      <a href="#main" className="skip">Skip to content</a>
       <Nav />
-      <main>
-        <section className="book-page">
-          <div className="wrap book-wrap">
-            <div className="book-copy">
-              <span className="eyebrow">{active.eyebrow}</span>
-              <h1>{active.title}</h1>
-              <p className="lead">{active.copy}</p>
-              <div className="book-visual" aria-hidden="true">
-                <span className="book-pulse" />
-                <span className="book-phone" />
-                <span className="book-site" />
-                <span className="book-check" />
-              </div>
+      <main id="main" className={styles.pageMain}>
+        <section className={styles.sectionSmall}>
+          <div className={`${styles.narrow} ${styles.bookColumn}`}>
+            <div className={styles.bookBanner}>
+              <Image
+                src="/consulting/book-banner-planning-table.webp"
+                alt="Planning table with a notebook, laptop, and coffee"
+                fill
+                sizes="(max-width: 760px) 100vw, 760px"
+                preload
+              />
             </div>
-
-            <LeadIntakeForm key={service} defaultService={service} />
+            <div className={`${styles.pageHead} ${styles.pageHeadCentered}`}>
+              <span className={styles.kicker}>Free AI audit</span>
+              <h1>Let&apos;s talk.</h1>
+              <p>30-minute call. Written plan in 3 business days. No pressure.</p>
+            </div>
+            <ConsultingLeadForm />
+            <p className={styles.calendarLink}>
+              Prefer to pick a time?{" "}
+              <a href={calendarUrl} target="_blank" rel="noopener noreferrer">Open the calendar</a>
+            </p>
+            <Link href="/" className={styles.backHome}>Back to home</Link>
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 }

@@ -41,8 +41,6 @@ export interface LeakResult {
 }
 
 // --- Defensible assumptions (all transparent, all documented here) ---
-/** Bella's monthly price — used in copy anywhere the plan is mentioned. */
-export const BELLA_MONTHLY = 199;
 /** Share of missed callers who would have booked (industry ~30–40%). */
 export const CLOSE_RATE = 0.35;
 /** Business weeks per month (52 / 12). */

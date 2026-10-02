@@ -1,25 +1,24 @@
 import type { MetadataRoute } from "next";
 
-const BASE = "https://golimitlessagi.com";
-
-// Public, indexable routes only. /hear-bella (private demo) and /dashboard
-// (authenticated) are deliberately excluded.
-const ROUTES: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
-  { path: "", priority: 1.0, changeFrequency: "weekly" },
-  { path: "/demos", priority: 0.9, changeFrequency: "weekly" },
-  { path: "/build", priority: 0.8, changeFrequency: "monthly" },
-  { path: "/book", priority: 0.8, changeFrequency: "monthly" },
-  { path: "/leak-audit", priority: 0.7, changeFrequency: "monthly" },
-  { path: "/roi", priority: 0.6, changeFrequency: "monthly" },
-  { path: "/privacy", priority: 0.3, changeFrequency: "yearly" },
-  { path: "/terms", priority: 0.3, changeFrequency: "yearly" },
-];
+const baseUrl = "https://golimitlessagi.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
-  return ROUTES.map(({ path, priority, changeFrequency }) => ({
-    url: `${BASE}${path}`,
-    lastModified,
+  const pages = [
+    ["", "weekly", 1],
+    ["/how-we-help", "monthly", 0.9],
+    ["/work", "monthly", 0.9],
+    ["/about", "monthly", 0.8],
+    ["/faq", "monthly", 0.8],
+    ["/book", "monthly", 0.9],
+    ["/privacy-security", "yearly", 0.5],
+    ["/privacy", "yearly", 0.3],
+    ["/terms", "yearly", 0.3],
+    ["/roi", "monthly", 0.6],
+  ] as const;
+
+  return pages.map(([path, changeFrequency, priority]) => ({
+    url: `${baseUrl}${path}`,
+    lastModified: new Date("2026-10-01T00:00:00-05:00"),
     changeFrequency,
     priority,
   }));
