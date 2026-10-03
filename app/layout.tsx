@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Instrument_Sans } from "next/font/google";
 import "./globals.css";
-import { AnalyticsScripts, AnalyticsNoScript } from "@/components/Analytics";
+import ConsentAnalytics from "@/components/ConsentAnalytics";
 import BellaChat from "@/components/BellaChat";
 import { Analytics as VercelAnalytics } from "@vercel/analytics/next";
 
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "Limitless: We make AI easy. Gavin Johnson, founder.",
+        alt: "Limitless: AI. Made Simple. Gavin Johnson, founder.",
       },
     ],
     type: "website",
@@ -80,7 +80,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={instrumentSans.variable}>
       <body>
-        <AnalyticsNoScript />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema).replace(/</g, "\\u003c") }}
@@ -88,7 +87,7 @@ export default function RootLayout({
         {children}
         <BellaChat />
         <VercelAnalytics />
-        <AnalyticsScripts />
+        <ConsentAnalytics />
       </body>
     </html>
   );

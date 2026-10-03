@@ -13,7 +13,7 @@ test("home uses the founder hero and keeps the locked short site map", () => {
   assert.match(home, /styles\.founderHero/);
   assert.doesNotMatch(home, /hero-counter-loop/);
   assert.match(home, /<DotCloud \/>/);
-  assert.match(home, /We make AI easy\./);
+  assert.match(home, /AI\. Made Simple\./);
   assert.match(home, /We find the busywork, build agents to handle it, and teach your team to run them\./);
   assert.match(home, /Where are you with AI\?/);
   assert.match(home, /film="\/media\/dawn"/);
@@ -25,10 +25,10 @@ test("home uses the founder hero and keeps the locked short site map", () => {
 test("work and book use only the approved replacement banners", () => {
   const work = read("app/work/page.tsx");
   const book = read("app/book/page.tsx");
-  assert.match(work, /work-banner-team\.webp/);
+  assert.match(work, /work-banner-team-v2\.webp/);
   assert.match(work, /Built for owners like these\./);
   assert.doesNotMatch(work, /owner-audit|owner-salon|owner-contractor/);
-  assert.match(book, /book-banner-planning-table\.webp/);
+  assert.match(book, /book-banner-planning-table-v2\.webp/);
   assert.match(book, /30-minute call\. Written plan in 3 business days\. No pressure\./);
   assert.match(book, /ConsultingLeadForm/);
 });

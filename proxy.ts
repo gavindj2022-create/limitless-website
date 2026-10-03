@@ -1,28 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { rateLimit, rateLimitConfigs } from "@/lib/rate-limit";
+import { getClientIp } from "@/lib/request-guards";
 
-/**
- * Determine which rate-limit config applies to a given API path.
- * Returns null for routes that should skip rate limiting.
- */
-function getRouteConfig(pathname: string) {
-  // Skip rate limiting for webhook endpoints
-  if (pathname.startsWith("/api/webhooks")) {
-    return null;
-  }
-
-  // Auth endpoints: stricter limits
-  if (pathname.startsWith("/api/auth")) {
-    return { config: rateLimitConfigs.auth, prefix: "auth" };
-  }
-
-  // Contact endpoint: strict limits
-  if (pathname.startsWith("/api/contact")) {
-    return { config: rateLimitConfigs.contact, prefix: "contact" };
-  }
-
-  // All other API routes: general limits
+/** Every API route gets the general per-IP limit; routes add their own stricter limits. */
+function getRouteConfig() {
   return { config: rateLimitConfigs.api, prefix: "api" };
 }
 
@@ -34,14 +16,11 @@ export function proxy(request: NextRequest) {
 
   // Only rate-limit /api/* routes
   if (pathname.startsWith("/api")) {
-    const routeConfig = getRouteConfig(pathname);
+    const routeConfig = getRouteConfig();
 
     if (routeConfig) {
       // Use IP + route prefix as the identifier
-      const ip =
-        request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-        request.headers.get("x-real-ip") ??
-        "unknown";
+      const ip = getClientIp(request);
       const identifier = `${routeConfig.prefix}:${ip}`;
 
       const result = rateLimit.check(identifier, routeConfig.config);
@@ -83,7 +62,7 @@ export function proxy(request: NextRequest) {
     }
   }
 
-  // Non-API routes or webhook routes: just add request ID
+  // Non-API routes: just add request ID
   const response = NextResponse.next();
   response.headers.set("X-Request-Id", requestId);
   return response;

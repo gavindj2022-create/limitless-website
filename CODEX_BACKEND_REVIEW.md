@@ -33,6 +33,20 @@ Nothing has been committed, pushed or deployed. Gav reviews locally before produ
 6. **FAQ "Ask Bella" box**: used an undefined `sr-only` class, so the label showed and squashed the input. Fixed (`components/FaqAsk.tsx`).
 7. **Book form**: showed the raw "Validation failed" string; now validates on the client first, focuses the first bad field, and says "Please fix the highlighted fields." The calendar and "Back to home" links no longer run together.
 
+## Fixed in the follow-up pass (2026-10-02 evening)
+
+- #1 Analytics consent: GTM/Meta Pixel now load only after a visitor accepts the cookie banner (`components/ConsentAnalytics.tsx`); the no-JS tracker fallbacks were removed. Test: `tests/consent.test.mjs`.
+- #3 Sheet logging now runs in `after()`, so Bella replies never wait on Google.
+- #4 Lead alerts set `replyTo` to the lead (sender domain still needs Resend verification in production).
+- #5 `.env.example` rewritten for the current app (retired Stripe/NextAuth/DB vars removed; still remove them from Vercel).
+- #8 `max_tokens` is 150 and code fences are stripped before `JSON.parse`.
+- #9 Unused `history` removed from the request schema and client.
+- #10 The proxy uses `getClientIp()`; dead `/api/auth`, `/api/contact`, `/api/webhooks` branches removed.
+- #13 `lib/leak-audit.ts` deleted.
+- #14 `page` must start with a single `/`.
+
+Still open: #2 (shared rate-limit store before enabling the Anthropic key), #6/#7 (bot protection before turning on autoreply), #11 (nonce CSP), #12, #15, #16.
+
 ## Open findings for Codex
 
 Severity: **M** = fix before turning on paid AI or ads, **L** = hardening, **I** = info/content.

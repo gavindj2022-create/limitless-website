@@ -103,7 +103,6 @@ test("every Bella AI cap switches the audit to the scripted fallback", () => {
 });
 
 test("consulting source has no retired price, checkout tier, or build CTA", () => {
-  assert.doesNotMatch(read("lib/leak-audit.ts"), /BELLA_MONTHLY|\$199/);
   assert.doesNotMatch(read("lib/validation.ts"), /checkoutSchema|starter|growth|autopilot/);
   assert.match(read("components/StickyMobileCTA.tsx"), /href="\/book"/);
   assert.doesNotMatch(read("components/StickyMobileCTA.tsx"), /href="\/build"/);

@@ -24,11 +24,12 @@ export default function BookPage() {
           <div className={`${styles.narrow} ${styles.bookColumn}`}>
             <div className={styles.bookBanner}>
               <Image
-                src="/consulting/book-banner-planning-table.webp"
+                src="/consulting/book-banner-planning-table-v2.webp"
                 alt="Planning table with a notebook, laptop, and coffee"
                 fill
                 sizes="(max-width: 760px) 100vw, 760px"
                 preload
+                quality={90}
               />
             </div>
             <div className={`${styles.pageHead} ${styles.pageHeadCentered}`}>

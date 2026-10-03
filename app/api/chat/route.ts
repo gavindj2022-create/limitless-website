@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 import { matchBellaQuestion } from "@/lib/bella-faq-match";
 import { auditQuestions, nextAuditField, renderSelectedSolutions, scriptedAuditSummary } from "@/lib/bella-audit";
 import type { AuditAnswers } from "@/lib/bella-audit";
-import { bellaAuditData, bellaSystemPrompt, normalizeBellaHistory } from "@/lib/bella-prompt";
+import { bellaAuditData, bellaSystemPrompt } from "@/lib/bella-prompt";
 import { getClientIp, isSameOrigin, readLimitedJson } from "@/lib/request-guards";
 import { canUseBellaAi, rateLimit, rateLimitConfigs } from "@/lib/rate-limit";
 import { logQuestionToSheet } from "@/lib/sheet-log";
@@ -24,13 +24,13 @@ async function suggestWithAnthropic(answers: AuditAnswers, page: string): Promis
     const client = new Anthropic({ apiKey, maxRetries: 0, timeout: 8000 });
     const result = await client.messages.create({
       model: process.env.BELLA_MODEL || "claude-haiku-4-5-20251001",
-      max_tokens: 4000,
+      max_tokens: 150,
       system: bellaSystemPrompt(page),
       messages: [{ role: "user", content: bellaAuditData(answers) }],
     });
     if (result.stop_reason === "refusal") return null;
     const text = result.content.filter((block) => block.type === "text").map((block) => block.text).join("");
-    const parsed: unknown = JSON.parse(text);
+    const parsed: unknown = JSON.parse(text.trim().replace(/^```(?:json)?\s*|\s*```$/g, ""));
     if (!parsed || typeof parsed !== "object" || !("services" in parsed) || !Array.isArray(parsed.services)) return null;
     return renderSelectedSolutions(parsed.services.filter((service): service is string => typeof service === "string"));
   } catch {
@@ -51,10 +51,10 @@ export async function POST(request: Request) {
   }
 
   const input = parsed.data;
-  normalizeBellaHistory(input.history);
   if (input.action === "ask") {
     const match = matchBellaQuestion(input.message);
-    await logQuestionToSheet(input.message, input.page, match.matchId ? "FAQ answer" : "No match", match.matchId);
+    // Log after the reply is sent so the sheet never slows Bella down.
+    after(() => logQuestionToSheet(input.message, input.page, match.matchId ? "FAQ answer" : "No match", match.matchId));
     return json({ mode: "faq", ...match });
   }
 

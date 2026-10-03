@@ -10,7 +10,7 @@ import { AskBellaButton } from "@/components/WorkTiles";
 import styles from "./consulting.module.css";
 
 export const metadata: Metadata = {
-  title: "Limitless | We make AI easy",
+  title: "Limitless | AI. Made Simple.",
   description: "Founder-led AI audits, done-for-you agentic solutions, and one-on-one training for small-business owners.",
   alternates: { canonical: "/" },
 };
@@ -43,7 +43,7 @@ export default function Home() {
           <div className={styles.heroInner}>
             <div className={styles.heroCopy}>
               <span className={styles.kicker}>Agentic solutions</span>
-              <h1 id="hero-title">We make AI easy.</h1>
+              <h1 id="hero-title">AI. Made Simple.</h1>
               <p>We find the busywork, build agents to handle it, and teach your team to run them.</p>
               <div className={styles.actions}>
                 <Link href="/book" className={styles.lightPill}>Book a free audit</Link>

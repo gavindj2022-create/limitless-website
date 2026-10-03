@@ -28,6 +28,10 @@ const starterChips: BellaChip[] = [
   { label: "Book a free audit", action: "book" },
 ];
 
+function ChatIcon() {
+  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 12.5c0 4.1-3.6 7.2-8 7.2-1.2 0-2.4-.2-3.4-.7L4 20l1.2-3.6C4.4 15.2 4 13.9 4 12.5 4 8.4 7.6 5.3 12 5.3s8 3.1 8 7.2z" /><circle cx="8.6" cy="12.6" r=".9" fill="currentColor" stroke="none" /><circle cx="12" cy="12.6" r=".9" fill="currentColor" stroke="none" /><circle cx="15.4" cy="12.6" r=".9" fill="currentColor" stroke="none" /></svg>;
+}
+
 function Mark() {
   return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true"><path d="M8.2 8.6c-2-1.9-5.2-.5-5.2 3.4s3.2 5.3 5.2 3.4L15.8 8.6c2-1.9 5.2-.5 5.2 3.4s-3.2 5.3-5.2 3.4z" /></svg>;
 }
@@ -222,7 +226,7 @@ export default function BellaChat() {
     <div className={s.root}>
       {!open && (
         <button ref={launcherRef} type="button" className={s.launcher} onClick={() => { setPanelReady(true); setOpen(true); }} aria-label="Ask Bella, our Front Desk Agent" aria-haspopup="dialog">
-          <span className={s.avatar} aria-hidden="true"><Mark /></span>
+          <span className={s.avatar} aria-hidden="true"><ChatIcon /></span>
           <span className={s.launchText}><strong>Ask Bella</strong><small><span className={s.live} />Front Desk Agent</small></span>
         </button>
       )}

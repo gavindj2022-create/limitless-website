@@ -7,28 +7,22 @@ export const consultingLeadSchema = z.object({
   phone: z.string().trim().max(40).optional().default(""),
   company: z.string().trim().max(160).optional().default(""),
   message: z.string().trim().min(1, "Tell us what you need help with").max(2000),
-  page: z.string().trim().max(160).regex(/^\//).optional().default("/book"),
+  page: z.string().trim().max(160).regex(/^\/(?!\/)/).optional().default("/book"),
   website: z.string().max(500).optional().default(""),
 });
 
 export type ConsultingLead = z.infer<typeof consultingLeadSchema>;
 
 const bellaAnswer = z.string().trim().max(500);
-const bellaHistoryTurn = z.object({
-  role: z.enum(["user", "assistant"]),
-  content: z.string().trim().max(600),
-});
-
 export const bellaRequestSchema = z.discriminatedUnion("action", [
   z.object({
     action: z.literal("ask"),
     message: z.string().trim().min(1).max(600),
-    page: z.string().max(160).regex(/^\//).optional().default("/"),
-    history: z.array(bellaHistoryTurn).max(24).optional(),
+    page: z.string().max(160).regex(/^\/(?!\/)/).optional().default("/"),
   }),
   z.object({
     action: z.literal("audit"),
-    page: z.string().max(160).regex(/^\//).optional().default("/"),
+    page: z.string().max(160).regex(/^\/(?!\/)/).optional().default("/"),
     sessionId: z.uuid(),
     answers: z.object({
       businessType: bellaAnswer.optional(),
@@ -36,7 +30,6 @@ export const bellaRequestSchema = z.discriminatedUnion("action", [
       leadHandling: bellaAnswer.optional(),
       currentTools: bellaAnswer.optional(),
     }),
-    history: z.array(bellaHistoryTurn).max(24).optional(),
   }),
 ]);
 

@@ -16,11 +16,12 @@ export default function WorkPage() {
         <div className={styles.pageHead}><span className={styles.kicker}>Our work</span><h1>Real things we’ve built.</h1><p>Built for owners like these.</p></div>
         <div className={styles.workBanner}>
           <Image
-            src="/consulting/work-banner-team.webp"
+            src="/consulting/work-banner-team-v2.webp"
             alt="Business owners reviewing a plan together at a laptop"
             fill
             sizes="(max-width: 760px) 100vw, 1200px"
             preload
+            quality={90}
           />
         </div>
         <WorkTiles />

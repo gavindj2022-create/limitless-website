@@ -12,8 +12,8 @@ test("founder hero cutout stays lightweight", () => {
 });
 
 test("replacement page banners stay lightweight", () => {
-  assert.ok(bytes("public/consulting/work-banner-team.webp") <= 150_000);
-  assert.ok(bytes("public/consulting/book-banner-planning-table.webp") <= 150_000);
+  assert.ok(bytes("public/consulting/work-banner-team-v2.webp") <= 150_000);
+  assert.ok(bytes("public/consulting/book-banner-planning-table-v2.webp") <= 150_000);
 });
 
 test("Chapter keeps poster-first, idle video and reduced-motion behavior", () => {

@@ -46,3 +46,6 @@
   .founderHero::after{background:linear-gradient(0deg,rgba(8,10,16,.96) 0%,rgba(8,10,16,.82) 40%,rgba(8,10,16,.15) 66%,rgba(8,10,16,.25) 100%)}
   .founderHero .dotCorner{left:22%;top:27%;width:min(28vw,18vh)}
 }
+
+/* Framed banners: white mat + hairline, matches the work tiles. */
+.workBanner,.bookBanner{border:8px solid #fff;border-radius:24px;box-shadow:0 0 0 1px rgba(12,12,11,.12),var(--shadow-md)}
