@@ -1,0 +1,17 @@
+# Keep internal notes, backups and local helpers out of Vercel uploads.
+# (.env.local, .git, node_modules and .next are already excluded by Vercel.)
+.env*
+!.env.example
+.claude
+.impeccable
+docs
+tests
+AGENTS.md
+CLAUDE.md
+CODEX_BACKEND_REVIEW.md
+COUNCIL_BOARD.md
+PRODUCT.md
+DEPLOY.md
+*.cmd
+*.log
+tsconfig.tsbuildinfo

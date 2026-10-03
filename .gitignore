@@ -57,3 +57,5 @@ start-local.cmd
 build-check.cmd
 .impeccable/build.log
 .impeccable/
+vercel-check.cmd
+deploy-stage.cmd
