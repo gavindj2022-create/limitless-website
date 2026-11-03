@@ -35,8 +35,8 @@ export async function POST(request: Request) {
     from: process.env.EMAIL_FROM || "Limitless <onboarding@resend.dev>",
     to: process.env.LEAD_NOTIFY_EMAIL || "limitlessgav@gmail.com",
     subject: `Call back: ${lead.name} (${lead.bestTime})`,
-    text: `Call back request from /book\nName: ${lead.name}\nPhone: ${lead.phone}\nBest time: ${lead.bestTime}`,
-    html: `<p><strong>Call back request</strong> from golimitlessagi.com/book</p><p>Name: ${escape(lead.name)}<br>Phone: <a href="tel:${escape(lead.phone)}">${escape(lead.phone)}</a><br>Best time: ${escape(lead.bestTime)}</p>`,
+    text: `Call back request from /gavin\nName: ${lead.name}\nPhone: ${lead.phone}\nBest time: ${lead.bestTime}`,
+    html: `<p><strong>Call back request</strong> from golimitlessagi.com/gavin</p><p>Name: ${escape(lead.name)}<br>Phone: <a href="tel:${escape(lead.phone)}">${escape(lead.phone)}</a><br>Best time: ${escape(lead.bestTime)}</p>`,
   });
   if (sent.error) return response({ error: "That didn't go through. Please text me instead." }, 503);
   return response({ ok: true });

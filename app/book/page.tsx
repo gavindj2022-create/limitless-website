@@ -1,28 +1,52 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import BookOptions from "@/components/BookOptions";
-import styles from "./book.module.css";
+import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
+import ConsultingLeadForm from "@/components/ConsultingLeadForm";
+import styles from "@/app/consulting.module.css";
+
+const calendarUrl = "https://calendar.app.google/CaCfThGeGv6bMpXX9";
 
 export const metadata: Metadata = {
-  title: "Talk with Gavin | Limitless",
-  description: "Book a free 30-minute strategy call with Gavin Johnson, ask for a call back, or send a text.",
+  title: "Book a free AI audit | Limitless",
+  description: "Book a free 30-minute AI audit with Gavin Johnson and receive a written plan in 3 business days.",
   alternates: { canonical: "/book" },
 };
 
 export default function BookPage() {
   return (
-    <main id="main" className={styles.page}>
-      <div className={styles.card}>
-        <Link href="/" className={styles.logo} aria-label="Limitless home">
-          <Image src="/brand/mark-ink.webp" alt="Limitless" width={319} height={152} priority unoptimized />
-        </Link>
-        <h1 className={styles.hello}>Hey, it&apos;s Gavin.</h1>
-        <p className={styles.sub}>Sorry I missed you. Pick whatever&apos;s easiest.</p>
-        <p className={styles.client}>Already a client? <a href="sms:+13093402657">Text me</a></p>
-        <BookOptions />
-        <p className={styles.foot}>Limitless · Peoria, IL · <Link href="/privacy">Privacy</Link></p>
-      </div>
-    </main>
+    <>
+      <a href="#main" className="skip">Skip to content</a>
+      <Nav />
+      <main id="main" className={styles.pageMain}>
+        <section className={styles.sectionSmall}>
+          <div className={`${styles.narrow} ${styles.bookColumn}`}>
+            <div className={styles.bookBanner}>
+              <Image
+                src="/consulting/book-banner-planning-table-v2.webp"
+                alt="Planning table with a notebook, laptop, and coffee"
+                fill
+                sizes="(max-width: 760px) 100vw, 760px"
+                preload
+                quality={90}
+              />
+            </div>
+            <div className={`${styles.pageHead} ${styles.pageHeadCentered}`}>
+              <span className={styles.kicker}>Free AI audit</span>
+              <h1>Let&apos;s talk.</h1>
+              <p>30-minute call. Written plan in 3 business days. No pressure.</p>
+            </div>
+            <ConsultingLeadForm />
+            <p className={styles.calendarLink}>
+              Prefer to pick a time?{" "}
+              <a href={calendarUrl} target="_blank" rel="noopener noreferrer">Open the calendar</a>
+            </p>
+            <Link href="/" className={styles.backHome}>Back to home</Link>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
-import styles from "@/app/book/book.module.css";
+import styles from "@/app/gavin/gavin.module.css";
 
 const CALENDAR_EMBED =
   "https://calendar.google.com/calendar/appointments/schedules/AcZssZ0j-EATXmBTsJedxjQh9EA4TsMcSuJ7MWYN2Lxy3123xAcsElUCsgGi3Rjals4jjCT-LtlIUXn0?gv=true";
@@ -10,7 +10,7 @@ const CELL = "+13093402657";
 
 type Open = "none" | "book" | "callback";
 
-export default function BookOptions() {
+export default function GavinOptions() {
   const [open, setOpen] = useState<Open>("none");
   const toggle = (next: Open) => setOpen((current) => (current === next ? "none" : next));
 
