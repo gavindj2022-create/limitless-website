@@ -69,3 +69,12 @@ export function validateRequest<T>(
 
   return { success: false, errors };
 }
+
+export const callbackSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(120),
+  phone: z.string().trim().max(40).refine((value) => value.replace(/\D/g, "").length >= 10, "Enter a 10-digit phone number"),
+  bestTime: z.enum(["Anytime", "Morning", "Afternoon", "Evening"]).optional().default("Anytime"),
+  website: z.string().max(500).optional().default(""),
+});
+
+export type CallbackRequest = z.infer<typeof callbackSchema>;
