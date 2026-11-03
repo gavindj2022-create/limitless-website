@@ -13,7 +13,7 @@ const contentSecurityPolicy = [
   "font-src 'self' data:",
   "media-src 'self'",
   "connect-src 'self' https://vitals.vercel-insights.com https://www.google-analytics.com https://www.googletagmanager.com https://connect.facebook.net",
-  "frame-src https://www.googletagmanager.com",
+  "frame-src https://www.googletagmanager.com https://calendar.google.com",
 ].join("; ");
 
 const securityHeaders = [
