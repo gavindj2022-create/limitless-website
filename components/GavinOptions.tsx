@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import styles from "@/app/gavin/gavin.module.css";
 
@@ -18,12 +18,12 @@ export default function GavinOptions() {
     <div className={styles.options}>
       <button type="button" className={`${styles.option} ${styles.primary}`} aria-expanded={open === "book"} onClick={() => toggle("book")}>
         <span className={styles.icon} aria-hidden="true">📅</span>
-        <span className={styles.label}><strong>Book a free 30-min call</strong><span className={styles.hint}>Pick a time that works for you</span></span>
+        <span className={styles.label}><strong>Book a Strategy Call</strong><span className={styles.hint}>Free · 30 min · scroll the calendar to pick a time</span></span>
         <span className={styles.chev} aria-hidden="true">{open === "book" ? "−" : "+"}</span>
       </button>
       {open === "book" && (
-        <div className={styles.panel}>
-          <iframe className={styles.calendar} src={CALENDAR_EMBED} title="Book a free 30-minute strategy call" loading="lazy" />
+        <div className={`${styles.panel} ${styles.panelCal}`}>
+          <CalendarEmbed />
         </div>
       )}
 
@@ -45,6 +45,34 @@ export default function GavinOptions() {
         <span className={styles.label}><strong>See what I do</strong><span className={styles.hint}>golimitlessagi.com</span></span>
         <span className={styles.chev} aria-hidden="true">→</span>
       </Link>
+    </div>
+  );
+}
+
+/** Google's booking page, plus a fade and arrow that tell people to scroll inside it.
+ * The page can't see scrolling inside Google's frame, so the hint hides once they tap into it. */
+function CalendarEmbed() {
+  const frame = useRef<HTMLIFrameElement>(null);
+  const [seen, setSeen] = useState(false);
+
+  useEffect(() => {
+    const onBlur = () => {
+      // Focus moving into the iframe blurs this window.
+      window.setTimeout(() => {
+        if (document.activeElement === frame.current) setSeen(true);
+      }, 0);
+    };
+    window.addEventListener("blur", onBlur);
+    return () => window.removeEventListener("blur", onBlur);
+  }, []);
+
+  return (
+    <div className={`${styles.calWrap} ${seen ? styles.calSeen : ""}`}>
+      <iframe ref={frame} className={styles.calendar} src={CALENDAR_EMBED} title="Book a free 30-minute strategy call" loading="lazy" />
+      <div className={styles.calFade} aria-hidden="true">
+        <b>Scroll for times</b>
+        <span className={styles.calArrow}>⌄</span>
+      </div>
     </div>
   );
 }
